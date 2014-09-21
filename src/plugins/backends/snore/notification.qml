@@ -66,6 +66,7 @@ Rectangle {
         anchors.left: image.right
         anchors.leftMargin: 5
         wrapMode: Text.WordWrap
+        maximumLineCount: 4
         onLinkActivated: Qt.openUrlExternally(link)
 
     }
