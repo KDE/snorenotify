@@ -23,7 +23,7 @@
 #include "notificationaction.h"
 #include "libsnore/hint.h"
 #include "libsnore/application.h"
-
+#include <QDateTime>
 #include <QDebug>
 
 namespace Snore
@@ -259,6 +259,11 @@ public:
      * @return a data pointer for internal use
      */
     NotificationData *data();
+    
+    // set and return delivery date
+    void setDeliveryDate(QDateTime date);
+    
+    QDateTime deliveryDate();
 
     /**
      *

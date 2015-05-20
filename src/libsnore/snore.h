@@ -62,6 +62,7 @@ public:
      * Creates a Notification Manager SnoreCore
      */
     static SnoreCore &instance();
+    static SnoreCore &instance(QApplication * app);
     ~SnoreCore();
 
     /**
@@ -77,6 +78,10 @@ public:
      */
     void broadcastNotification(Notification notification);
 
+    // Handle notification scheduling
+    void removeScheduledNotification(Notification notification);
+    QList<Notification> scheduledNotifications();
+    
     /**
      * Register an application.
      * Each application should only be registered once.
@@ -152,6 +157,7 @@ public:
 
     Notification getActiveNotificationByID(uint id) const;
 signals:
+    void scheduledNotificationsChanged(QList<Snore::Notification> notifications);
     /**
      * This signal is emitted when an action on the Notification was performed.
      * Some notification systems don't support actions but will report one if the notification was clicked,

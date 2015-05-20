@@ -81,6 +81,7 @@ signals:
     void applicationRegistered(const Snore::Application &);
     void applicationDeregistered(const Snore::Application &);
     void notify(Snore::Notification noti);
+    void scheduleNotification(Snore::Notification notification);
     void notificationDisplayed(Snore::Notification notification);
 
 private slots:

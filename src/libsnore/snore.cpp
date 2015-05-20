@@ -46,15 +46,25 @@ SnoreCore::SnoreCore(QObject *parent):
     d->init();
 }
 
-SnoreCore &SnoreCore::instance()
-{
-    static SnoreCore *instance = nullptr;
-    if (!instance) {
+static SnoreCore *_instance = nullptr;
+
+SnoreCore &SnoreCore::instance(QApplication * app) {
+    if (!_instance) {
         SnoreCorePrivate::loadTranslator();
         SnoreCorePrivate::registerMetaTypes();
-        instance = new SnoreCore(qApp);
+        _instance = new SnoreCore(app);
     }
-    return *instance;
+    return *_instance;
+}
+
+SnoreCore &SnoreCore::instance()
+{
+    if (!_instance) {
+        SnoreCorePrivate::loadTranslator();
+        SnoreCorePrivate::registerMetaTypes();
+        _instance = new SnoreCore(qApp);
+    }
+    return *_instance;
 }
 
 SnoreCore::~SnoreCore()
@@ -109,13 +119,17 @@ void SnoreCore::loadPlugins(SnorePlugin::PluginTypes types)
         }
     }
     d->initPrimaryNotificationBackend();
-    snoreDebug(SNORE_INFO) << "Loaded Plugins:" << d->m_pluginNames;
+    snoreDebug(SNORE_INFO) << "Loaded Plugins: " << d->m_pluginNames;
 }
 
 void SnoreCore::broadcastNotification(Notification notification)
 {
     Q_D(SnoreCore);
-    snoreDebug(SNORE_DEBUG) << "Broadcasting" << notification << "timeout:" << notification.timeout();
+    if (notification.deliveryDate().isValid()) {
+        d->scheduleNotification(notification);
+        return;
+    }
+    snoreDebug(SNORE_DEBUG) << "Broadcasting " << notification << ", timeout: " << notification.timeout();
     if (d->m_notificationBackend != nullptr) {
         if (notification.isUpdate() && !d->m_notificationBackend->canUpdateNotification()) {
             requestCloseNotification(notification.old(), Notification::REPLACED);
@@ -124,11 +138,20 @@ void SnoreCore::broadcastNotification(Notification notification)
     emit d->notify(notification);
 }
 
+QList<Notification> SnoreCore::scheduledNotifications() {
+    Q_D(SnoreCore);
+    return d->m_notificationBackend->scheduledNotifications();
+}
+void SnoreCore::removeScheduledNotification(Notification notification) {
+    Q_D(SnoreCore);
+    d->m_notificationBackend->removeScheduledNotification(notification);
+}
+
 void SnoreCore::registerApplication(const Application &application)
 {
     Q_D(SnoreCore);
     if (!d->m_applications.contains(application.name())) {
-        snoreDebug(SNORE_DEBUG) << "Registering Application:" << application;
+        snoreDebug(SNORE_DEBUG) << "Registering Application: " << application;
         d->m_applications.insert(application.name(), application);
         emit d->applicationRegistered(application);
     }

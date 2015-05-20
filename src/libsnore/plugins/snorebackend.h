@@ -22,6 +22,8 @@
 #include "libsnore/plugins/plugins.h"
 #include "libsnore/notification/notification.h"
 #include "libsnore/snore.h"
+#include <QMap>
+#include <QTimer>
 
 namespace Snore
 {
@@ -41,8 +43,14 @@ public:
     bool canCloseNotification() const;
     bool canUpdateNotification() const;
     bool supportsRichtext() const;
+    
+    //handle scheduled notifications
+    virtual QList<Notification> scheduledNotifications();
+    virtual void removeScheduledNotification(Notification notification);
+    virtual void scheduleNotification(Notification notification);
 
 signals:
+    void scheduledNotificationsChanged(QList<Notification> notifications);
     void notificationClosed(Snore::Notification);
 
 public slots:
@@ -63,6 +71,8 @@ private:
     bool m_canCloseNotification;
     bool m_supportsRichtext;
     bool m_canUpdateNotification;
+    QMap<int,Notification> m_scheduled_notifications;
+    QMap<int,QTimer *> m_timer_for_notification_id;
 
 };
 

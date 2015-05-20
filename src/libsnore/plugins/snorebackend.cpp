@@ -23,7 +23,6 @@
 #include "../notification/notification.h"
 #include "../notification/notification_p.h"
 
-#include <QTimer>
 #include <QThread>
 #include <QMetaMethod>
 
@@ -54,7 +53,8 @@ bool SnoreBackend::initialize()
 
     connect(this, &SnoreBackend::notificationClosed, SnoreCorePrivate::instance(), &SnoreCorePrivate::slotNotificationClosed, Qt::QueuedConnection);
     connect(SnoreCorePrivate::instance(), &SnoreCorePrivate::notify, this, &SnoreBackend::slotNotify, Qt::QueuedConnection);
-
+    connect(SnoreCorePrivate::instance(), &SnoreCorePrivate::scheduleNotification, this, &SnoreBackend::scheduleNotification, Qt::QueuedConnection);
+    connect(this, &SnoreBackend::scheduledNotificationsChanged, &SnoreCore::instance(), &SnoreCore::scheduledNotificationsChanged, Qt::QueuedConnection);
     for (const Application &a : SnoreCore::instance().aplications()) {
         this->slotRegisterApplication(a);
     }
@@ -170,6 +170,44 @@ bool SnoreBackend::canUpdateNotification() const
 bool SnoreBackend::supportsRichtext() const
 {
     return m_supportsRichtext;
+}
+
+QList<Notification> SnoreBackend::scheduledNotifications() {
+    return m_scheduled_notifications.values();
+}
+
+void SnoreBackend::removeScheduledNotification(Notification notification) {
+    if (m_timer_for_notification_id.contains(notification.id())) {
+        m_timer_for_notification_id[notification.id()]->stop();
+        m_scheduled_notifications.remove(notification.id());
+        m_timer_for_notification_id.remove(notification.id());
+    }
+    emit scheduledNotificationsChanged(scheduledNotifications());
+}
+
+void SnoreBackend::scheduleNotification(Notification notification) {
+    if (not notification.deliveryDate().isValid()) {
+        snoreDebug(SNORE_WARNING) << "Schedule notification without time";
+        slotNotify(notification);
+        return;
+    }
+    QTimer *timer = new QTimer(this);
+    timer->setSingleShot(true);
+    int duration = QDateTime::currentDateTime().msecsTo(notification.deliveryDate());
+    snoreDebug(SNORE_DEBUG) << "Scheduling timer with duration " << duration /1000 << "seconds";
+    timer->setInterval(duration);
+    int notification_id = notification.id();
+    connect(timer, &QTimer::timeout, this, [=](){
+        this->slotNotify(m_scheduled_notifications[notification_id]);
+        m_scheduled_notifications.remove(notification_id);
+        delete m_timer_for_notification_id[notification_id];
+        m_timer_for_notification_id.remove(notification_id);
+        emit scheduledNotificationsChanged(scheduledNotifications());
+        });
+    m_timer_for_notification_id.insert(notification_id, timer);
+    m_scheduled_notifications.insert(notification_id, notification);
+    timer->start();
+    emit scheduledNotificationsChanged(scheduledNotifications());
 }
 
 void SnoreBackend::slotRegisterApplication(const Application &application)

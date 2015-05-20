@@ -20,7 +20,6 @@
 #define OSXNOTIFICATIONCENTER_H
 
 #include "libsnore/plugins/snorebackend.h"
-
 class OSXNotificationCenter : public Snore::SnoreBackend
 {
     Q_OBJECT
@@ -30,8 +29,11 @@ class OSXNotificationCenter : public Snore::SnoreBackend
 public:
     OSXNotificationCenter();
     ~OSXNotificationCenter();
+    void removeScheduledNotification(Snore::Notification notification) override;
+    void scheduleNotification(Snore::Notification notification) override;
+    QList<Snore::Notification> scheduledNotifications() override;
+    
     virtual bool initialize() override;
-
 public slots:
     virtual void slotNotify(Snore::Notification notification) override;
 };
