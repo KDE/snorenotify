@@ -194,6 +194,12 @@ void SnoreBackend::scheduleNotification(Notification notification) {
     QTimer *timer = new QTimer(this);
     timer->setSingleShot(true);
     int duration = QDateTime::currentDateTime().msecsTo(notification.deliveryDate());
+    
+    // Always emit notification timer doesn't trigger when interaval is negative
+    if (duration < 0) {
+        snoreDebug(SNORE_WARNING) << "Notification date is in past by " << duration << "miliseconds";
+        duration = 0;
+    }
     snoreDebug(SNORE_DEBUG) << "Scheduling timer with duration " << duration /1000 << "seconds";
     timer->setInterval(duration);
     int notification_id = notification.id();
