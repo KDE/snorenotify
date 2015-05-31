@@ -54,9 +54,13 @@ Using a plugin system it is possible to create notifications with many different
 Required dependencies:
 
 - [CMake](http://www.cmake.org/)
-- [Extra CMake Modules](https://projects.kde.org/projects/kdesupport/extra-cmake-modules)
+- [Extra CMake Modules](https://projects.kde.org/projects/kdesupport/extra-cmake-modules) (read how to install ecm)
 - [Qt5](http://qt-project.org/)
 
+## How to install Extra CMake Modules(ecm) ##
+
+git clone http://anongit.kde.org/extra-cmake-modules.git
+cd extra-cmake-modules; cmake .; make ; sudo make install
 
 ## Third party libraries that we ship with our source ##
 - [Snarl C++](http://sourceforge.net/p/snarlwin/code/HEAD/tree/trunk/hdr/C++/SnarlInterface_v42/) used for Snarl
