@@ -57,9 +57,10 @@ Required dependencies:
 - [Extra CMake Modules](https://projects.kde.org/projects/kdesupport/extra-cmake-modules) (read how to install ecm)
 - [Qt5](http://qt-project.org/)
 
-## How to install Extra CMake Modules(ecm) ##
+### How to install Extra CMake Modules (ecm) ###
 
 git clone http://anongit.kde.org/extra-cmake-modules.git
+
 cd extra-cmake-modules; cmake .; make ; sudo make install
 
 ## Third party libraries that we ship with our source ##
