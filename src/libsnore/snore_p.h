@@ -35,15 +35,11 @@ class SNORE_EXPORT SnoreCorePrivate : public QObject
     Q_OBJECT
 
 public:
-    static void registerMetaTypes();
-
     /**
      * @brief tempPath
      * @return the path of a QTemporaryDir, this location is used to store images.
      */
     static QString tempPath();
-
-    static void loadTranslator();
 
 public:
     static SnoreCorePrivate *instance();
@@ -70,6 +66,11 @@ public:
     void setLocalSttingsPrefix(const QString &prefix);
 
     void init();
+
+    /**
+     * Set a default value wich can be overritten by a client application call to SnoreCore::setDefaultValue()
+     */
+    void setDefaultValueIntern(const QString &key, const QVariant &value);
 
 private slots:
     //TODO: find a better solutinon for the slots in this section
@@ -101,7 +102,7 @@ private:
 
     Application m_defaultApp;
 
-    QString m_localSettingsPrefix = qApp->applicationName().isEmpty() ? "SnoreNotify" : qApp->applicationName();
+    QString m_localSettingsPrefix;
 
     QSettings *m_settings;
 

@@ -33,16 +33,15 @@ class SNORE_EXPORT SnoreBackend : public SnorePlugin
     Q_OBJECT
     Q_INTERFACES(Snore::SnorePlugin)
 public:
-    SnoreBackend(const  QString &name, bool canCloseNotification, bool supportsRichtext, bool canUpdateNotifications = false);
+    SnoreBackend() = default;
     virtual ~SnoreBackend();
     virtual bool initialize() override;
     virtual bool deinitialize() override;
 
     void requestCloseNotification(Snore::Notification notification, Notification::CloseReasons reason);
 
-    bool canCloseNotification() const;
-    bool canUpdateNotification() const;
-    bool supportsRichtext() const;
+    virtual bool canCloseNotification() const;
+    virtual bool canUpdateNotification() const;
     
     //handle scheduled notifications
     virtual QList<Notification> scheduledNotifications();
@@ -65,12 +64,8 @@ protected slots:
 
 protected:
     void closeNotification(Snore::Notification, Snore::Notification::CloseReasons);
-    void setSupportsRichtext(bool b);
 
 private:
-    bool m_canCloseNotification;
-    bool m_supportsRichtext;
-    bool m_canUpdateNotification;
     QMap<int,Notification> m_scheduled_notifications;
     QMap<int,QTimer *> m_timer_for_notification_id;
 
@@ -89,19 +84,14 @@ class SNORE_EXPORT SnoreSecondaryBackend : public SnorePlugin
     Q_OBJECT
     Q_INTERFACES(Snore::SnorePlugin Snore::SnorePlugin)
 public:
-    SnoreSecondaryBackend(const  QString &name, bool supportsRhichtext);
+    SnoreSecondaryBackend() = default;
     virtual ~SnoreSecondaryBackend();
     virtual bool initialize();
     virtual bool deinitialize();
 
-    bool supportsRichtext();
-
 public slots:
     virtual void slotNotify(Snore::Notification notification);
     virtual void slotNotificationDisplayed(Snore::Notification notification);
-
-protected:
-    bool m_supportsRichtext;
 
 };
 

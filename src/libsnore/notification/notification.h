@@ -24,6 +24,8 @@
 #include "libsnore/hint.h"
 #include "libsnore/application.h"
 #include <QDateTime>
+#include "libsnore/utils.h"
+
 #include <QDebug>
 
 namespace Snore
@@ -45,7 +47,7 @@ public:
     /**
      * The reason why the Notification was closed.
      */
-    enum CloseReason {
+    enum CloseReasons {
         /**
          * The default value, the notification was not closed.
          */
@@ -79,14 +81,13 @@ public:
          */
         REPLACED = 4
     };
-    Q_DECLARE_FLAGS(CloseReasons, CloseReason)
     Q_ENUMS(CloseReasons)
 
     /**
      * The Priority for the Notification.
      * Some notification systems support this flag to filter notifications or indicate different prioritys by color.
      */
-    enum Priority {
+    enum Prioritys {
         /**
          * Indicates a low priority.
          */
@@ -102,7 +103,6 @@ public:
          */
         HIGH = +1
     };
-    Q_DECLARE_FLAGS(Prioritys, Priority)
 
     Notification();
     /**
@@ -167,16 +167,16 @@ public:
     const Application &application() const;
 
     /**
-     *
-     * @return the title
+     * Returns the title of the notification.
+     * @param flags the supported markup flags.
      */
-    QString title() const;
+    QString title(Utils::MARKUP_FLAGS flags = Utils::NO_MARKUP) const;
 
     /**
-     *
-     * @return the text body
+     * Returns the notification text.
+     * @param flags the supported markup flags.
      */
-    QString text() const;
+    QString text(Utils::MARKUP_FLAGS flags = Utils::NO_MARKUP) const;
 
     /**
      *
@@ -223,8 +223,11 @@ public:
     const Notification::CloseReasons &closeReason();
 
     /**
-     *
-     * @return hints associated with this notification
+     * Returns notification specific hints:
+     * Key              |   Type        | Value         |   Used In
+     * -------------    |   ----------- |   ----------- |   -----------
+     * silent           |   bool        | Don't play notification sounds. |  Multiple backends.
+     * sound            |   QString     | Local uri to a sound file.      | Secondary Backend Sound.
      */
     Hint &hints();
 
@@ -283,10 +286,6 @@ private:
 
 }
 Q_DECLARE_METATYPE(Snore::Notification)
-
-Q_DECLARE_OPERATORS_FOR_FLAGS(Snore::Notification::CloseReasons)
-
-Q_DECLARE_OPERATORS_FOR_FLAGS(Snore::Notification::Prioritys)
 
 QDataStream &operator<< (QDataStream &stream, const Snore::Notification &noti);
 

@@ -1,6 +1,6 @@
 /*
     SnoreNotify is a Notification Framework based on Qt
-    Copyright (C) 2014  Patrick von Reth <vonreth@kde.org>
+    Copyright (C) 2015  Patrick von Reth <vonreth@kde.org>
 
     SnoreNotify is free software: you can redistribute it and/or modify
     it under the terms of the GNU Lesser General Public License as published by
@@ -15,21 +15,28 @@
     You should have received a copy of the GNU Lesser General Public License
     along with SnoreNotify.  If not, see <http://www.gnu.org/licenses/>.
 */
+#ifndef PUSHOVERSETTINGS_H
+#define PUSHOVERSETTINGS_H
 
-#include "application_p.h"
+#include "plugins/pluginsettingswidget.h"
 
-using namespace Snore;
+class QLineEdit;
 
-ApplicationData::ApplicationData(const QString &name, const Icon &icon):
-    m_name(name),
-    m_icon(icon)
+class PushoverSettings : public Snore::PluginSettingsWidget
 {
-    Q_ASSERT_X(!name.isEmpty(), Q_FUNC_INFO, "invalid name detected");
-    m_hint.setValue("pushover-token", "aFB1TPCyZkkr7mubCGEKy5vJEWak9t");
-    m_hint.setValue("use-markup", QVariant::fromValue(false));
-}
+    Q_OBJECT
+public:
+    explicit PushoverSettings(Snore::SnorePlugin *plugin, QWidget *parent = 0);
+    ~PushoverSettings();
 
-ApplicationData::~ApplicationData()
-{
+    void load() override;
+    void save() override;
 
-}
+private:
+    QLineEdit *m_keyLineEdit;
+    QLineEdit *m_soundLineEdit;
+    QLineEdit *m_deviceLineEdit;
+
+};
+
+#endif // PUSHOVERSETTINGS_H

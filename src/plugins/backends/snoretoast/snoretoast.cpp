@@ -14,16 +14,6 @@
 
 using namespace Snore;
 
-SnoreToast::SnoreToast():
-    SnoreBackend("Windows 8", true, false)
-{
-}
-
-SnoreToast::~SnoreToast()
-{
-
-}
-
 bool SnoreToast::initialize()
 {
     if (QSysInfo::windowsVersion() < QSysInfo::WV_WINDOWS8) {
@@ -31,6 +21,11 @@ bool SnoreToast::initialize()
         return false;
     }
     return SnoreBackend::initialize();
+}
+
+bool SnoreToast::canCloseNotification() const
+{
+    return true;
 }
 
 void SnoreToast::slotNotify(Notification notification)
@@ -43,9 +38,9 @@ void SnoreToast::slotNotify(Notification notification)
 
     QStringList arguements;
     arguements << "-t"
-               << Utils::toPlainText(notification.title())
+               << notification.title()
                << "-m"
-               << Utils::toPlainText(notification.text());
+               << notification.text();
     if (notification.icon().isValid()) {
         arguements << "-p"
                    << QDir::toNativeSeparators(notification.icon().localUrl());
@@ -56,7 +51,7 @@ void SnoreToast::slotNotify(Notification notification)
                << "-id"
                << QString::number(notification.id());
     //TODO: could clash with sound backend
-    if (notification.hints().value("silent", true).toBool() || notification.hints().value("sound").isValid()) {
+    if (notification.hints().value("silent").toBool() || notification.hints().value("sound").isValid()) {
         arguements << "-silent";
     }
     snoreDebug(SNORE_DEBUG) << "SnoreToast" << arguements;
@@ -142,7 +137,10 @@ void SnoreToast::slotPrintExitStatus(int, QProcess::ExitStatus)
 QString SnoreToast::appId(const Application &application)
 {
 
-    QString appID = application.constHints().value("windows_app_id").toString();
+    QString appID = application.constHints().value("windows-app-id").toString();
+    if (appID.isEmpty()) {
+        appID = application.constHints().value("windows_app_id").toString();
+    }
     if (appID.isEmpty()) {
         appID = QString("%1.%2.SnoreToast").arg(qApp->organizationName(), qApp->applicationName()).remove(" ");
     }

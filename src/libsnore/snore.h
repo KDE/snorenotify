@@ -93,6 +93,11 @@ public:
     QList<Notification> scheduledNotifications();
     
     /**
+     * Displays a example notification.
+     */
+    void displayExapleNotification();
+
+    /**
      * Register an application.
      * Each application should only be registered once.
      * An application must be registered before a notification can be broadcasted.
@@ -142,12 +147,6 @@ public:
      * @see SnoreBackend::canCloseNotification
      */
     void requestCloseNotification(Notification, Notification::CloseReasons);
-
-    /**
-     *
-     * @return whether the backend supports rhichtext encoding.
-     */
-    bool primaryBackendSupportsRichtext();
 
     /**
      * Sets the default application used for internal notifications.

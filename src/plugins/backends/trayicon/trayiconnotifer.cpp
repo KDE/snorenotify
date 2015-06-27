@@ -6,17 +6,6 @@
 #include <QSystemTrayIcon>
 using namespace Snore;
 
-TrayIconNotifer::TrayIconNotifer() :
-    SnoreBackend("System Tray Icon", true, false),
-    m_currentlyDisplaying(false)
-{
-
-}
-
-TrayIconNotifer::~TrayIconNotifer()
-{
-
-}
 
 bool TrayIconNotifer::deinitialize()
 {
@@ -25,6 +14,11 @@ bool TrayIconNotifer::deinitialize()
         return true;
     }
     return false;
+}
+
+bool TrayIconNotifer::canCloseNotification() const
+{
+    return true;
 }
 
 void TrayIconNotifer::slotNotify(Notification notification)
@@ -83,7 +77,7 @@ void TrayIconNotifer::displayNotification(QSystemTrayIcon *icon)
     m_currentlyDisplaying = true;
     Notification notification =  m_notificationQue.takeFirst();
     m_displayed = notification;
-    icon->showMessage(Utils::toPlainText(notification.title()), Utils::toPlainText(notification.text()), QSystemTrayIcon::NoIcon, notification.timeout() * 1000);
+    icon->showMessage(notification.title(), notification.text(), QSystemTrayIcon::NoIcon, notification.timeout() * 1000);
     slotNotificationDisplayed(notification);
 }
 

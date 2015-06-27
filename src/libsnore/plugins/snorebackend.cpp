@@ -28,15 +28,6 @@
 
 using namespace Snore;
 
-SnoreBackend::SnoreBackend(const QString &name , bool canCloseNotification, bool supportsRichtext, bool canUpdateNotifications) :
-    SnorePlugin(name),
-    m_canCloseNotification(canCloseNotification),
-    m_supportsRichtext(supportsRichtext),
-    m_canUpdateNotification(canUpdateNotifications)
-{
-
-}
-
 SnoreBackend::~SnoreBackend()
 {
     snoreDebug(SNORE_DEBUG) << "Deleting" << name();
@@ -100,21 +91,9 @@ void SnoreBackend::closeNotification(Notification n, Notification::CloseReasons 
     emit notificationClosed(n);
 }
 
-void SnoreBackend::setSupportsRichtext(bool b)
-{
-    m_supportsRichtext = b;
-}
-
 void SnoreBackend::slotCloseNotification(Notification notification)
 {
     Q_UNUSED(notification)
-}
-
-SnoreSecondaryBackend::SnoreSecondaryBackend(const QString &name, bool supportsRhichtext):
-    SnorePlugin(name),
-    m_supportsRichtext(supportsRhichtext)
-{
-
 }
 
 SnoreSecondaryBackend::~SnoreSecondaryBackend()
@@ -142,11 +121,6 @@ bool SnoreSecondaryBackend::deinitialize()
     return false;
 }
 
-bool SnoreSecondaryBackend::supportsRichtext()
-{
-    return m_supportsRichtext;
-}
-
 void SnoreSecondaryBackend::slotNotify(Notification)
 {
 
@@ -159,17 +133,12 @@ void SnoreSecondaryBackend::slotNotificationDisplayed(Notification)
 
 bool SnoreBackend::canCloseNotification() const
 {
-    return m_canCloseNotification;
+    return false;
 }
 
 bool SnoreBackend::canUpdateNotification() const
 {
-    return m_canUpdateNotification;
-}
-
-bool SnoreBackend::supportsRichtext() const
-{
-    return m_supportsRichtext;
+    return false;
 }
 
 QList<Notification> SnoreBackend::scheduledNotifications() {

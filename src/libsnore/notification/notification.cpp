@@ -93,14 +93,14 @@ const Application &Notification::application() const
     return d->m_application;
 }
 
-QString Notification::title() const
+QString Notification::title(Utils::MARKUP_FLAGS flags) const
 {
-    return d->m_title;
+    return d->resolveMarkup(d->m_title, flags);
 }
 
-QString Notification::text() const
+QString Notification::text(Utils::MARKUP_FLAGS flags) const
 {
-    return d->m_text;
+    return d->resolveMarkup(d->m_text, flags);
 }
 
 const Alert &Notification::alert() const
@@ -159,7 +159,7 @@ bool Notification::isValid() const
 void Notification::addActiveIn(const QObject *o)
 {
     bool contains = d->m_activeIn.contains(o);
-    Q_ASSERT_X(contains, Q_FUNC_INFO, "already active");
+    Q_ASSERT_X(!contains, Q_FUNC_INFO, "already active");
     if (contains) {
         snoreDebug(SNORE_WARNING) << o << "already active in" << id();
         return;
@@ -213,8 +213,6 @@ QDebug operator <<(QDebug debug, const Snore::Notification::CloseReasons &flags)
         debugPrintEnum(Notification::DISMISSED);
         debugPrintEnum(Notification::ACTIVATED);
         debugPrintEnum(Notification::REPLACED);
-    default:
-        debug << QByteArray::number(flags, 16) << ")";
     }
     return debug.space();
 }

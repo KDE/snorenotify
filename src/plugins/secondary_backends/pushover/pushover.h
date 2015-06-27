@@ -1,6 +1,6 @@
 /*
     SnoreNotify is a Notification Framework based on Qt
-    Copyright (C) 2013-2015  Patrick von Reth <vonreth@kde.org>
+    Copyright (C) 2015  Patrick von Reth <vonreth@kde.org>
 
     SnoreNotify is free software: you can redistribute it and/or modify
     it under the terms of the GNU Lesser General Public License as published by
@@ -15,28 +15,32 @@
     You should have received a copy of the GNU Lesser General Public License
     along with SnoreNotify.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-#ifndef OSXNOTIFICATIONCENTER_H
-#define OSXNOTIFICATIONCENTER_H
+#ifndef PUSHOVER_H
+#define PUSHOVER_H
 
 #include "libsnore/plugins/snorebackend.h"
 
-class OSXNotificationCenter : public Snore::SnoreBackend
+#include <QNetworkAccessManager>
+
+class Pushover : public Snore::SnoreSecondaryBackend
 {
     Q_OBJECT
-    Q_INTERFACES(Snore::SnoreBackend)
-    Q_PLUGIN_METADATA(IID "org.Snore.NotificationBackend/1.0" FILE "plugin.json")
-
+    Q_INTERFACES(Snore::SnoreSecondaryBackend)
+    Q_PLUGIN_METADATA(IID "org.Snore.SecondaryNotificationBackend/1.0" FILE "plugin.json")
 public:
-    OSXNotificationCenter();
-    ~OSXNotificationCenter();
-    void removeScheduledNotification(Snore::Notification notification) override;
-    void scheduleNotification(Snore::Notification notification) override;
-    QList<Snore::Notification> scheduledNotifications() override;
-    
-    virtual bool initialize() override;
+    Pushover() = default;
+    ~Pushover() = default;
+
+    bool initialize() override;
+
+    Snore::PluginSettingsWidget *settingsWidget() override;
+
 public slots:
-    virtual void slotNotify(Snore::Notification notification) override;
+    void slotNotify(Snore::Notification notification) override;
+
+private:
+    QNetworkAccessManager m_manager;
+
 };
 
-#endif // OSXNOTIFICATIONCENTER_H
+#endif // PUSHOVER_H

@@ -29,16 +29,6 @@
 
 using namespace Snore;
 
-FreedesktopFrontend::FreedesktopFrontend():
-    SnoreFrontend("Freedesktop")
-{
-
-}
-
-FreedesktopFrontend::~FreedesktopFrontend()
-{
-}
-
 bool FreedesktopFrontend::initialize()
 {
     m_adaptor = new  NotificationsAdaptor(this);
@@ -111,8 +101,9 @@ uint FreedesktopFrontend::Notify(const QString &app_name, uint replaces_id,
             }
         }
         Icon appIcon(qicon.pixmap(max).toImage());
-        Alert alert("DBus Alert", appIcon);
+        Alert alert(tr("DBus Alert"), appIcon);
         app = Application(app_name, appIcon);
+        app.hints().setValue("use-markup", QVariant::fromValue(true));
         app.addAlert(alert);
         SnoreCore::instance().registerApplication(app);
     } else {
@@ -152,7 +143,7 @@ QStringList FreedesktopFrontend::GetCapabilities()
     return QStringList()
            << "body"
            << "urgency"
-           //            << "body-hyperlinks"
+           << "body-hyperlinks"
            << "body-markup"
            << "icon-static"
            << "actions";

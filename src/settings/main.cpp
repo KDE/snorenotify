@@ -53,7 +53,7 @@ void listSettings(SettingsType type, const QString &application)
 int main(int argc, char *argv[])
 {
 
-    QScopedPointer<SettingsWindow> window;
+    SettingsWindow *window;
 
     QApplication app(argc, argv);
     app.setApplicationName("SnoreSettings");
@@ -61,6 +61,7 @@ int main(int argc, char *argv[])
     app.setApplicationVersion(Snore::Version::version());
 
     Snore::SnoreCore::instance().loadPlugins(Snore::SnorePlugin::ALL);
+    Snore::SnoreCorePrivate::instance()->defaultApplication().hints().setValue("use-markup", QVariant::fromValue(true));
 
     QCommandLineParser parser;
     parser.setApplicationDescription("A settings interface for Snorenotify.");
@@ -103,7 +104,7 @@ int main(int argc, char *argv[])
     } else if (parser.isSet(listSettingsCommand)) {
         listSettings(type, parser.value(appNameCommand));
     } else if (parser.optionNames().empty() && parser.positionalArguments().empty()) {
-        window.reset(new SettingsWindow());
+        window = new SettingsWindow();
         window->show();
         return app.exec();
     } else {

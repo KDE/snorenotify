@@ -27,8 +27,6 @@
 
 #include "version.h"
 
-#include <iostream>
-
 #include <QSettings>
 #include <QThread>
 
@@ -46,25 +44,10 @@ SnoreCore::SnoreCore(QObject *parent):
     d->init();
 }
 
-static SnoreCore *_instance = nullptr;
-
-SnoreCore &SnoreCore::instance(QApplication * app) {
-    if (!_instance) {
-        SnoreCorePrivate::loadTranslator();
-        SnoreCorePrivate::registerMetaTypes();
-        _instance = new SnoreCore(app);
-    }
-    return *_instance;
-}
-
 SnoreCore &SnoreCore::instance()
 {
-    if (!_instance) {
-        SnoreCorePrivate::loadTranslator();
-        SnoreCorePrivate::registerMetaTypes();
-        _instance = new SnoreCore(qApp);
-    }
-    return *_instance;
+    static SnoreCore *instance(new SnoreCore(qApp));
+    return *instance;
 }
 
 SnoreCore::~SnoreCore()
@@ -82,6 +65,7 @@ void SnoreCore::loadPlugins(SnorePlugin::PluginTypes types)
     }
     Q_D(SnoreCore);
     setValue("PluginTypes", QVariant::fromValue(types), LOCAL_SETTING);
+    snoreDebug(SNORE_DEBUG) << "Loading plugin types:" << types;
     for (SnorePlugin::PluginTypes type : SnorePlugin::types()) {
         if (type != SnorePlugin::ALL && types & type) {
             for (PluginContainer *info : PluginContainer::pluginCache(type).values()) {
@@ -119,7 +103,7 @@ void SnoreCore::loadPlugins(SnorePlugin::PluginTypes types)
         }
     }
     d->initPrimaryNotificationBackend();
-    snoreDebug(SNORE_INFO) << "Loaded Plugins: " << d->m_pluginNames;
+    snoreDebug(SNORE_INFO) << "Loaded Plugins:" << d->m_pluginNames;
 }
 
 void SnoreCore::broadcastNotification(Notification notification)
@@ -205,12 +189,6 @@ void SnoreCore::requestCloseNotification(Notification n, Notification::CloseReas
     }
 }
 
-bool SnoreCore::primaryBackendSupportsRichtext()
-{
-    Q_D(SnoreCore);
-    return d->m_notificationBackend->supportsRichtext();
-}
-
 void SnoreCore::setDefaultApplication(Application app)
 {
     Q_D(SnoreCore);
@@ -238,7 +216,11 @@ QList<PluginSettingsWidget *> SnoreCore::settingWidgets(SnorePlugin::PluginTypes
 QVariant SnoreCore::value(const QString &key, SettingsType type) const
 {
     Q_D(const SnoreCore);
-    return d->m_settings->value(d->normalizeKey(key, type));
+    QString nk = d->normalizeKey(key, type);
+    if(type == LOCAL_SETTING && !d->m_settings->contains(nk)){
+        nk = d->normalizeKey(QString("%1-SnoreDefault").arg(key),type);
+    }
+    return d->m_settings->value(nk);
 }
 
 void SnoreCore::setValue(const QString &key, const QVariant &value, SettingsType type)
@@ -260,4 +242,18 @@ Notification SnoreCore::getActiveNotificationByID(uint id) const
 {
     Q_D(const SnoreCore);
     return d->m_activeNotifications.value(id);
+}
+
+
+void SnoreCore::displayExapleNotification()
+{
+    Application app = SnoreCorePrivate::instance()->defaultApplication();
+    QString text = QString("<i>%1</i><br>"
+                          "<a href=\"https://github.com/Snorenotify/Snorenotify\">%2</a><br>").arg(tr("This is Snore"), tr("Project Website"));
+    if(!app.constHints().value("use-markup").toBool()) {
+        text = Utils::normaliseMarkup(text, Utils::NO_MARKUP);
+    }
+    Notification noti(app, app.defaultAlert(), tr("Hello World"), text, app.icon());
+    noti.addAction(Action(1, tr("Test Action")));
+    broadcastNotification(noti);
 }

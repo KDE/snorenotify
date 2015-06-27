@@ -32,6 +32,7 @@
 using namespace Snore;
 
 SnoreCorePrivate::SnoreCorePrivate():
+    m_localSettingsPrefix(qApp->applicationName().isEmpty() ? "SnoreNotify" : qApp->applicationName()),
     m_settings(new QSettings("Snorenotify", "libsnore", this))
 {
     snoreDebug(SNORE_INFO) << "Version:" << Version::version();
@@ -44,6 +45,9 @@ SnoreCorePrivate::SnoreCorePrivate():
     snoreDebug(SNORE_DEBUG) << "Snore local settings are located in" << normalizeKey("Test", LOCAL_SETTING);
 
     connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(slotAboutToQuit()));
+
+
+    m_defaultApp = Application("SnoreNotify", Icon(":/root/snore.png"));
 }
 
 SnoreCorePrivate::~SnoreCorePrivate()
@@ -139,8 +143,17 @@ bool SnoreCorePrivate::initPrimaryNotificationBackend()
 void SnoreCorePrivate::init()
 {
     Q_Q(SnoreCore);
-    q->setDefaultValue("Timeout", 10, LOCAL_SETTING);
-    q->setDefaultApplication(Application("SnoreNotify", Icon(":/root/snore.png")));
+    setDefaultValueIntern("Timeout", 10);
+    setDefaultValueIntern("Silent", false);
+}
+
+void SnoreCorePrivate::setDefaultValueIntern(const QString &key, const QVariant &value)
+{
+    Q_Q(SnoreCore);
+    QString nk = normalizeKey(QString("%1-SnoreDefault").arg(key), LOCAL_SETTING);
+    if (!m_settings->contains(nk)) {
+        m_settings->setValue(nk, value);
+    }
 }
 
 void SnoreCorePrivate::syncSettings()
@@ -182,20 +195,13 @@ void SnoreCorePrivate::setLocalSttingsPrefix(const QString &prefix)
     syncSettings();
 }
 
-void SnoreCorePrivate::registerMetaTypes()
-{
-    qRegisterMetaType<Notification>();
-    qRegisterMetaType<Application>();
-    qRegisterMetaType<SnorePlugin::PluginTypes>();
-    qRegisterMetaTypeStreamOperators<SnorePlugin::PluginTypes>();
-}
-
 QString SnoreCorePrivate::tempPath()
 {
     static QTemporaryDir dir;
     return dir.path();
 }
 
+// TODO: this is somehow horrible code
 SnoreCorePrivate *SnoreCorePrivate::instance()
 {
     return SnoreCore::instance().d_ptr;
@@ -222,7 +228,7 @@ void SnoreCorePrivate::slotAboutToQuit()
     }
 }
 
-void SnoreCorePrivate::loadTranslator()
+static void loadTranslator()
 {
     auto installTranslator = [](const QString & locale) {
         snoreDebug(SNORE_DEBUG) << locale;
@@ -249,3 +255,20 @@ void SnoreCorePrivate::loadTranslator()
         }
     }
 }
+
+static void registerMetaTypes()
+{
+    qRegisterMetaType<Notification>();
+    qRegisterMetaType<Application>();
+    qRegisterMetaType<SnorePlugin::PluginTypes>();
+    qRegisterMetaTypeStreamOperators<SnorePlugin::PluginTypes>();
+}
+
+static void snoreStartup(){
+    loadTranslator();
+    registerMetaTypes();
+}
+
+Q_COREAPP_STARTUP_FUNCTION(snoreStartup)
+
+

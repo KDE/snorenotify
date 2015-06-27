@@ -35,6 +35,9 @@ public:
     bool initialize() override;
     bool deinitialize() override;
 
+    bool canCloseNotification() const override;
+    bool canUpdateNotification() const override;
+
     Snore::PluginSettingsWidget *settingsWidget() override;
 
 public slots:
