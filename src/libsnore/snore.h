@@ -79,7 +79,17 @@ public:
     void broadcastNotification(Notification notification);
 
     // Handle notification scheduling
+    
+    /**
+     * Removes scheduled notification from displaying
+     * @see scheduledNotification
+     */
     void removeScheduledNotification(Notification notification);
+    
+    /**
+     * Returns a list of notifications that are scheduled.
+     * @see removeScheduledNotification
+     */
     QList<Notification> scheduledNotifications();
     
     /**
@@ -155,8 +165,13 @@ public:
     void setValue(const QString &key, const QVariant &value, SettingsType type = GLOBAL_SETTING);
     void setDefaultValue(const QString &key, const QVariant &value, SettingsType type = GLOBAL_SETTING);
 
+    
     Notification getActiveNotificationByID(uint id) const;
 signals:
+    
+    /**
+     *
+     */
     void scheduledNotificationsChanged(QList<Snore::Notification> notifications);
     /**
      * This signal is emitted when an action on the Notification was performed.

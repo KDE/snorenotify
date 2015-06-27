@@ -27,8 +27,17 @@ int main(int argc, char *argv[])
 
     Notification n(application, alert, "First notification", "Hello world!", icon);
 
+    // Optional: you can also set delivery date if you want to schedule notification
+    //n.setDeliveryDate(QDateTime::currentDateTime().addSecs(5));
+    
     core.broadcastNotification(n);
+
     //Connect slots if you need some action triggered by notification
     app.connect(&core, &SnoreCore::actionInvoked, [&](Notification notification) { qDebug() << "Notification:" << notification.title() << "triggered!"; });
+    app.connect(&core, &SnoreCore::scheduledNotificationsChanged, [&]() {
+        for (auto notification : core.scheduledNotifications()) {
+            qDebug() << notification.id();
+        }
+    });
     return app.exec();
 }

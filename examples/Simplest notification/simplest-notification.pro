@@ -6,7 +6,7 @@
 
 QT       += core gui widgets
 
-TARGET = snorenotify-example
+TARGET = simplest-notification
 TEMPLATE = app
 CONFIG += c++11
 INCLUDEPATH += /usr/local/include

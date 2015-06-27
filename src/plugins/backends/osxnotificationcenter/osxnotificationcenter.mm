@@ -14,12 +14,16 @@ using namespace Snore;
 
 QMap<int, Notification> id_to_notification;
 NSMutableDictionary * id_to_nsnotification;
+NSSet * old_notifications;
 
 
 void emitNotificationClicked(Notification notification) {
     emit SnoreCore::instance().actionInvoked(notification);
 }
 
+//
+// Enable reaction when user clicks on NSUserNotification
+//
 
 @interface UserNotificationItem : NSObject<NSUserNotificationCenterDelegate> { }
 
@@ -36,8 +40,13 @@ void emitNotificationClicked(Notification notification) {
 {
     
     snoreDebug(SNORE_DEBUG) << "User clicked on notification";
+    int notification_id = [notification.userInfo[@"id"] intValue];
     [center removeDeliveredNotification: notification];
-    Notification snore_notification = id_to_notification[[notification.userInfo[@"id"] intValue]];
+    if (not id_to_notification.contains(notification_id)) {
+            snoreDebug(SNORE_WARNING) << "User clicked on notification that was not recognized";
+            return;
+    }
+    Notification snore_notification = id_to_notification[notification_id];
     snore_notification.data()->setCloseReason(Notification::ACTIVATED);
     emitNotificationClicked(snore_notification);
 }
@@ -70,13 +79,18 @@ namespace {
     }
 }
 
+UserNotificationItemClass * delegate;
+
 OSXNotificationCenter::OSXNotificationCenter() : SnoreBackend("OSX Notification Center", false, false, false)
 {
     id_to_nsnotification = [[[NSMutableDictionary alloc] init] autorelease];
+    old_notifications = [NSSet setWithArray: [NSUserNotificationCenter defaultUserNotificationCenter].scheduledNotifications];
+    delegate = new UserNotificationItemClass();
 }
 
 OSXNotificationCenter::~OSXNotificationCenter()
 {
+    delete delegate;
 }
 
 bool OSXNotificationCenter::initialize()
@@ -89,7 +103,9 @@ QList<Notification> OSXNotificationCenter::scheduledNotifications() {
     NSArray * scheduled_nsnotifications = [NSUserNotificationCenter defaultUserNotificationCenter].scheduledNotifications;
     for (NSUserNotification *notification in scheduled_nsnotifications)
     {
-        result.push_back(id_to_notification[[notification.userInfo[@"id"] intValue]]);
+        if (not [old_notifications containsObject: notification]) {
+            result.push_back(id_to_notification[[notification.userInfo[@"id"] intValue]]);
+        }
     }
     return result;
 }
@@ -120,10 +136,6 @@ void OSXNotificationCenter::scheduleNotification(Snore::Notification notificatio
 
 void OSXNotificationCenter::slotNotify(Snore::Notification notification)
 {
-    static UserNotificationItemClass *n=0;
-    if (!n) {
-        n=new UserNotificationItemClass();
-    }
     bool valid_time = notification.deliveryDate().isValid();
     NSUserNotification *osx_notification = [[[NSUserNotification alloc] init] autorelease];
     NSString * notification_id = [NSString stringWithFormat:@"%d",notification.id()];
@@ -133,7 +145,9 @@ void OSXNotificationCenter::slotNotify(Snore::Notification notification)
         osx_notification.deliveryDate = [NSDate dateWithTimeIntervalSince1970:notification.deliveryDate().toTime_t()];
     }
     osx_notification.informativeText = NSStringFromQString(Utils::toPlainText(notification.text()));
-    slotNotificationDisplayed(notification);
+
+
+    // Add notification to mapper from id to Nofification / NSUserNotification
     id_to_notification.insert(notification.id(), notification);
     [id_to_nsnotification setObject:osx_notification forKey: notification_id];
     if (valid_time) {
@@ -143,5 +157,7 @@ void OSXNotificationCenter::slotNotify(Snore::Notification notification)
     else {
         [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification: osx_notification];
     }
+
+    slotNotificationDisplayed(notification);
 }
 
