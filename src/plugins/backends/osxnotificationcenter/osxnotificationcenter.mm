@@ -81,7 +81,7 @@ namespace {
 
 UserNotificationItemClass * delegate;
 
-OSXNotificationCenter::OSXNotificationCenter() : SnoreBackend("OSX Notification Center", false, false, false)
+OSXNotificationCenter::OSXNotificationCenter()
 {
     id_to_nsnotification = [[[NSMutableDictionary alloc] init] autorelease];
     old_notifications = [NSSet setWithArray: [NSUserNotificationCenter defaultUserNotificationCenter].scheduledNotifications];
@@ -139,12 +139,12 @@ void OSXNotificationCenter::slotNotify(Snore::Notification notification)
     bool valid_time = notification.deliveryDate().isValid();
     NSUserNotification *osx_notification = [[[NSUserNotification alloc] init] autorelease];
     NSString * notification_id = [NSString stringWithFormat:@"%d",notification.id()];
-    osx_notification.title = NSStringFromQString(Utils::toPlainText(notification.title()));
+    osx_notification.title = NSStringFromQString(notification.title());
     osx_notification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:notification_id, @"id", nil];
     if (valid_time) {
         osx_notification.deliveryDate = [NSDate dateWithTimeIntervalSince1970:notification.deliveryDate().toTime_t()];
     }
-    osx_notification.informativeText = NSStringFromQString(Utils::toPlainText(notification.text()));
+    osx_notification.informativeText = NSStringFromQString(notification.text());
 
 
     // Add notification to mapper from id to Nofification / NSUserNotification
