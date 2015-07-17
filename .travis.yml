@@ -21,7 +21,7 @@ script:
 addons:
   apt:
     sources:
-    - ubuntu-backports 
+    - kubuntu-backports 
     packages:
     - cmake
     - qtbase5-dev
