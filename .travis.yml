@@ -20,9 +20,12 @@ script:
 
 addons:
   apt:
+    sources:
+    - ubuntu-backports 
     packages:
     - cmake
     - qtbase5-dev
     - qtquick1-5-dev
     - qttools5-dev
+    - extra-cmake-modules
     
