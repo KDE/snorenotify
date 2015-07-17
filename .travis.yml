@@ -2,16 +2,21 @@ language: cpp
 
 os:
 - osx
+- linux
 
 before_install:
-  - brew update
-  - brew install qt5
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install qt5; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -q cmake qt52base qt52tools qt52quick; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -q gcc-4.9 g++-4.9
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
   
 compiler:
-  - clang  
+  # - clang
+  - gcc
   
 script:
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake .. -DWITH_SNORE_DAEMON=ON -DWITH_FRONTENDS=ON
   - make
