@@ -7,8 +7,6 @@ os:
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update; fi
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install qt5; fi
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -q cmake qt52base qt52tools qt52quick; fi
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -q gcc-4.9 g++-4.9
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
   
 compiler:
@@ -20,3 +18,14 @@ script:
   - cd build
   - cmake .. -DWITH_SNORE_DAEMON=ON -DWITH_FRONTENDS=ON
   - make
+
+addons:
+  apt:
+    packages:
+    - cmake
+    - gcc-4.9
+    - g++-4.9
+    - qtbase5-dev
+    - qtquick1-5-dev
+    - qttools5-dev
+    
