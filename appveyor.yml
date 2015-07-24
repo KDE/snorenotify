@@ -40,6 +40,8 @@ artifacts:
       name: $(APPVEYOR_PROJECT_NAME)-Qt$(QT_VER)-$(COMPILER)
     - path: work\log
       name: log-$(APPVEYOR_PROJECT_NAME)-Qt$(QT_VER)-$(COMPILER)
+    - path: work\build\$(APPVEYOR_PROJECT_NAME)\CMakeFile\*.log
+      name:  $(APPVEYOR_PROJECT_NAME)-Qt$(QT_VER)-$(COMPILER)-CMake-logs
       
 deploy:
     - provider: Environment
