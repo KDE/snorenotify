@@ -16,7 +16,6 @@ cache:
     - C:\ProgramData\chocolatey\bin -> ci\appveyor.ps1
     - C:\ProgramData\chocolatey\lib -> ci\appveyor.ps1
     - C:\tools -> ci\appveyor.ps1
-    - ci\appveyorHelp.psm1 -> ci\appveyor.ps1
 
 environment:
     SNORE_TOASTY_ID:
