@@ -4,6 +4,8 @@ Import-Module $env:APPVEYOR_BUILD_FOLDER\ci\appveyorHelp.psm1 -Force -Verbose
 
 Init @("ninja", "extra-cmake-modules", "png2ico")
 
+FetchArtifact "SnoreGrowl"
+
 mkdir -Force $env:APPVEYOR_BUILD_FOLDER\work\build\snorenotify
 cd $env:APPVEYOR_BUILD_FOLDER\work\build\snorenotify
 LogExec cmake -G"Ninja" $env:APPVEYOR_BUILD_FOLDER -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$CMAKE_INSTALL_ROOT"

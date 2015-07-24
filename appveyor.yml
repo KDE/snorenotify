@@ -27,6 +27,8 @@ environment:
         
     FETCH_ARTIFATCS_HOST:
         secure: f18BT6mPxBD8sCVAD+S5epniG8qiFZjy2SWVR8VGI2czQdB4IeLUK/7XVM2CF/8KZjEpaHoVJm409Hjpw2oWiA==
+        
+    QT_VER: 5.5
     
     matrix:
     #mingw
@@ -36,7 +38,7 @@ environment:
     
 artifacts:
     - path: work\image
-      name: $(APPVEYOR_PROJECT_NAME)-$(COMPILER)
+      name: $(APPVEYOR_PROJECT_NAME)-Qt$(QT_VER)-$(COMPILER)
     - path: work\log
       name: log-$(COMPILER)
       
