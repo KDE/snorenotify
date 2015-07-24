@@ -2,9 +2,7 @@ $ErrorActionPreference="Stop"
 
 Import-Module $env:APPVEYOR_BUILD_FOLDER\ci\appveyorHelp.psm1
 
-Init @("ninja", "extra-cmake-modules", "png2ico")
-
-FetchArtifact "SnoreGrowl"
+Init @("ninja", "extra-cmake-modules", "png2ico") @("SnoreGrowl")
 
 mkdir -Force $env:APPVEYOR_BUILD_FOLDER\work\build\snorenotify
 cd $env:APPVEYOR_BUILD_FOLDER\work\build\snorenotify
