@@ -26,7 +26,7 @@ environment:
         secure: KTJ5xlUJfDSxpzaGLsnTDhVa2jxWkzaEcwlI2MGCn4g=
         
     FETCH_ARTIFATCS_HOST:
-        secure: f18BT6mPxBD8sCVAD+S5epniG8qiFZjy2SWVR8VGI2czQdB4IeLUK/7XVM2CF/8KZjEpaHoVJm409Hjpw2oWiA==
+        secure: rMU3uKmS1tdIFReTTcRgchX2PJaOKSXc72lIG6OOR3RPR3Nhc8hjNnti2+WM52Ei9hsq/QMEsQaWEOFMLrvPPw==
         
     QT_VER: 5.5
     
@@ -40,7 +40,7 @@ artifacts:
     - path: work\image
       name: $(APPVEYOR_PROJECT_NAME)-Qt$(QT_VER)-$(COMPILER)
     - path: work\log
-      name: log-$(COMPILER)
+      name: log-$(APPVEYOR_PROJECT_NAME)-Qt$(QT_VER)-$(COMPILER)
       
 deploy:
     - provider: Environment
