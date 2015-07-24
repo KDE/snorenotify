@@ -1,6 +1,6 @@
 $ErrorActionPreference="Stop"
 
-Import-Module $env:APPVEYOR_BUILD_FOLDER\ci\appveyorHelp.psm1 -Force -Verbose
+Import-Module $env:APPVEYOR_BUILD_FOLDER\ci\appveyorHelp.psm1
 
 Init @("ninja", "extra-cmake-modules", "png2ico")
 
