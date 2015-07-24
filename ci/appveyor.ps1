@@ -17,3 +17,4 @@ SetupSnoreSend  "$env:APPVEYOR_BUILD_FOLDER\work\image\bin" @{
 
 
 SendSnoreNotification "Build complete!" "Build of SnoreNotify succeeded"
+
