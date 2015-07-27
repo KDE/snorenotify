@@ -34,7 +34,6 @@ set(SNORE_CamelCase_SUFFIX "Qt5")
 
 
 find_package(Qt5Core REQUIRED)
-find_package(Qt5LinguistTools OPTIONAL)
 find_package(Qt5Network REQUIRED)
 find_package(Qt5Quick REQUIRED)
 find_package(Qt5Widgets REQUIRED)
@@ -67,9 +66,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
 add_subdirectory(data)
-if(Qt5LinguistTools_FOUND)
-    add_subdirectory(lang)
-endif()
+add_subdirectory(lang)
 add_subdirectory(src)
 add_subdirectory(autotest)
 
