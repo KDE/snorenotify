@@ -2,14 +2,17 @@ language: cpp
 
 os:
 - osx
-#- linux
+- linux
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update; fi
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install qt5 ninja; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; sudo add-apt-repository -y ppa:kubuntu-backports; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; sudo apt-get -qq update; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; sudo apt-get install -q qt52base qt52tools qt52script ninja-build; fi
   
 compiler:
-   - clang
+  - clang
   - gcc
   
 script:
@@ -18,14 +21,14 @@ script:
   - cmake -G"Ninja" ..
   - make
 
-addons:
-  apt:
-    sources:
-    - kubuntu-backports 
-    packages:
-    - cmake
-    - qtbase5-dev
-    - qtquick1-5-dev
-    - qttools5-dev
-    - extra-cmake-modules
+# addons:
+  # apt:
+    # sources:
+    # - kubuntu-backports 
+    # packages:
+    # - cmake
+    # - qtbase5-dev
+    # - qtquick1-5-dev
+    # - qttools5-dev
+    # - extra-cmake-modules
     
