@@ -8,8 +8,9 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update; fi
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install qt5 ninja; fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo add-apt-repository -y ppa:beineri/opt-qt521; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo add-apt-repository -y ppa:kalakris/cmake; fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq update; fi
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -q qt52base qt52tools qt52script ninja-build; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -q qt52base qt52tools qt52script ninja-build cmake; fi
   - mkdir -p ~/git && cd ~/git
   - git clone -q git://anongit.kde.org/extra-cmake-modules.git
   - mkdir -p ~/build && cd ~/build
@@ -22,6 +23,7 @@ compiler:
   #- gcc
   
 script:
+  - cd $TRAVIS_BUILD_DIR
   - mkdir build
   - cd build
   - cmake -G"Ninja" .. -DCMAKE_INSTALL_PREFIX=~/installs/
