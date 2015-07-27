@@ -7,13 +7,13 @@ os:
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update; fi
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install qt5 ninja; fi
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; sudo add-apt-repository -y ppa:kubuntu-backports; fi
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; sudo apt-get -qq update; fi
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; sudo apt-get install -q qt52base qt52tools qt52script ninja-build; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo add-apt-repository -y ppa:kubuntu-backports; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq update; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -q qt52base qt52tools qt52script ninja-build; fi
   
 compiler:
   - clang
-  - gcc
+  #- gcc
   
 script:
   - mkdir build
