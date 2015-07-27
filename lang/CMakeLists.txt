@@ -15,6 +15,8 @@ if(Qt5LinguistTools_FOUND)
     endforeach()
     set( snore_i18n_content "${snore_i18n_content}</qresource>\n</RCC>\n" )
 
+    file( WRITE ${CMAKE_BINARY_DIR}/lang/snore_i18n.qrc.in "${snore_i18n_content}" )
+    
     qt5_add_translation(libsnore_lang ${TS_FILES})
 
     add_custom_command(OUTPUT snore_i18n.qrc
