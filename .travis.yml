@@ -2,20 +2,20 @@ language: cpp
 
 os:
 - osx
-- linux
+#- linux
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update; fi
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install qt5; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install qt5 ninja; fi
   
 compiler:
-  # - clang
+   - clang
   - gcc
   
 script:
   - mkdir build
   - cd build
-  - cmake .. -DWITH_SNORE_DAEMON=ON -DWITH_FRONTENDS=ON
+  - cmake -G"Ninja" ..
   - make
 
 addons:
