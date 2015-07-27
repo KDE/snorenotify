@@ -150,7 +150,6 @@ bool SnoreCorePrivate::slotInitPrimaryNotificationBackend()
 
 void SnoreCorePrivate::init()
 {
-    Q_Q(SnoreCore);
     setDefaultSettingsValueIntern(QLatin1String("Timeout"), 10);
     setDefaultSettingsValueIntern(QLatin1String("Silent"), false);
     m_defaultApp = Application(QLatin1String("SnoreNotify"), Icon::defaultIcon());
