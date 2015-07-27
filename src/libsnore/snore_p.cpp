@@ -157,7 +157,6 @@ void SnoreCorePrivate::init()
 
 void SnoreCorePrivate::setDefaultSettingsValueIntern(const QString &key, const QVariant &value)
 {
-    Q_Q(SnoreCore);
     QString nk = normalizeSettingsKey(key + QLatin1String("-SnoreDefault"), LOCAL_SETTING);
     if (!m_settings->contains(nk)) {
         m_settings->setValue(nk, value);
