@@ -10,9 +10,9 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo add-apt-repository -y ppa:kubuntu-backports; fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq update; fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -q qt52base qt52tools qt52script ninja-build; fi
-  - mkdir git && cd ~/git
+  - mkdir ~/git && cd ~/git
   - git clone -q git://anongit.kde.org/extra-cmake-modules.git
-  - mkdir build && cd ~/build
+  - mkdir ~/build && cd ~/build
   - mkdir extra-cmake-modules && cd extra-cmake-modules
   - cmake -G"Ninja" ~/git/extra-cmake-modules -DCMAKE_INSTALL_PREFIX=~/installs/
   - ninja install
