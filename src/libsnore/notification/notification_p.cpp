@@ -42,7 +42,7 @@ NotificationData::NotificationData(const Snore::Application &application, const 
     m_icon(icon),
     m_priority(priority),
     m_hints(m_application.constHints()),
-    m_delivery_date()
+    m_deliveryDate()
 {
     notificationCount++;
     snoreDebug(SNORE_INFO) << "Creating Notification: ActiveNotifications" << notificationCount << "id" << m_id;
@@ -60,7 +60,7 @@ Snore::NotificationData::NotificationData(const Notification &old, const QString
     m_priority(priority),
     m_hints(m_application.constHints()),
     m_toReplace(old),
-    m_delivery_date()
+    m_deliveryDate()
 {
     notificationCount++;
     snoreDebug(SNORE_INFO) << "Creating Notification: ActiveNotifications" << notificationCount << "id" << m_id;

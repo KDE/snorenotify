@@ -144,11 +144,11 @@ const Hint &Notification::constHints() const
 }
 
 void Notification::setDeliveryDate(QDateTime date) {
-    d->m_delivery_date = date;
+    d->m_deliveryDate = date;
 }
 
 QDateTime Notification::deliveryDate() {
-    return d->m_delivery_date;
+    return d->m_deliveryDate;
 }
 
 bool Notification::isValid() const

@@ -86,7 +86,7 @@ private:
     Notification::Prioritys m_priority;
     Notification::CloseReasons m_closeReason = Notification::NONE;
     Action m_actionInvoked;
-    QDateTime m_delivery_date;
+    QDateTime m_deliveryDate;
     QHash<int, Action> m_actions;
     Hint m_hints;
     Notification m_toReplace;

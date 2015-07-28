@@ -118,7 +118,7 @@ void SnoreBackend::removeScheduledNotification(Notification notification) {
 }
 
 void SnoreBackend::scheduleNotification(Notification notification) {
-    if (not notification.deliveryDate().isValid()) {
+    if (!notification.deliveryDate().isValid()) {
         snoreDebug(SNORE_WARNING) << "Schedule notification without time";
         slotNotify(notification);
         return;
