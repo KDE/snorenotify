@@ -40,15 +40,22 @@ class SNORE_EXPORT Alert
 {
 public:
     Alert();
-    /**
-     * Creates an alert
-     * @param name the name of the Alert
-     * @param icon the Icon of the Alert
-     * @param active whether the alert is active, not used yet
-     * @todo is isActive of any use?
-     */
 
-    explicit Alert(const QString &name, const Icon &icon, bool active = true);
+    /**
+     * Creates an alert.
+     * @param name the name of the Alert.
+     * @param icon the Icon of the Alert.
+     */
+    explicit Alert(const QString &name, const Icon &icon);
+
+    /**
+     * Creates an alert.
+     * @param name the key of the Alert used in Application::alerts().
+     * @param name the name of the Alert.
+     * @param icon the Icon of the Alert.
+     */
+    explicit Alert(const QString &key, const QString &name, const Icon &icon);
+
     /**
      * Creates a copy of other
      * @param other
@@ -56,35 +63,33 @@ public:
     Alert(const Alert &other);
 
     /**
-     * Creates a copy of other
+     * Creates a copy of other.
      * @param other
      */
     Alert &operator=(const Alert &other);
     ~Alert();
 
     /**
-     *
-     * @return the name
+     * Returns the key of the Alert, used in Application::alerts().
+     * Might be identically to name().
+     */
+    QString key() const;
+
+    /**
+     * Returns the name of the Alert.
      */
     QString name() const;
 
     /**
-     *
-     * @return the icon
+     * Returns the icon of the Alert.
      */
     const Icon &icon() const;
 
     /**
-     *
-     * @return whether the Alert is active
-     */
-    bool isActive() const;
-
-    /**
-     *
-     * @return whether the Alert is valid.
+     * Returns whether the Alert is valid.
      */
     bool isValid() const;
+
 private:
     QExplicitlySharedDataPointer<AlertData> d;
 

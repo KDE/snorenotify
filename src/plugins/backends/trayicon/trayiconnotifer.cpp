@@ -6,14 +6,11 @@
 #include <QSystemTrayIcon>
 using namespace Snore;
 
-
-bool TrayIconNotifer::deinitialize()
+TrayIconNotifer::TrayIconNotifer()
 {
-    if (SnoreBackend::deinitialize()) {
+    connect(this, &TrayIconNotifer::enabledChanged, [this](bool) {
         m_currentlyDisplaying = false;
-        return true;
-    }
-    return false;
+    });
 }
 
 bool TrayIconNotifer::canCloseNotification() const
@@ -59,7 +56,7 @@ void TrayIconNotifer::slotDeregisterApplication(const Application &application)
 QSystemTrayIcon *TrayIconNotifer::trayIcon(const Application &app)
 {
     if (app.constHints().contains("tray-icon")) {
-        return app.constHints().value("tray-icon").value<QSystemTrayIcon *>();
+        return app.constHints().value("tray-icon").value<QPointer<QSystemTrayIcon>>();
     }
     return nullptr;
 }

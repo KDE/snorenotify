@@ -1,6 +1,6 @@
 /*
     SnoreNotify is a Notification Framework based on Qt
-    Copyright (C) 2013-2014  Patrick von Reth <vonreth@kde.org>
+    Copyright (C) 2013-2015  Patrick von Reth <vonreth@kde.org>
 
     SnoreNotify is free software: you can redistribute it and/or modify
     it under the terms of the GNU Lesser General Public License as published by
@@ -19,7 +19,9 @@
 #ifndef SNORENOTIFY_H
 #define SNORENOTIFY_H
 
-#include <QSettings>
+#include <QObject>
+
+class TrayIcon;
 
 namespace Snore
 {
@@ -34,7 +36,7 @@ public:
     ~SnoreNotify();
 
 private:
-    class TrayIcon *m_trayIcon;
+    TrayIcon *m_trayIcon;
 };
 
 #endif // SNORENOTIFY_H

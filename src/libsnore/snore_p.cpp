@@ -26,15 +26,21 @@
 #include "version.h"
 
 #include <QApplication>
+#include <QSettings>
 #include <QTemporaryDir>
 #include <QTranslator>
 
 using namespace Snore;
 
 SnoreCorePrivate::SnoreCorePrivate():
-    m_localSettingsPrefix(qApp->applicationName().isEmpty() ? "SnoreNotify" : qApp->applicationName()),
-    m_settings(new QSettings("Snorenotify", "libsnore", this))
+    m_localSettingsPrefix(qApp->applicationName().isEmpty() ? QLatin1String("SnoreNotify") : qApp->applicationName())
 {
+    if(!qgetenv("LIBSNORE_SETTINGS_FILE").isNull())
+    {
+        m_settings =  new QSettings(QString::fromUtf8(qgetenv("LIBSNORE_SETTINGS_FILE")), QSettings::IniFormat);
+    } else {
+        m_settings = new QSettings(QLatin1String("Snorenotify"), QLatin1String("libsnore"), this);
+    }
     snoreDebug(SNORE_INFO) << "Version:" << Version::version();
     if (!Version::revision().isEmpty()) {
         snoreDebug(SNORE_INFO) << "Revision:" << Version::revision();
@@ -42,12 +48,9 @@ SnoreCorePrivate::SnoreCorePrivate():
 
     snoreDebug(SNORE_DEBUG) << "Temp dir is" << tempPath();
     snoreDebug(SNORE_DEBUG) << "Snore settings are located in" << m_settings->fileName();
-    snoreDebug(SNORE_DEBUG) << "Snore local settings are located in" << normalizeKey("Test", LOCAL_SETTING);
+    snoreDebug(SNORE_DEBUG) << "Snore local settings are located in" << normalizeSettingsKey(QLatin1String("Test"), LOCAL_SETTING);
 
     connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(slotAboutToQuit()));
-
-
-    m_defaultApp = Application("SnoreNotify", Icon(":/root/snore.png"));
 }
 
 SnoreCorePrivate::~SnoreCorePrivate()
@@ -57,7 +60,7 @@ SnoreCorePrivate::~SnoreCorePrivate()
 
 Application SnoreCorePrivate::defaultApplication()
 {
-    if (!SnoreCore::instance().aplications().contains(m_defaultApp.name())) {
+    if (!SnoreCore::instance().aplications().contains(m_defaultApp.key())) {
         SnoreCore::instance().registerApplication(m_defaultApp);
     }
     return m_defaultApp;
@@ -88,53 +91,58 @@ bool SnoreCorePrivate::setBackendIfAvailible(const QString &backend)
         }
         snoreDebug(SNORE_DEBUG) << "Setting Notification Backend to:" << backend;
         SnoreBackend *b = qobject_cast<SnoreBackend *>(backends.value(backend)->load());
-        if (!b->isInitialized()) {
-            if (!b->initialize()) {
-                snoreDebug(SNORE_DEBUG) << "Failed to initialize" << b->name();
-                return false;
-            }
+        if (!b->isReady()) {
+            snoreDebug(SNORE_DEBUG) << "Backend not ready:" << b->errorString();
+
+            emit q->prmaryNotificationBackendError(b->errorString());
+            return false;
         }
         if (m_notificationBackend) {
-            m_notificationBackend->deinitialize();
+            m_notificationBackend->disable();
         }
-
         m_notificationBackend = b;
-        q->setValue("PrimaryBackend", backend, LOCAL_SETTING);
+        m_notificationBackend->enable();
+        q->setSettingsValue(QLatin1String("PrimaryBackend"), backend, LOCAL_SETTING);
+
+        connect(b, &SnoreBackend::error, [this, b](const QString &) {
+            slotInitPrimaryNotificationBackend();
+        });
+        emit q->prmaryNotificationBackendChanged(b->name());
         return true;
     }
     return false;
 }
 
-bool SnoreCorePrivate::initPrimaryNotificationBackend()
+bool SnoreCorePrivate::slotInitPrimaryNotificationBackend()
 {
     Q_Q(SnoreCore);
-    snoreDebug(SNORE_DEBUG) << q->value("PrimaryBackend", LOCAL_SETTING).toString();
-    if (setBackendIfAvailible(q->value("PrimaryBackend", LOCAL_SETTING).toString())) {
+    snoreDebug(SNORE_DEBUG) << q->settingsValue(QLatin1String("PrimaryBackend"), LOCAL_SETTING).toString();
+    if (setBackendIfAvailible(q->settingsValue(QLatin1String("PrimaryBackend"), LOCAL_SETTING).toString())) {
         return true;
     }
 #ifdef Q_OS_WIN
-    if (QSysInfo::windowsVersion() >= QSysInfo::WV_WINDOWS8 && setBackendIfAvailible("Windows 8")) {
+    if (QSysInfo::windowsVersion() >= QSysInfo::WV_WINDOWS8 && setBackendIfAvailible(QLatin1String("Windows Toast"))) {
         return true;
     }
-    if (setBackendIfAvailible("Growl")) {
+    if (setBackendIfAvailible(QLatin1String("Growl"))) {
         return true;
     }
-    if (setBackendIfAvailible("Snarl")) {
+    if (setBackendIfAvailible(QLatin1String("Snarl"))) {
         return true;
     }
 #elif defined(Q_OS_LINUX)
-    if (setBackendIfAvailible("FreedesktopNotification")) {
+    if (setBackendIfAvailible(QLatin1String("Freedesktop"))) {
         return true;
     }
 #elif defined(Q_OS_MAC)
-    if (setBackendIfAvailible("OSX Notification Center")) {
+    if (setBackendIfAvailible(QLatin1String("OSX Notification Center"))) {
         return true;
     }
-    if (setBackendIfAvailible("Growl")) {
+    if (setBackendIfAvailible(QLatin1String("Growl"))) {
         return true;
     }
 #endif
-    if (setBackendIfAvailible("Snore")) {
+    if (setBackendIfAvailible(QLatin1String("Snore"))) {
         return true;
     }
     return false;
@@ -143,14 +151,15 @@ bool SnoreCorePrivate::initPrimaryNotificationBackend()
 void SnoreCorePrivate::init()
 {
     Q_Q(SnoreCore);
-    setDefaultValueIntern("Timeout", 10);
-    setDefaultValueIntern("Silent", false);
+    setDefaultSettingsValueIntern(QLatin1String("Timeout"), 10);
+    setDefaultSettingsValueIntern(QLatin1String("Silent"), false);
+    m_defaultApp = Application(QLatin1String("SnoreNotify"), Icon::defaultIcon());
 }
 
-void SnoreCorePrivate::setDefaultValueIntern(const QString &key, const QVariant &value)
+void SnoreCorePrivate::setDefaultSettingsValueIntern(const QString &key, const QVariant &value)
 {
     Q_Q(SnoreCore);
-    QString nk = normalizeKey(QString("%1-SnoreDefault").arg(key), LOCAL_SETTING);
+    QString nk = normalizeSettingsKey(key + QLatin1String("-SnoreDefault"), LOCAL_SETTING);
     if (!m_settings->contains(nk)) {
         m_settings->setValue(nk, value);
     }
@@ -159,40 +168,42 @@ void SnoreCorePrivate::setDefaultValueIntern(const QString &key, const QVariant 
 void SnoreCorePrivate::syncSettings()
 {
     Q_Q(SnoreCore);
-    QString newBackend = q->value("PrimaryBackend", LOCAL_SETTING).toString();
+    QString newBackend = q->settingsValue(QLatin1String("PrimaryBackend"), LOCAL_SETTING).toString();
     if (!newBackend.isEmpty()) {
         QString oldBackend;
         if (m_notificationBackend) {
             oldBackend = m_notificationBackend->name();
-            m_notificationBackend->deinitialize();
+            m_notificationBackend->disable();
             m_notificationBackend = nullptr;
         }
         if (!setBackendIfAvailible(newBackend)) {
-            snoreDebug(SNORE_WARNING) << "Failed to set new backend" << q->value("PrimaryBackend", LOCAL_SETTING).toString() << "restoring" << oldBackend;
+            snoreDebug(SNORE_WARNING) << "Failed to set new backend" << q->settingsValue(QLatin1String("PrimaryBackend"), LOCAL_SETTING).toString() << "restoring" << oldBackend;
             setBackendIfAvailible(oldBackend);
         }
     }
 
     auto types = SnorePlugin::types();
     types.removeOne(SnorePlugin::BACKEND);
-    for(auto type : types) {
+    for (auto type : types) {
         for (auto &pluginName : m_pluginNames[type]) {
-            SnorePlugin *plugin = m_plugins.value(pluginName);
-            bool enable = m_plugins[pluginName]->value("Enabled", LOCAL_SETTING).toBool();
-            if (!plugin->isInitialized() && enable) {
-                plugin->initialize();
-            } else if (plugin->isInitialized() && !enable) {
-                plugin->deinitialize();
-            }
+            auto key = qMakePair(type, pluginName);
+            SnorePlugin *plugin = m_plugins.value(key);
+            bool enable = m_plugins[key]->settingsValue(QLatin1String("Enabled"), LOCAL_SETTING).toBool();
+            plugin->setEnabled(enable);
         }
     }
+}
+
+QSettings &SnoreCorePrivate::settings()
+{
+    return *m_settings;
 }
 
 void SnoreCorePrivate::setLocalSttingsPrefix(const QString &prefix)
 {
     m_localSettingsPrefix = prefix;
     init();
-    syncSettings();
+    QMetaObject::invokeMethod(this, "slotSyncSettings", Qt::QueuedConnection);
 }
 
 QString SnoreCorePrivate::tempPath()
@@ -223,23 +234,48 @@ void SnoreCorePrivate::slotAboutToQuit()
     for (PluginContainer *p : PluginContainer::pluginCache(SnorePlugin::ALL)) {
         if (p->isLoaded()) {
             snoreDebug(SNORE_DEBUG) << "deinitialize" << p->name();
-            p->load()->deinitialize();
+            p->load()->disable();
         }
     }
 }
+
+void SnoreCorePrivate::startNotificationTimeoutTimer(Notification notification)
+{
+    Q_Q(SnoreCore);
+    if (notification.isSticky()) {
+        return;
+    }
+
+    notification.data()->stopTimeoutTimer();
+    QTimer *timer = new QTimer();
+    notification.data()->m_timeoutTimer = timer;
+    timer->setSingleShot(true);
+
+    if (notification.isUpdate()) {
+        notification.old().data()->stopTimeoutTimer();
+    }
+    timer->setInterval(notification.timeout() * 1000);
+    connect(timer, &QTimer::timeout, [q, notification]() {
+        snoreDebug(SNORE_DEBUG) << notification;
+        q->requestCloseNotification(notification, Notification::TIMED_OUT);
+    });
+    timer->start();
+}
+
+///Startup code
 
 static void loadTranslator()
 {
     auto installTranslator = [](const QString & locale) {
         snoreDebug(SNORE_DEBUG) << locale;
-        if (locale != "C") {
+        if (locale != QLatin1String("C")) {
             QTranslator *translator = new QTranslator(qApp->instance());
-            if (translator->load(locale, ":/lang/libsnore/")) {
+            if (translator->load(locale, QLatin1String(":/lang/libsnore/"))) {
                 snoreDebug(SNORE_DEBUG) << "Using system locale:" << locale;
                 snoreDebug(SNORE_DEBUG) << qApp->installTranslator(translator);
             } else {
                 translator->deleteLater();
-                QString fileName = QString(":/lang/libsnore/%1.qm").arg(locale);
+                QString fileName = QLatin1String(":/lang/libsnore/") + locale + QLatin1String(".qm");
                 snoreDebug(SNORE_DEBUG) << "Failed to load translations for:" << locale << fileName << QFile::exists(fileName) ;
                 return false;
             }
@@ -247,9 +283,9 @@ static void loadTranslator()
         return true;
     };
 
-    installTranslator("en");
+    installTranslator(QLatin1String("en"));
     QLocale locale = QLocale::system();
-    if (locale.name() != "en") {
+    if (locale.name() != QLatin1String("en")) {
         if (!installTranslator(locale.name())) {
             installTranslator(locale.bcp47Name());
         }
@@ -264,11 +300,11 @@ static void registerMetaTypes()
     qRegisterMetaTypeStreamOperators<SnorePlugin::PluginTypes>();
 }
 
-static void snoreStartup(){
+static void snoreStartup()
+{
     loadTranslator();
     registerMetaTypes();
 }
 
 Q_COREAPP_STARTUP_FUNCTION(snoreStartup)
-
 

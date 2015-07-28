@@ -27,6 +27,7 @@
 
 #include "version.h"
 
+#include <QApplication>
 #include <QSettings>
 #include <QThread>
 
@@ -41,12 +42,15 @@ SnoreCore::SnoreCore(QObject *parent):
     d_ptr = new SnoreCorePrivate();
     Q_D(SnoreCore);
     d->q_ptr = this;
-    d->init();
 }
 
 SnoreCore &SnoreCore::instance()
 {
-    static SnoreCore *instance(new SnoreCore(qApp));
+    static SnoreCore *instance = nullptr;
+    if (!instance) {
+        instance = new SnoreCore(qApp);
+        SnoreCorePrivate::instance()->init();
+    }
     return *instance;
 }
 
@@ -64,7 +68,7 @@ void SnoreCore::loadPlugins(SnorePlugin::PluginTypes types)
         return;
     }
     Q_D(SnoreCore);
-    setValue("PluginTypes", QVariant::fromValue(types), LOCAL_SETTING);
+    setSettingsValue(QLatin1String("PluginTypes"), QVariant::fromValue(types), LOCAL_SETTING);
     snoreDebug(SNORE_DEBUG) << "Loading plugin types:" << types;
     for (SnorePlugin::PluginTypes type : SnorePlugin::types()) {
         if (type != SnorePlugin::ALL && types & type) {
@@ -73,52 +77,51 @@ void SnoreCore::loadPlugins(SnorePlugin::PluginTypes types)
                 if (!plugin) {
                     continue;
                 }
+
                 switch (info->type()) {
                 case SnorePlugin::BACKEND:
                     break;
                 case SnorePlugin::SECONDARY_BACKEND:
                 case SnorePlugin::FRONTEND:
-                case SnorePlugin::PLUGIN: {
-                    if (plugin->value("Enabled", LOCAL_SETTING).toBool()) {
-                        if (!plugin->initialize()) {
-                            snoreDebug(SNORE_WARNING) << "Failed to initialize" << plugin->name();
-                            plugin->deinitialize();
-                            //info->unload();
-                            break;
-                        }
-                    }
-                }
-                break;
+                case SnorePlugin::PLUGIN:
+                    plugin->setEnabled(plugin->settingsValue(QLatin1String("Enabled"), LOCAL_SETTING).toBool());
+                    break;
                 default:
                     snoreDebug(SNORE_WARNING) << "Plugin Cache corrupted\n" << info->file() << info->type();
                     continue;
                 }
+
                 snoreDebug(SNORE_DEBUG) << info->name() << "is a" << info->type();
                 d->m_pluginNames[info->type()].append(info->name());
-                d->m_plugins[info->name()] = plugin;
+                auto key = qMakePair(type, info->name());
+                Q_ASSERT_X(!d->m_plugins.contains(key), Q_FUNC_INFO, "Multiple plugins of the same type with the same name.");
+                d->m_plugins.insert(key, plugin);
             }
             if (d->m_pluginNames.contains(type)) {
                 qSort(d->m_pluginNames[type]);
             }
         }
     }
-    d->initPrimaryNotificationBackend();
+    QMetaObject::invokeMethod(d, "slotInitPrimaryNotificationBackend", Qt::DirectConnection);
     snoreDebug(SNORE_INFO) << "Loaded Plugins:" << d->m_pluginNames;
 }
 
 void SnoreCore::broadcastNotification(Notification notification)
 {
     Q_D(SnoreCore);
+    Q_ASSERT_X(!notification.data()->isBroadcasted(), Q_FUNC_INFO, "Notification was already broadcasted.");
+    snoreDebug(SNORE_DEBUG) << "Broadcasting" << notification << "timeout:" << notification.timeout();
     if (notification.deliveryDate().isValid()) {
         d->scheduleNotification(notification);
         return;
     }
-    snoreDebug(SNORE_DEBUG) << "Broadcasting " << notification << ", timeout: " << notification.timeout();
     if (d->m_notificationBackend != nullptr) {
         if (notification.isUpdate() && !d->m_notificationBackend->canUpdateNotification()) {
             requestCloseNotification(notification.old(), Notification::REPLACED);
         }
     }
+    notification.data()->setBroadcasted();
+    d->startNotificationTimeoutTimer(notification);
     emit d->notify(notification);
 }
 
@@ -134,18 +137,18 @@ void SnoreCore::removeScheduledNotification(Notification notification) {
 void SnoreCore::registerApplication(const Application &application)
 {
     Q_D(SnoreCore);
-    if (!d->m_applications.contains(application.name())) {
-        snoreDebug(SNORE_DEBUG) << "Registering Application: " << application;
-        d->m_applications.insert(application.name(), application);
-        emit d->applicationRegistered(application);
-    }
+    Q_ASSERT_X(!d->m_applications.contains(application.key()), Q_FUNC_INFO,
+               "Applications mus be registered only once.");
+    snoreDebug(SNORE_DEBUG) << "Registering Application:" << application;
+    d->m_applications.insert(application.key(), application);
+    emit d->applicationRegistered(application);
 }
 
 void SnoreCore::deregisterApplication(const Application &application)
 {
     Q_D(SnoreCore);
     emit d->applicationDeregistered(application);
-    d->m_applications.take(application.name());
+    d->m_applications.take(application.key());
 }
 
 const QHash<QString, Application> &SnoreCore::aplications() const
@@ -184,8 +187,14 @@ bool SnoreCore::setPrimaryNotificationBackend(const QString &backend)
 void SnoreCore::requestCloseNotification(Notification n, Notification::CloseReasons r)
 {
     Q_D(SnoreCore);
+
     if (d->m_notificationBackend) {
         d->m_notificationBackend->requestCloseNotification(n, r);
+    } else {
+        if (n.isValid()) {
+            n.data()->setCloseReason(r);
+            emit notificationClosed(n);
+        }
     }
 }
 
@@ -200,8 +209,8 @@ QList<PluginSettingsWidget *> SnoreCore::settingWidgets(SnorePlugin::PluginTypes
     Q_D(SnoreCore);
     QList<PluginSettingsWidget *> list;
     for (auto name : d->m_pluginNames[type]) {
-//TODO: mem leak?
-        SnorePlugin *p = d->m_plugins[name];
+        //TODO: mem leak?
+        SnorePlugin *p = d->m_plugins[qMakePair(type, name)];
         PluginSettingsWidget *widget = p->settingsWidget();
         if (widget) {
             list.append(widget);
@@ -213,27 +222,28 @@ QList<PluginSettingsWidget *> SnoreCore::settingWidgets(SnorePlugin::PluginTypes
     return list;
 }
 
-QVariant SnoreCore::value(const QString &key, SettingsType type) const
+QVariant SnoreCore::settingsValue(const QString &key, SettingsType type) const
 {
     Q_D(const SnoreCore);
-    QString nk = d->normalizeKey(key, type);
-    if(type == LOCAL_SETTING && !d->m_settings->contains(nk)){
-        nk = d->normalizeKey(QString("%1-SnoreDefault").arg(key),type);
+    QString nk = d->normalizeSettingsKey(key, type);
+    if (type == LOCAL_SETTING && !d->m_settings->contains(nk)) {
+        nk = d->normalizeSettingsKey(key + QStringLiteral("-SnoreDefault"), type);
     }
     return d->m_settings->value(nk);
 }
 
-void SnoreCore::setValue(const QString &key, const QVariant &value, SettingsType type)
+void SnoreCore::setSettingsValue(const QString &key, const QVariant &value, SettingsType type)
 {
     Q_D(SnoreCore);
-    d->m_settings->setValue(d->normalizeKey(key, type), value);
+    d->m_settings->setValue(d->normalizeSettingsKey(key, type), value);
 }
 
-void SnoreCore::setDefaultValue(const QString &key, const QVariant &value, SettingsType type)
+void SnoreCore::setDefaultSettingsValue(const QString &key, const QVariant &value, SettingsType type)
 {
     Q_D(SnoreCore);
-    QString nk = d->normalizeKey(key, type);
+    QString nk = d->normalizeSettingsKey(key, type);
     if (!d->m_settings->contains(nk)) {
+        snoreDebug(SNORE_DEBUG) <<  "Set default value" << nk << value;
         d->m_settings->setValue(nk, value);
     }
 }
@@ -244,16 +254,15 @@ Notification SnoreCore::getActiveNotificationByID(uint id) const
     return d->m_activeNotifications.value(id);
 }
 
-
 void SnoreCore::displayExapleNotification()
 {
     Application app = SnoreCorePrivate::instance()->defaultApplication();
-    QString text = QString("<i>%1</i><br>"
-                          "<a href=\"https://github.com/Snorenotify/Snorenotify\">%2</a><br>").arg(tr("This is Snore"), tr("Project Website"));
-    if(!app.constHints().value("use-markup").toBool()) {
-        text = Utils::normaliseMarkup(text, Utils::NO_MARKUP);
+    QString text = QLatin1String("<i>") + tr("This is ") + app.name() + QLatin1String("</i><br>"
+                   "<b>") + tr("Everything is awesome!") + QLatin1String("</b><br>");
+    if (!app.constHints().value("use-markup").toBool()) {
+        text = Utils::normalizeMarkup(text, Utils::NO_MARKUP);
     }
-    Notification noti(app, app.defaultAlert(), tr("Hello World"), text, app.icon());
-    noti.addAction(Action(1, tr("Test Action")));
+    Notification noti(app, app.defaultAlert(), tr("Hello There!"), text, app.icon());
+    noti.addAction(Action(1, tr("Awesome Action!")));
     broadcastNotification(noti);
 }

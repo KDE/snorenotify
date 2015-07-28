@@ -4,54 +4,61 @@ Snorenotify
 Snorenotify is a multi platform Qt notification framework. 
 Using a plugin system it is possible to create notifications with many different notification systems on Windows, Unix and Mac.
 
+For a detailed description for some of our backends see our [Wiki](https://github.com/Snorenotify/Snorenotify/wiki).
 
-## Supported Backends ##
-- [Windows 8 toast notifications](https://github.com/Snorenotify/Snoretoast) 
+## Supported Backends
 
-[ ![Windows 8 Notification](http://winkde.org/~pvonreth/other/snore/img/Thumbnail%20Pictures/win8_high.jpg) ](http://winkde.org/~pvonreth/other/snore/img/win8.png)
+- [Windows Toast notifications](https://github.com/Snorenotify/Snorenotify/wiki/Windows-Toast-Notification) 
 
 - OSX Notification Center
 
-![OSX Notification Center](http://winkde.org/~pvonreth/other/snore/img/Thumbnail%20Pictures/mac2.png)
-![OSX Notification Center](http://winkde.org/~pvonreth/other/snore/img/Thumbnail%20Pictures/mac.png)
-
 - Free Desktop Notifications
-
-[![Free Desktop Notification](http://winkde.org/~pvonreth/other/snore/img/Thumbnail%20Pictures/fd_high.jpg)](http://winkde.org/~pvonreth/other/snore/img/fd.png)
 
 - [Growl for Windows](http://www.growlforwindows.com/)
 
-[![Growl for Windows Notification](http://winkde.org/~pvonreth/other/snore/img/Thumbnail%20Pictures/growl_high.jpg)](http://winkde.org/~pvonreth/other/snore/img/growl.png)
+- [Growl](http://growl.info/)
 
 - [Snarl](http://snarl.fullphat.net/)
 
-[![Snarl Notification](http://winkde.org/~pvonreth/other/snore/img/Thumbnail%20Pictures/snarl_high.jpg)](http://winkde.org/~pvonreth/other/snore/img/snarl.png)
 
-
-- Integrated notifications
-
-[![Snore Notification](http://winkde.org/~pvonreth/other/snore/img/Thumbnail%20Pictures/snore_high.png
-)](http://winkde.org/~pvonreth/other/snore/img/snore.png)
+- [Integrated notifications](https://github.com/Snorenotify/Snorenotify/wiki/Integrated-Notification-Backend)
 
 - System Tray
 
-[![System Tray Notification](http://winkde.org/~pvonreth/other/snore/img/Thumbnail%20Pictures/tray_high.jpg)](http://winkde.org/~pvonreth/other/snore/img/tray.png)
+## Supported secondary Backends
 
-## Supported secondary Backends ##
+Secondary backends are those that allow you to send notifications to your phone, a website, play a sound.
+In difference to backends they don't offer interactions with te notification  therefore any number of secondary backends might be enabled. 
 
-- [Windows Phone - Supertoasty](http://supertoasty.com/)
+- [Windows Phone - Toasty](http://supertoasty.com/)
 - [Android - Notify my Android](https://www.notifymyandroid.com/) 
 - [Android and IOS - Pushover] (https://pushover.net/)
 - Playback of sound filles
 
 
 
-## Projects using Snore ##
+## Projects using Snorenotify ##
 - [Quassel IRC](http://www.quassel-irc.org/)
 - [Tomahawk](http://www.tomahawk-player.org/)
 
-## API Doc ##
-[A documentation of the API can be found here](http://winkde.org/~pvonreth/other/snore/latest/doc/html/index.html)
+## How to integrate Snorenotify in your project ##
+### CMake ###
+
+    project( MyApp )
+    cmake_minimum_required( VERSION 2.8.12 )
+    find_package(LibsnoreQt5 0.5.91 REQUIRED)
+  
+    add_executable( my_app main.cpp)
+    target_link_libraries( my_app Snore::Libsnore)
+  
+### Qmake ###
+
+    QT += LibsnoreQt5
+  
+
+### API Doc ###
+[A documentation of the API can be found here](http://patrick.von-reth.de/other/snore/latest/doc/html/index.html)
+
 
 ## Dependencies ##
 Required dependencies:

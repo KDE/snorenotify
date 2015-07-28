@@ -35,9 +35,10 @@ QByteArray Icon::dataFromImage(const QImage &image)
     return data;
 }
 
-Icon::Icon() :
-    d(NULL)
+Icon Icon::defaultIcon()
 {
+    static Icon icon(QLatin1String(":/root/snore.png"));
+    return icon;
 }
 
 Icon::Icon(const QImage &img):
@@ -83,7 +84,7 @@ bool Icon::isLocalFile() const
 
 bool Icon::isValid() const
 {
-    return d && !(d->m_img.isNull() && d->m_url.isEmpty());
+    return !(d->m_img.isNull() && d->m_url.isEmpty());
 }
 
 Icon Icon::scaled(const QSize &s) const

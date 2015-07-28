@@ -18,6 +18,8 @@
 #include "sound.h"
 #include "soundsettings.h"
 
+#include "libsnore/log.h"
+
 #include <QtMultimedia/QMediaPlayer>
 #include <QTimer>
 
@@ -34,17 +36,15 @@ Sound::Sound():
     });
 }
 
-bool Sound::initialize()
-{
-    setDefaultValue("Volume", 50);
-    m_player->setVolume(value("Volume").toInt());
-
-    return SnoreSecondaryBackend::initialize();
-}
-
 PluginSettingsWidget *Sound::settingsWidget()
 {
     return new SoundSettings(this);
+}
+
+void Sound::setDefaultSettings()
+{
+    setDefaultSettingsValue(QLatin1String("Volume"), 50);
+    SnoreSecondaryBackend::setDefaultSettings();
 }
 
 void Sound::slotNotificationDisplayed(Snore::Notification notification)
@@ -52,10 +52,11 @@ void Sound::slotNotificationDisplayed(Snore::Notification notification)
     if (notification.hints().value("silent").toBool()) {
         return;
     }
+    m_player->setVolume(settingsValue(QLatin1String("Volume")).toInt());
 
     QString sound = notification.hints().value("sound").toString();
     if (sound.isEmpty()) {
-        sound = value("Sound").toString();
+        sound = settingsValue(QLatin1String("Sound")).toString();
     }
     snoreDebug(SNORE_DEBUG) << "SoundFile:" << sound;
     if (!sound.isEmpty()) {

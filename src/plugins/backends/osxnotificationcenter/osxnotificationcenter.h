@@ -33,9 +33,7 @@ public:
     void removeScheduledNotification(Snore::Notification notification) override;
     void scheduleNotification(Snore::Notification notification) override;
     QList<Snore::Notification> scheduledNotifications() override;
-    
-    virtual bool initialize() override;
-public slots:
+public Q_SLOTS:
     virtual void slotNotify(Snore::Notification notification) override;
 };
 

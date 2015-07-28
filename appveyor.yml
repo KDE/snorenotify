@@ -1,0 +1,58 @@
+version: '{build}'
+    
+build_script:
+    - ps: |
+        if ( !(Test-Path "$env:APPVEYOR_BUILD_FOLDER\work\appveyorHelp.psm1"))
+        {
+            mkdir $env:APPVEYOR_BUILD_FOLDER\work\
+            Start-FileDownload https://raw.githubusercontent.com/TheOneRing/appVeyorHelp/master/appveyorHelp.psm1 -FileName $env:APPVEYOR_BUILD_FOLDER\work\appveyorHelp.psm1 
+        }
+        $ErrorActionPreference="Stop"
+
+        Import-Module $env:APPVEYOR_BUILD_FOLDER\work\appveyorHelp.psm1
+
+        Init @("ninja", "extra-cmake-modules", "png2ico") @("SnoreGrowl")
+
+        mkdir -Force $env:APPVEYOR_BUILD_FOLDER\work\build\snorenotify
+        cd $env:APPVEYOR_BUILD_FOLDER\work\build\snorenotify
+        LogExec cmake -G"Ninja" $env:APPVEYOR_BUILD_FOLDER -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$CMAKE_INSTALL_ROOT"
+        CmakeImageInstall "$env:APPVEYOR_BUILD_FOLDER\work\image"
+
+
+
+
+test: off
+
+cache:
+    - work\git -> appveyor.yml
+    - work\install -> appveyor.yml
+    - C:\ProgramData\chocolatey\bin -> appveyor.yml
+    - C:\ProgramData\chocolatey\lib -> appveyor.yml
+    - work\appveyorHelp.psm1 -> appveyor.yml
+
+environment:
+    SNORE_TOASTY_ID:
+        secure: lh3yt2ig14pCQMkJ9FRUj4dRLp+pw8qpLgoxr1t8Tpyo27JqXOhYMtGnZPI3wf/S
+        
+    SNORE_PUSHOVER_KEY:
+        secure: KTJ5xlUJfDSxpzaGLsnTDhVa2jxWkzaEcwlI2MGCn4g=
+        
+    FETCH_ARTIFATCS_HOST:
+        secure: rMU3uKmS1tdIFReTTcRgchX2PJaOKSXc72lIG6OOR3RPR3Nhc8hjNnti2+WM52Ei9hsq/QMEsQaWEOFMLrvPPw==
+        
+    QT_VER: 5.5
+    
+    matrix:
+    #mingw
+    - COMPILER: mingw492_32
+    #msvc
+    - COMPILER: msvc2013_64
+    
+artifacts:
+    - path: work\image
+      name: $(APPVEYOR_PROJECT_NAME)-Qt$(QT_VER)-$(COMPILER)
+      
+deploy:
+    - provider: Environment
+      name: my
+      

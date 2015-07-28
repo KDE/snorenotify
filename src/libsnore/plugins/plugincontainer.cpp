@@ -25,7 +25,6 @@
 #include "../version.h"
 
 #include <QDir>
-#include <QMetaEnum>
 #include <QApplication>
 #include <QTime>
 
@@ -53,14 +52,18 @@ SnorePlugin *PluginContainer::load()
         snoreDebug(SNORE_WARNING) << "Failed loading plugin: " << m_loader.errorString();
         return nullptr;
     }
-    SnorePlugin *plugin = qobject_cast<SnorePlugin *> (m_loader.instance());
-    plugin->m_container = this;
-    return plugin;
+    if (!m_plugin) {
+        m_plugin = qobject_cast<SnorePlugin *> (m_loader.instance());
+        m_plugin->m_container = this;
+        m_plugin->setDefaultSettings();
+    }
+    return m_plugin;
 }
 
 void PluginContainer::unload()
 {
     m_loader.unload();
+    m_plugin = nullptr;
 }
 
 const QString &PluginContainer::file()
@@ -87,19 +90,19 @@ void PluginContainer::updatePluginCache()
 {
     snoreDebug(SNORE_DEBUG) << "Updating plugin cache";
     for (auto list : s_pluginCache) {
-        foreach(PluginContainer * p, list.values()) {
+        foreach (PluginContainer *p, list.values()) {
             delete p;
         }
         list.clear();
     }
 
-    foreach(const SnorePlugin::PluginTypes type, SnorePlugin::types()) {
-        foreach(const QFileInfo & file, pluginDir().entryInfoList(
-                    QStringList(pluginFileFilters(type)), QDir::Files)) {
+    foreach (const SnorePlugin::PluginTypes type, SnorePlugin::types()) {
+        foreach (const QFileInfo &file, pluginDir().entryInfoList(
+                     QStringList(pluginFileFilters(type)), QDir::Files)) {
             snoreDebug(SNORE_DEBUG) << "adding" << file.absoluteFilePath();
             QPluginLoader loader(file.absoluteFilePath());
-            QJsonObject data = loader.metaData()["MetaData"].toObject();
-            QString name = data.value("name").toString();
+            QJsonObject data = loader.metaData()[QLatin1String("MetaData")].toObject();
+            QString name = data.value(QLatin1String("name")).toString();
             if (!name.isEmpty()) {
                 PluginContainer *info = new PluginContainer(file.fileName(), name, type);
                 s_pluginCache[type].insert(name, info);
@@ -136,7 +139,7 @@ const QDir &PluginContainer::pluginDir()
         QString appDir = qApp->applicationDirPath();
         QStringList list;
 #ifdef Q_OS_MAC
-        if (appDir == "MacOS") {
+        if (appDir == QLatin1String("MacOS")) {
             list << appDir;
             QDir dir(appDir);
             // Development convenience-hack
@@ -146,12 +149,13 @@ const QDir &PluginContainer::pluginDir()
             appDir = dir.absolutePath();
         }
 #endif
+        QString suffix = QLatin1String("/libsnore") + QLatin1String(SNORE_SUFFIX);
         list << appDir
              << QLatin1String(LIBSNORE_PLUGIN_PATH)
-             << QString("%1/libsnore" SNORE_SUFFIX).arg(appDir)
-             << QString("%1/../lib/plugins/libsnore" SNORE_SUFFIX).arg(appDir)
-             << QString("%1/../lib64/plugins/libsnore" SNORE_SUFFIX).arg(appDir);
-        foreach(const QString & p, list) {
+             << appDir + suffix
+             << appDir + QLatin1String("/../lib/plugins") + suffix
+             << appDir + QLatin1String("/../lib64/plugins") + suffix;
+        for (const QString &p : list) {
             path = QDir(p);
 
             if (!path.entryInfoList(pluginFileFilters()).isEmpty()) {

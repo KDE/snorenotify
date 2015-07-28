@@ -18,7 +18,7 @@
 #ifndef TOASTY_H
 #define TOASTY_H
 
-#include "libsnore/plugins/snorebackend.h"
+#include "libsnore/plugins/snoresecondarybackend.h"
 
 #include <QNetworkAccessManager>
 
@@ -31,11 +31,12 @@ public:
     Toasty() = default;
     ~Toasty() = default;
 
-    bool initialize() override;
-
     Snore::PluginSettingsWidget *settingsWidget() override;
 
-public slots:
+protected:
+    void setDefaultSettings() override;
+
+public Q_SLOTS:
     void slotNotify(Snore::Notification notification) override;
 
 private:

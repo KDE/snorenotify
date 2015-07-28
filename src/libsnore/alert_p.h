@@ -31,12 +31,12 @@ class AlertData : public QSharedData
 {
     friend class Alert;
 public:
-    AlertData(const QString &name, const Icon &icon, bool active);
+    AlertData(const QString &key, const QString &name, const Icon &icon);
     ~AlertData();
 
+    QString m_key;
     QString m_name;
     Icon m_icon;
-    bool m_active;
 
 private:
     Q_DISABLE_COPY(AlertData)

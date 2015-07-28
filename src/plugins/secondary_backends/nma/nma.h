@@ -18,7 +18,7 @@
 #ifndef NMA_H
 #define NMA_H
 
-#include "libsnore/plugins/snorebackend.h"
+#include "libsnore/plugins/snoresecondarybackend.h"
 
 #include <QNetworkAccessManager>
 
@@ -31,11 +31,12 @@ public:
     NotifyMyAndroid() = default;
     ~NotifyMyAndroid() = default;
 
-    virtual bool initialize() override;
-
     Snore::PluginSettingsWidget *settingsWidget() override;
 
-public slots:
+protected:
+    void setDefaultSettings() override;
+
+public Q_SLOTS:
     void slotNotify(Snore::Notification notification) override;
 
 private:

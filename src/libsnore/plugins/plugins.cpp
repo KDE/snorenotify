@@ -42,36 +42,24 @@ SnorePlugin::~SnorePlugin()
     snoreDebug(SNORE_DEBUG) << name() << this << "deleted";
 }
 
-bool SnorePlugin::initialize()
+bool SnorePlugin::isEnabled() const
 {
-    setDefaultValue("Enabled", false, LOCAL_SETTING);
-    if (m_initialized) {
-        qFatal("Something went wrong, plugin %s is already initialized", this->name().toLatin1().constData());
-        return false;
-    }
-    snoreDebug(SNORE_DEBUG) << "Initialize" << name() << this;
-    m_initialized = true;
-    return true;
+    return m_enabled;
 }
 
-bool SnorePlugin::isInitialized() const
+QVariant SnorePlugin::settingsValue(const QString &key, SettingsType type) const
 {
-    return m_initialized;
+    return SnoreCore::instance().settingsValue(normaliseKey(key), type);
 }
 
-QVariant SnorePlugin::value(const QString &key, SettingsType type) const
+void SnorePlugin::setSettingsValue(const QString &key, const QVariant &value, SettingsType type)
 {
-    return SnoreCore::instance().value(normaliseKey(key), type);
+    SnoreCore::instance().setSettingsValue(normaliseKey(key), value, type);
 }
 
-void SnorePlugin::setValue(const QString &key, const QVariant &value, SettingsType type)
+void SnorePlugin::setDefaultSettingsValue(const QString &key, const QVariant &value, SettingsType type)
 {
-    SnoreCore::instance().setValue(normaliseKey(key), value, type);
-}
-
-void SnorePlugin::setDefaultValue(const QString &key, const QVariant &value, SettingsType type)
-{
-    SnoreCore::instance().setDefaultValue(normaliseKey(key), value, type);
+    SnoreCore::instance().setDefaultSettingsValue(normaliseKey(key), value, type);
 }
 
 Snore::PluginSettingsWidget *SnorePlugin::settingsWidget()
@@ -85,7 +73,7 @@ Snore::PluginSettingsWidget *SnorePlugin::settingsWidget()
 
 QString SnorePlugin::normaliseKey(const QString &key) const
 {
-    return QString("%1/%2.%3").arg(name(), key, settingsVersion());
+    return name() + QLatin1Char('-') + typeName() + QLatin1Char('/') + key + QLatin1Char('.') + settingsVersion();
 }
 
 const QString &SnorePlugin::name() const
@@ -105,29 +93,60 @@ const QString SnorePlugin::typeName() const
     return SnorePlugin::typeToString(type());
 }
 
-QString SnorePlugin::settingsVersion() const
+bool SnorePlugin::isReady()
 {
-    return "v1";
+    return m_error.isEmpty();
 }
 
-bool SnorePlugin::deinitialize()
+QString SnorePlugin::errorString() const
 {
-    if (m_initialized) {
-        snoreDebug(SNORE_DEBUG) << "Deinitialize" << name() << this;
-        m_initialized = false;
-        return true;
+    return m_error;
+}
+
+QString SnorePlugin::settingsVersion() const
+{
+    return QLatin1String("v1");
+}
+
+void SnorePlugin::setDefaultSettings()
+{
+    setDefaultSettingsValue(QLatin1String("Enabled"), false, LOCAL_SETTING);
+}
+
+void SnorePlugin::setErrorString(const QString &_error)
+{
+    m_error = _error;
+    snoreDebug(SNORE_WARNING) << name() << "encountered an error:" << m_error;
+    disable();
+    emit error(_error);
+}
+
+void SnorePlugin::setEnabled(bool enabled)
+{
+    if (enabled != m_enabled) {
+        emit enabledChanged(enabled);
     }
-    return false;
+    m_enabled = enabled;
+}
+
+void SnorePlugin::enable()
+{
+    setEnabled(true);
+}
+
+void SnorePlugin::disable()
+{
+    setEnabled(false);
 }
 
 SnorePlugin::PluginTypes SnorePlugin::typeFromString(const QString &t)
 {
-    return (SnorePlugin::PluginTypes)SnorePlugin::staticMetaObject.enumerator(SnorePlugin::staticMetaObject.indexOfEnumerator("PluginType")).keyToValue(t.toUpper().toLatin1());
+    return (SnorePlugin::PluginTypes)SnorePlugin::staticMetaObject.enumerator(SnorePlugin::staticMetaObject.indexOfEnumerator("PluginType")).keyToValue(t.toUpper().toLatin1().constData());
 }
 
 QString SnorePlugin::typeToString(const SnorePlugin::PluginTypes t)
 {
-    return SnorePlugin::staticMetaObject.enumerator(SnorePlugin::staticMetaObject.indexOfEnumerator("PluginType")).valueToKey(t);
+    return QString::fromLatin1(SnorePlugin::staticMetaObject.enumerator(SnorePlugin::staticMetaObject.indexOfEnumerator("PluginType")).valueToKey(t));
 }
 
 QList<SnorePlugin::PluginTypes> SnorePlugin::types()

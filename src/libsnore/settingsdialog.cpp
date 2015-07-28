@@ -15,14 +15,13 @@
     You should have received a copy of the GNU Lesser General Public License
     along with SnoreNotify.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #include "settingsdialog.h"
 #include "ui_settingsdialog.h"
 #include "snore.h"
 #include "snore_p.h"
 
-#include <QAbstractButton>
 #include <QTabWidget>
-#include <QFormLayout>
 #include <QCheckBox>
 
 using namespace Snore;
@@ -42,7 +41,7 @@ SettingsDialog::~SettingsDialog()
 
 void SettingsDialog::initTabs()
 {
-    SnorePlugin::PluginTypes types = SnoreCore::instance().value("PluginTypes", LOCAL_SETTING).value<SnorePlugin::PluginTypes>();
+    SnorePlugin::PluginTypes types = SnoreCore::instance().settingsValue(QLatin1String("PluginTypes"), LOCAL_SETTING).value<SnorePlugin::PluginTypes>();
     if (types == SnorePlugin::NONE) {
         types = SnorePlugin::ALL;
     }
@@ -70,9 +69,19 @@ void SettingsDialog::initTabs()
     addWidgets(ui->tabWidget_secondary_backends, ui->tab_secondaryBackends, SnorePlugin::SECONDARY_BACKEND);
     addWidgets(ui->tabWidget_frontends, ui->tab_frontends,  SnorePlugin::FRONTEND);
     addWidgets(ui->tabWidget_plugins, ui->tab_plugins, SnorePlugin::PLUGIN);
+
+    ui->errorLabel->setVisible(false);
+    ui->errorLineEdit->setVisible(false);
+
+    connect(&SnoreCore::instance(), &SnoreCore::prmaryNotificationBackendChanged, this, &SettingsDialog::loadPrimaryBackendBox);
+    connect(&SnoreCore::instance(), &SnoreCore::prmaryNotificationBackendError, [this](const QString & error) {
+        ui->errorLabel->setVisible(true);
+        ui->errorLineEdit->setVisible(true);
+        ui->errorLineEdit->setText(error);
+    });
 }
 
-void Snore::SettingsDialog::on_pushButton_clicked()
+void SettingsDialog::on_pushButton_clicked()
 {
     SnoreCore::instance().displayExapleNotification();
 }
@@ -80,21 +89,26 @@ void Snore::SettingsDialog::on_pushButton_clicked()
 void SettingsDialog::load()
 {
     snoreDebug(SNORE_DEBUG) << "loading";
-    if (SnoreCore::instance().value("PluginTypes", LOCAL_SETTING).value<SnorePlugin::PluginTypes>() & SnorePlugin::BACKEND) {
+    loadPrimaryBackendBox(SnoreCore::instance().settingsValue(QLatin1String("PrimaryBackend"), LOCAL_SETTING).toString());
+    ui->timeoutSpinBox->setValue(SnoreCore::instance().settingsValue(QLatin1String("Timeout"), LOCAL_SETTING).toInt());
+    ui->disableNotificationSoundCheckBox->setChecked(SnoreCore::instance().settingsValue(QLatin1String("Silent"), LOCAL_SETTING).toBool());
+    for (auto widget : m_tabs) {
+        widget->loadSettings();
+    }
+}
+
+void SettingsDialog::loadPrimaryBackendBox(const QString &backend)
+{
+    if (SnoreCore::instance().settingsValue(QLatin1String("PluginTypes"), LOCAL_SETTING).value<SnorePlugin::PluginTypes>() & SnorePlugin::BACKEND) {
         ui->primaryBackendComboBox->clear();
         QStringList list = SnoreCore::instance().pluginNames(SnorePlugin::BACKEND);
         ui->primaryBackendComboBox->addItems(list);
-        ui->primaryBackendComboBox->setCurrentIndex(list.indexOf(SnoreCore::instance().value("PrimaryBackend", LOCAL_SETTING).toString()));
+        ui->primaryBackendComboBox->setCurrentIndex(list.indexOf(backend));
         ui->primaryBackendComboBox->setVisible(true);
         ui->primaryBackendLabel->setVisible(true);
     } else {
         ui->primaryBackendComboBox->setVisible(false);
         ui->primaryBackendLabel->setVisible(false);
-    }
-    ui->timeoutSpinBox->setValue(SnoreCore::instance().value("Timeout", LOCAL_SETTING).toInt());
-    ui->disableNotificationSoundCheckBox->setChecked(SnoreCore::instance().value("Silent", LOCAL_SETTING).toBool());
-    for (auto widget : m_tabs) {
-        widget->loadSettings();
     }
 }
 
@@ -106,13 +120,13 @@ void SettingsDialog::save()
         w->saveSettings();
         dirty |= w->isDirty();
     }
-    dirty |= SnoreCore::instance().value("PrimaryBackend", LOCAL_SETTING).toString() != ui->primaryBackendComboBox->currentText();
-    dirty |= SnoreCore::instance().value("Timeout", LOCAL_SETTING).toInt() != ui->timeoutSpinBox->value();
-    dirty |= SnoreCore::instance().value("Silent", LOCAL_SETTING).toBool() != ui->disableNotificationSoundCheckBox->isChecked();
+    dirty |= SnoreCore::instance().settingsValue(QLatin1String("PrimaryBackend"), LOCAL_SETTING).toString() != ui->primaryBackendComboBox->currentText();
+    dirty |= SnoreCore::instance().settingsValue(QLatin1String("Timeout"), LOCAL_SETTING).toInt() != ui->timeoutSpinBox->value();
+    dirty |= SnoreCore::instance().settingsValue(QLatin1String("Silent"), LOCAL_SETTING).toBool() != ui->disableNotificationSoundCheckBox->isChecked();
 
-    SnoreCore::instance().setValue("PrimaryBackend", ui->primaryBackendComboBox->currentText(), LOCAL_SETTING);
-    SnoreCore::instance().setValue("Timeout", ui->timeoutSpinBox->value(), LOCAL_SETTING);
-    SnoreCore::instance().setValue("Silent", ui->disableNotificationSoundCheckBox->isChecked(), LOCAL_SETTING);
+    SnoreCore::instance().setSettingsValue(QLatin1String("PrimaryBackend"), ui->primaryBackendComboBox->currentText(), LOCAL_SETTING);
+    SnoreCore::instance().setSettingsValue(QLatin1String("Timeout"), ui->timeoutSpinBox->value(), LOCAL_SETTING);
+    SnoreCore::instance().setSettingsValue(QLatin1String("Silent"), ui->disableNotificationSoundCheckBox->isChecked(), LOCAL_SETTING);
 
     if (dirty) {
         SnoreCorePrivate::instance()->syncSettings();
@@ -123,8 +137,6 @@ void SettingsDialog::setVisible(bool b)
 {
     if (b) {
         load();
-    } else {
-        save();
     }
     QWidget::setVisible(b);
 }

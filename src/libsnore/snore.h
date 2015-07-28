@@ -27,7 +27,6 @@
 #include "plugins/plugins.h"
 #include "hint.h"
 
-#include <QSettings>
 #include <QStringList>
 
 /**
@@ -62,7 +61,6 @@ public:
      * Creates a Notification Manager SnoreCore
      */
     static SnoreCore &instance();
-    static SnoreCore &instance(QApplication * app);
     ~SnoreCore();
 
     /**
@@ -160,13 +158,13 @@ public:
      */
     QList<PluginSettingsWidget *> settingWidgets(SnorePlugin::PluginTypes type);
 
-    QVariant value(const QString &key, SettingsType type = GLOBAL_SETTING) const;
-    void setValue(const QString &key, const QVariant &value, SettingsType type = GLOBAL_SETTING);
-    void setDefaultValue(const QString &key, const QVariant &value, SettingsType type = GLOBAL_SETTING);
+    QVariant settingsValue(const QString &key, SettingsType type = GLOBAL_SETTING) const;
+    void setSettingsValue(const QString &key, const QVariant &settingsValue, SettingsType type = GLOBAL_SETTING);
+    void setDefaultSettingsValue(const QString &key, const QVariant &settingsValue, SettingsType type = GLOBAL_SETTING);
 
-    
     Notification getActiveNotificationByID(uint id) const;
-signals:
+
+Q_SIGNALS:
     
     /**
      *
@@ -186,6 +184,16 @@ signals:
      * @see Notification::CloseReasons
      */
     void notificationClosed(Snore::Notification);
+
+    /**
+     * This signal is emited in case the Primary backend encountered an error.
+     */
+    void prmaryNotificationBackendError(const QString &error);
+
+    /**
+     * This signal is emited in case the Primary backend changed.
+     */
+    void prmaryNotificationBackendChanged(const QString &erro);
 
 private:
     SnoreCore(QObject *parent);

@@ -33,10 +33,8 @@ class SNORE_EXPORT SnoreBackend : public SnorePlugin
     Q_OBJECT
     Q_INTERFACES(Snore::SnorePlugin)
 public:
-    SnoreBackend() = default;
+    SnoreBackend();
     virtual ~SnoreBackend();
-    virtual bool initialize() override;
-    virtual bool deinitialize() override;
 
     void requestCloseNotification(Snore::Notification notification, Notification::CloseReasons reason);
 
@@ -48,17 +46,17 @@ public:
     virtual void removeScheduledNotification(Notification notification);
     virtual void scheduleNotification(Notification notification);
 
-signals:
+Q_SIGNALS:
     void scheduledNotificationsChanged(QList<Notification> notifications);
     void notificationClosed(Snore::Notification);
 
-public slots:
+public Q_SLOTS:
     virtual void slotRegisterApplication(const Snore::Application &application);
     virtual void slotDeregisterApplication(const Snore::Application &application);
     virtual void slotNotify(Snore::Notification notification) = 0;
     virtual void slotCloseNotification(Snore::Notification notification);
 
-protected slots:
+protected Q_SLOTS:
     void slotNotificationDisplayed(Notification notification);
     void slotNotificationActionInvoked(Notification notification, const Action &action = Action());
 
@@ -66,38 +64,13 @@ protected:
     void closeNotification(Snore::Notification, Snore::Notification::CloseReasons);
 
 private:
-    QMap<int,Notification> m_scheduled_notifications;
-    QMap<int,QTimer *> m_timer_for_notification_id;
+    QMap<int,Notification> m_scheduledNotifications;
+    QMap<int,QTimer *> m_timerForNotificationId;
 
 };
 
 }
 Q_DECLARE_INTERFACE(Snore::SnoreBackend,
                     "org.Snore.NotificationBackend/1.0")
-
-namespace Snore
-{
-class SnoreCore;
-
-class SNORE_EXPORT SnoreSecondaryBackend : public SnorePlugin
-{
-    Q_OBJECT
-    Q_INTERFACES(Snore::SnorePlugin Snore::SnorePlugin)
-public:
-    SnoreSecondaryBackend() = default;
-    virtual ~SnoreSecondaryBackend();
-    virtual bool initialize();
-    virtual bool deinitialize();
-
-public slots:
-    virtual void slotNotify(Snore::Notification notification);
-    virtual void slotNotificationDisplayed(Snore::Notification notification);
-
-};
-
-}
-
-Q_DECLARE_INTERFACE(Snore::SnoreSecondaryBackend,
-                    "org.Snore.SecondaryNotificationBackend/1.0")
 
 #endif//SNORE_BACKEND_H

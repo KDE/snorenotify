@@ -42,7 +42,6 @@ class SnorePlugin;
 
 class SNORE_EXPORT Notification
 {
-    friend class NotificationData;
 public:
     /**
      * The reason why the Notification was closed.
@@ -89,6 +88,11 @@ public:
      */
     enum Prioritys {
         /**
+         * Indicates the lowes priority. The backend might ignore the notification.
+         */
+        LOWEST = -2,
+
+        /**
          * Indicates a low priority.
          */
         LOW = -1,
@@ -101,7 +105,12 @@ public:
         /**
          * Indicates a priority above the normal level.
          */
-        HIGH = +1
+        HIGH = +1,
+
+        /**
+         * Indicates a emegency priority, the notifications is sticky and should be acknowlegded.
+         */
+        EMERGENCY = +2
     };
 
     Notification();
@@ -152,7 +161,7 @@ public:
      * A timeout of 0 means the notification isSticky and will stay visible until dismissed by the user, if supported by the backend.
      * @see isSticky
      */
-    const int &timeout() const;
+    int timeout() const;
 
     /**
      *
@@ -164,7 +173,7 @@ public:
      *
      * @return the associated application
      */
-    const Application &application() const;
+    Application &application() const;
 
     /**
      * Returns the title of the notification.
@@ -223,11 +232,9 @@ public:
     const Notification::CloseReasons &closeReason();
 
     /**
-     * Returns notification specific hints:
-     * Key              |   Type        | Value         |   Used In
-     * -------------    |   ----------- |   ----------- |   -----------
-     * silent           |   bool        | Don't play notification sounds. |  Multiple backends.
-     * sound            |   QString     | Local uri to a sound file.      | Secondary Backend Sound.
+     * Returns notification specific hints.
+     * A notification inherits the hints of its application.
+     * @see Application::hints()
      */
     Hint &hints();
 
@@ -248,7 +255,7 @@ public:
      * @return the old notification to be replaced
      * @see isUpdate
      */
-    Notification old() const;
+    Notification &old() const;
 
     /**
      *
@@ -282,6 +289,7 @@ public:
 private:
     QExplicitlySharedDataPointer<NotificationData> d;
 
+    friend class NotificationData;
 };
 
 }

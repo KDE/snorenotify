@@ -15,17 +15,16 @@ class TrayIconNotifer: public Snore::SnoreBackend
     Q_INTERFACES(Snore::SnoreBackend)
     Q_PLUGIN_METADATA(IID "org.Snore.NotificationBackend/1.0" FILE "plugin.json")
 public:
-    TrayIconNotifer() = default;
+    TrayIconNotifer();
     ~TrayIconNotifer() = default;
-    virtual bool deinitialize() override;
 
     virtual bool canCloseNotification() const override;
 
-public slots:
-    void slotNotify(Snore::Notification notification);
-    void slotCloseNotification(Snore::Notification notification);
-    void slotRegisterApplication(const Snore::Application &application);
-    void slotDeregisterApplication(const Snore::Application &application);
+public Q_SLOTS:
+    void slotNotify(Snore::Notification notification) override;
+    void slotCloseNotification(Snore::Notification notification) override;
+    void slotRegisterApplication(const Snore::Application &application) override;
+    void slotDeregisterApplication(const Snore::Application &application) override;
 
 private:
     QSystemTrayIcon *trayIcon(const Snore::Application &app);
@@ -33,7 +32,7 @@ private:
     Snore::Notification m_displayed;
     bool m_currentlyDisplaying = false;
 
-private slots:
+private Q_SLOTS:
     void displayNotification(QSystemTrayIcon *icon);
     void actionInvoked();
 

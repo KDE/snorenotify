@@ -2,6 +2,35 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_CH">
 <context>
+    <name>Default Alert</name>
+    <message>
+        <location filename="../src/libsnore/application_p.cpp" line="30"/>
+        <source>Default</source>
+        <translation>Standart</translation>
+    </message>
+</context>
+<context>
+    <name>FreedesktopFrontend</name>
+    <message>
+        <location filename="../src/plugins/frontends/freedesktop/freedesktopnotificationfrontend.cpp" line="40"/>
+        <source>Failed to register dbus object.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/frontends/freedesktop/freedesktopnotificationfrontend.cpp" line="43"/>
+        <source>Failed to register dbus service.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>GrowlBackend</name>
+    <message>
+        <location filename="../src/plugins/backends/growl/growlbackend.cpp" line="70"/>
+        <source> is not running.</source>
+        <translation> ist nicht gestartet.</translation>
+    </message>
+</context>
+<context>
     <name>GrowlSettings</name>
     <message>
         <location filename="../src/plugins/backends/growl/growlsettings.cpp" line="30"/>
@@ -39,6 +68,51 @@
         <source>Devices:</source>
         <translation>Geräte:</translation>
     </message>
+    <message>
+        <location filename="../src/plugins/frontends/pushover/pushoversettings.cpp" line="36"/>
+        <source>Email Address:</source>
+        <translation>Email Adresse:</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/frontends/pushover/pushoversettings.cpp" line="37"/>
+        <source>Password:</source>
+        <translation>Passwort:</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/frontends/pushover/pushoversettings.cpp" line="38"/>
+        <source>Device Name:</source>
+        <translation>Geräte Name:</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/frontends/pushover/pushoversettings.cpp" line="40"/>
+        <source>Status</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/frontends/pushover/pushoversettings.cpp" line="42"/>
+        <source>If you don&apos;t have an accout yet please register at &lt;a href=&quot;https://pushover.net&quot;&gt;Pushover.net&lt;/a&gt;</source>
+        <translation>Wenn Sie noch keinen account haben, registireren Sie sich bitte auf &lt;a href=&quot;https://pushover.net&quot;&gt;Pushover.net&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/frontends/pushover/pushoversettings.cpp" line="88"/>
+        <source>Log out</source>
+        <translation>Abmelden</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/frontends/pushover/pushoversettings.cpp" line="89"/>
+        <source>Logged in.</source>
+        <translation>Angemeldet.</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/frontends/pushover/pushoversettings.cpp" line="95"/>
+        <source>Log in</source>
+        <translation>Anmelden</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/frontends/pushover/pushoversettings.cpp" line="97"/>
+        <source>Logged out.</source>
+        <translation>Angemeldet.</translation>
+    </message>
 </context>
 <context>
     <name>SettingsDialog</name>
@@ -73,27 +147,32 @@
         <translation>Mitteilungs Klang Deaktivieren:</translation>
     </message>
     <message>
-        <location filename="../src/libsnore/settingsdialog.ui" line="82"/>
+        <location filename="../src/libsnore/settingsdialog.ui" line="79"/>
+        <source>Error:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/libsnore/settingsdialog.ui" line="96"/>
         <source>Primary Backends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/libsnore/settingsdialog.ui" line="92"/>
+        <location filename="../src/libsnore/settingsdialog.ui" line="106"/>
         <source>Secondary Bckends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/libsnore/settingsdialog.ui" line="102"/>
+        <location filename="../src/libsnore/settingsdialog.ui" line="116"/>
         <source>Frontends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/libsnore/settingsdialog.ui" line="112"/>
+        <location filename="../src/libsnore/settingsdialog.ui" line="126"/>
         <source>Plugins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/libsnore/settingsdialog.ui" line="125"/>
+        <location filename="../src/libsnore/settingsdialog.ui" line="139"/>
         <source>Display Test Notification</source>
         <translation>Zeige eine Testmitteilung an</translation>
     </message>
@@ -112,6 +191,22 @@
     </message>
 </context>
 <context>
+    <name>SnarlBackend</name>
+    <message>
+        <location filename="../src/plugins/backends/snarl/snarl.cpp" line="150"/>
+        <source> is not running.</source>
+        <translation> ist nicht gestartet.</translation>
+    </message>
+</context>
+<context>
+    <name>SnarlNetworkFrontend</name>
+    <message>
+        <location filename="../src/plugins/frontends/snarlnetwork/snarlnetwork.cpp" line="37"/>
+        <source>The port is already used by a different application.</source>
+        <translation>Der port wird bereits von einer anderen Anwendung verwendet.</translation>
+    </message>
+</context>
+<context>
     <name>SnarlSettings</name>
     <message>
         <location filename="../src/plugins/backends/snarl/snarlsettings.cpp" line="29"/>
@@ -122,7 +217,7 @@
 <context>
     <name>Snore::PluginSettingsWidget</name>
     <message>
-        <location filename="../src/libsnore/plugins/pluginsettingswidget.cpp" line="36"/>
+        <location filename="../src/libsnore/plugins/pluginsettingswidget.cpp" line="35"/>
         <source>Enabled:</source>
         <translation>Aktiv:</translation>
     </message>
@@ -130,24 +225,24 @@
 <context>
     <name>Snore::SnoreCore</name>
     <message>
-        <location filename="../src/libsnore/snore.cpp" line="239"/>
-        <source>This is Snore</source>
-        <translation>Dies ist Snore</translation>
+        <location filename="../src/libsnore/snore.cpp" line="247"/>
+        <source>This is </source>
+        <translation>Dies ist </translation>
     </message>
     <message>
-        <location filename="../src/libsnore/snore.cpp" line="239"/>
-        <source>Project Website</source>
-        <translation>Projekt Webseite</translation>
+        <location filename="../src/libsnore/snore.cpp" line="248"/>
+        <source>Everything is awesome!</source>
+        <translation>Alles ist super!</translation>
     </message>
     <message>
-        <location filename="../src/libsnore/snore.cpp" line="243"/>
-        <source>Hello World</source>
-        <translation>Hallo Welt</translation>
+        <location filename="../src/libsnore/snore.cpp" line="252"/>
+        <source>Hello There!</source>
+        <translation>Hallo da!</translation>
     </message>
     <message>
-        <location filename="../src/libsnore/snore.cpp" line="244"/>
-        <source>Test Action</source>
-        <translation>Test Aktion</translation>
+        <location filename="../src/libsnore/snore.cpp" line="253"/>
+        <source>Awesome Action!</source>
+        <translation>Super Aktion!</translation>
     </message>
 </context>
 <context>
@@ -179,6 +274,14 @@
     </message>
 </context>
 <context>
+    <name>SnoreToast</name>
+    <message>
+        <location filename="../src/plugins/backends/snoretoast/snoretoast.cpp" line="20"/>
+        <source> needs at least Windows 8 to run.</source>
+        <translation> benötigt mindestens Windows 8 um ausgeführt zu werden.</translation>
+    </message>
+</context>
+<context>
     <name>SoundSettings</name>
     <message>
         <location filename="../src/plugins/secondary_backends/sound/soundsettings.cpp" line="34"/>
@@ -207,6 +310,24 @@
         <location filename="../src/plugins/secondary_backends/toasty/toastysettings.cpp" line="28"/>
         <source>Device ID:</source>
         <translation>Geräte ID:</translation>
+    </message>
+</context>
+<context>
+    <name>TrayIcon</name>
+    <message>
+        <location filename="../src/daemon/trayicon.cpp" line="77"/>
+        <source>Display Test Notification</source>
+        <translation>Zeige eine Testmitteilung an</translation>
+    </message>
+    <message>
+        <location filename="../src/daemon/trayicon.cpp" line="79"/>
+        <source>Settings</source>
+        <translation>Einstellungen</translation>
+    </message>
+    <message>
+        <location filename="../src/daemon/trayicon.cpp" line="81"/>
+        <source>Exit</source>
+        <translation>Beenden</translation>
     </message>
 </context>
 </TS>

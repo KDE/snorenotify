@@ -18,7 +18,7 @@
 #ifndef SOUND_H
 #define SOUND_H
 
-#include "libsnore/plugins/snorebackend.h"
+#include "libsnore/plugins/snoresecondarybackend.h"
 
 class QMediaPlayer;
 
@@ -31,12 +31,14 @@ public:
     Sound();
     ~Sound() = default;
 
-    virtual bool initialize() override;
-
     Snore::PluginSettingsWidget *settingsWidget() override;
 
-public slots:
+protected:
+    void setDefaultSettings() override;
+
+public Q_SLOTS:
     void slotNotificationDisplayed(Snore::Notification notification) override;
+
 private:
     QMediaPlayer *m_player;
 };

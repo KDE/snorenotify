@@ -20,10 +20,10 @@
 
 using namespace Snore;
 
-AlertData::AlertData(const QString &name, const Icon &icon, bool active):
+AlertData::AlertData(const QString &key, const QString &name, const Icon &icon):
+    m_key(key),
     m_name(name),
-    m_icon(icon),
-    m_active(active)
+    m_icon(icon)
 {
 }
 

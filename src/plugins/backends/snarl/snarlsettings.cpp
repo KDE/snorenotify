@@ -36,11 +36,11 @@ SnarlSettings::~SnarlSettings()
 
 void SnarlSettings::load()
 {
-    m_password->setText(value("Password").toString());
+    m_password->setText(settingsValue(QLatin1String("Password")).toString());
 }
 
 void SnarlSettings::save()
 {
-    setValue("Password", m_password->text());
+    setSettingsValue(QLatin1String("Password"), m_password->text());
 }
 

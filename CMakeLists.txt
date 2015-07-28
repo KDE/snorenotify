@@ -11,20 +11,18 @@ set_package_properties(ECM      PROPERTIES
 
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules )
 include(KDEInstallDirs)
-include(KDECompilerSettings)
 include(KDECMakeSettings)
+include(KDEFrameworkCompilerSettings)
 
 include(GenerateExportHeader)
 
 include(ECMAddAppIcon)
+include(ECMGeneratePriFile)
 include(ECMInstallIcons)
 include(ECMPackageConfigHelpers)
+include(ECMOptionalAddSubdirectory)
 include(ECMSetupVersion)
 
-#######################################################################
-option(WITH_FRONTENDS  "Build frontends currently only useful if WITH_SNORE_DAEMON=ON" OFF)
-option(WITH_SNORE_DAEMON "Build the Snore daemon, which redirects notifications" OFF)
-#######################################################################
 
 set(SNORE_VERSION_MAJOR 0)
 set(SNORE_VERSION_MINOR 5)
@@ -71,7 +69,6 @@ add_subdirectory(data)
 add_subdirectory(lang)
 add_subdirectory(src)
 add_subdirectory(autotest)
-add_subdirectory(share)
 
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES)

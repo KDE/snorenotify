@@ -68,8 +68,8 @@ private:
     static inline const QStringList pluginFileFilters()
     {
         QStringList out;
-        foreach(const QString extention,  pluginExtentions()) {
-            out << QString("libsnore_*.%1").arg(extention);
+        for (const QString &extention : pluginExtentions()) {
+            out << QLatin1String("libsnore_*.") + extention;
         }
         return out;
     }
@@ -77,8 +77,8 @@ private:
     static inline const QStringList pluginFileFilters(Snore::SnorePlugin::PluginTypes type)
     {
         QStringList out;
-        foreach(const QString extention,  pluginExtentions()) {
-            out << QString("libsnore_%1_*.%2").arg(SnorePlugin::typeToString(type).toLower(), extention);
+        for (const QString &extention : pluginExtentions()) {
+            out << QLatin1String("libsnore_") + SnorePlugin::typeToString(type).toLower() + QLatin1String("_*.") + extention;
         }
         return out;
     }
@@ -87,6 +87,7 @@ private:
     QString m_pluginName;
     SnorePlugin::PluginTypes m_pluginType;
     QPluginLoader m_loader;
+    SnorePlugin *m_plugin = nullptr;
 };
 }
 

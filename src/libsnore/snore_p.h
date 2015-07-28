@@ -25,7 +25,8 @@
 #include "utils.h"
 
 #include <QPointer>
-#include <QApplication>
+
+class QSettings;
 
 namespace Snore
 {
@@ -54,11 +55,7 @@ public:
      */
     bool primaryBackendCanUpdateNotification() const;
 
-    bool initPrimaryNotificationBackend();
-
-    void syncSettings();
-
-    QString normalizeKey(const QString &key, SettingsType type) const
+    QString normalizeSettingsKey(const QString &key, SettingsType type) const
     {
         return Snore::Utils::normalizeSettingsKey(key, type, m_localSettingsPrefix);
     }
@@ -70,24 +67,30 @@ public:
     /**
      * Set a default value wich can be overritten by a client application call to SnoreCore::setDefaultValue()
      */
-    void setDefaultValueIntern(const QString &key, const QVariant &value);
+    void setDefaultSettingsValueIntern(const QString &key, const QVariant &value);
 
-private slots:
+    void startNotificationTimeoutTimer(Notification notification);
+
+    void syncSettings();
+
+    QSettings &settings();
+
+private Q_SLOTS:
     //TODO: find a better solutinon for the slots in this section
     friend class Snore::SnoreBackend;
     void slotNotificationActionInvoked(Notification notification);
     void slotNotificationDisplayed(Notification notification);
+    void slotNotificationClosed(Snore::Notification);
+    void slotAboutToQuit();
 
-signals:
+    bool slotInitPrimaryNotificationBackend();
+
+Q_SIGNALS:
     void applicationRegistered(const Snore::Application &);
     void applicationDeregistered(const Snore::Application &);
     void notify(Snore::Notification noti);
     void scheduleNotification(Snore::Notification notification);
     void notificationDisplayed(Snore::Notification notification);
-
-private slots:
-    void slotNotificationClosed(Snore::Notification);
-    void slotAboutToQuit();
 
 private:
     SnoreCorePrivate();
@@ -96,7 +99,7 @@ private:
     QHash<QString, Application> m_applications;
 
     QHash<SnorePlugin::PluginTypes, QStringList> m_pluginNames;
-    QHash<QString, SnorePlugin *> m_plugins;
+    QHash<QPair<SnorePlugin::PluginTypes, QString>, SnorePlugin *> m_plugins;
 
     QPointer<SnoreBackend> m_notificationBackend;
 

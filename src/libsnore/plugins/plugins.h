@@ -52,28 +52,79 @@ public:
 
     SnorePlugin();
     virtual ~SnorePlugin();
-    virtual bool initialize();
-    virtual bool deinitialize();
-    bool isInitialized() const;
 
+    /**
+     * Sets the enabled state of the plugin to @param enabled .
+     */
+    void setEnabled(bool enabled);
+
+    /**
+     * Enables the plugin.
+     */
+    void enable();
+
+    /**
+     * Disables the plugin.
+     */
+    void disable();
+
+    /**
+     * Returns whether the Plugin is enabled.
+     */
+    bool isEnabled() const;
+
+    /**
+     * Returns the name of the plugin.
+     */
     const QString &name() const;
+
+    /**
+     * Returns the plugin type.
+     */
     PluginTypes type() const;
+
+    /**
+     * Returns the name of the plugin type.
+     */
     const QString typeName() const;
 
-    QVariant value(const QString &key, SettingsType type = GLOBAL_SETTING) const;
-    void setValue(const QString &key, const QVariant &value, SettingsType type = GLOBAL_SETTING);
-    void setDefaultValue(const QString &key, const QVariant &value, SettingsType type = GLOBAL_SETTING);
+    virtual bool isReady();
+
+    /**
+     * Returns the error string or an empty string.
+     */
+    QString errorString() const;
+
+    QVariant settingsValue(const QString &key, SettingsType type = GLOBAL_SETTING) const;
+    void setSettingsValue(const QString &key, const QVariant &settingsValue, SettingsType type = GLOBAL_SETTING);
+    void setDefaultSettingsValue(const QString &key, const QVariant &settingsValue, SettingsType type = GLOBAL_SETTING);
 
     virtual PluginSettingsWidget *settingsWidget();
 
+Q_SIGNALS:
+    void enabledChanged(bool enabled);
+    void error(const QString &error);
+
 protected:
+    /**
+     * Returns the version suffix used for the plugin settings.
+     */
     virtual QString settingsVersion() const;
+
+    /**
+     * Set default setting values for the Plugin.
+     */
+    virtual void setDefaultSettings();
+
+    void setErrorString(const QString &error);
 
 private:
     QString normaliseKey(const QString &key) const;
+    void setDefaultSettingsPlugin();
 
-    bool m_initialized = false;
+    bool m_enabled = false;
     PluginContainer *m_container = nullptr;
+    QString m_error;
 
     friend class PluginContainer;
 

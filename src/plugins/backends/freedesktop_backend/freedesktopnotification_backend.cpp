@@ -10,33 +10,25 @@
 
 using namespace Snore;
 
-bool FreedesktopBackend::initialize()
+FreedesktopBackend::FreedesktopBackend()
 {
-
-    m_interface = new org::freedesktop::Notifications("org.freedesktop.Notifications", "/org/freedesktop/Notifications",
+    m_interface = new org::freedesktop::Notifications(QLatin1String("org.freedesktop.Notifications"),
+            QLatin1String("/org/freedesktop/Notifications"),
             QDBusConnection::sessionBus(), this);
-
     QDBusPendingReply<QStringList> reply = m_interface->GetCapabilities();
     reply.waitForFinished();
     QStringList caps  = reply.value();
-    m_supportsRichtext = caps.contains("body-markup");
-    connect(m_interface, SIGNAL(ActionInvoked(uint,QString)), this, SLOT(slotActionInvoked(uint,QString)));
-    connect(m_interface, SIGNAL(NotificationClosed(uint,uint)), this , SLOT(slotNotificationClosed(uint,uint)));
+    m_supportsRichtext = caps.contains(QLatin1String("body-markup"));
+    connect(this, &FreedesktopBackend::enabledChanged, [this](bool enabled) {
+        if (enabled) {
+            connect(m_interface, &org::freedesktop::Notifications::ActionInvoked, this, &FreedesktopBackend::slotActionInvoked);
+            connect(m_interface, &org::freedesktop::Notifications::NotificationClosed, this , &FreedesktopBackend::slotNotificationClosed);
+        } else {
+            disconnect(m_interface, &org::freedesktop::Notifications::ActionInvoked, this, &FreedesktopBackend::slotActionInvoked);
+            disconnect(m_interface, &org::freedesktop::Notifications::NotificationClosed, this , &FreedesktopBackend::slotNotificationClosed);
 
-    return SnoreBackend::initialize();
-}
-
-bool FreedesktopBackend::deinitialize()
-{
-    if (SnoreBackend::deinitialize()) {
-        disconnect(m_interface, SIGNAL(ActionInvoked(uint,QString)), this, SLOT(slotActionInvoked(uint,QString)));
-        disconnect(m_interface, SIGNAL(NotificationClosed(uint,uint)), this , SLOT(slotNotificationClosed(uint,uint)));
-        m_interface->deleteLater();
-        m_interface = nullptr;
-        m_dbusIdMap.clear();
-        return true;
-    }
-    return false;
+        }
+    });
 }
 
 bool FreedesktopBackend::canCloseNotification() const
@@ -51,22 +43,30 @@ bool FreedesktopBackend::canUpdateNotification() const
 
 void  FreedesktopBackend::slotNotify(Notification noti)
 {
+    if (noti.data()->sourceAndTargetAreSimilar(this)) {
+        return;
+    }
+
     QStringList actions;
-    foreach(int k, noti.actions().keys()) {
+    foreach (int k, noti.actions().keys()) {
         actions << QString::number(k) << noti.actions()[k].name();
     }
     QVariantMap hints;
     if (noti.icon().isValid()) {
         FreedesktopImageHint image(noti.icon().image());
-        hints["image_data"] = QVariant::fromValue(image);
+        hints.insert(QLatin1String("image_data"), QVariant::fromValue(image));
     }
 
-    if (noti.priority() != Notification::NORMAL) {
-        hints["urgency"] = (char)noti.priority() + 1;
+    char urgency = '1';
+    if (noti.priority() < 0) {
+        urgency = '0';
+    } else if (noti.priority() > 2) {
+        urgency = '2';
     }
+    hints.insert(QLatin1String("urgency"), urgency);
 
     if (noti.application().constHints().contains("desktop-entry")) {
-        hints["desktop-entry"] = noti.application().constHints().value("desktop-entry");
+        hints.insert(QLatin1String("desktop-entry"), noti.application().constHints().value("desktop-entry"));
     }
 
     uint updateId = 0;
@@ -75,9 +75,10 @@ void  FreedesktopBackend::slotNotify(Notification noti)
         m_dbusIdMap.take(updateId);
     }
 
-    QString title = QString("%1 - %2").arg(noti.application().name(), noti.title(m_supportsRichtext ? Utils::ALL_MARKUP : Utils::NO_MARKUP));
+    QString title = noti.application().name() + QLatin1String(" - ") + noti.title(m_supportsRichtext ? Utils::ALL_MARKUP : Utils::NO_MARKUP);
     QString body(noti.text(m_supportsRichtext ? Utils::ALL_MARKUP : Utils::NO_MARKUP));
-    QDBusPendingReply<uint>  id = m_interface->Notify(noti.application().name(), updateId, "", title,
+    //TODO: add app icon hint?
+    QDBusPendingReply<uint>  id = m_interface->Notify(noti.application().name(), updateId, QString(), title,
                                   body, actions, hints, noti.isSticky() ? -1 : noti.timeout() * 1000);
 
     id.waitForFinished();

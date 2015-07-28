@@ -21,9 +21,8 @@
 #include "snore_exports.h"
 #include "snoreglobals.h"
 
-#include <QApplication>
 #include <QCryptographicHash>
-#include <QSettings>
+#include <QObject>
 
 namespace Snore
 {
@@ -31,18 +30,59 @@ class SNORE_EXPORT  Utils : public QObject
 {
     Q_OBJECT
 public:
-    enum MARKUP_FLAG{
+    /**
+     * The MARKUP_FLAG enum.
+     * If a falg is not present the markup key will be removed.
+     * If any flag is present, special characters mus be html escaped.
+     */
+    enum MARKUP_FLAG {
+        /**
+         * No markup is supported.
+         * All markup will be removed.
+         */
         NO_MARKUP   = 0,
+
+        /**
+         * Urls are supprotet.
+         * &lt;a href="www.foo.bar"&gt;Foo Bar&lt;/a&gt;
+         */
         HREF        = 1 << 0,
+
+        /**
+         * Line breeaks &lt;br&gt; are supprotet.
+         * If the flag is not present &lt;br&gt; will be replaced by \\n
+         */
         BREAK       = 1 << 1,
+
+        /**
+         * Bold &lt;b&gt; is supportet.
+         */
         BOLD        = 1 << 2,
+
+        /**
+         * Italic &lt;i&gt; is supportet.
+         */
         ITALIC      = 1 << 3,
+
+        /**
+         * Underline &lt;u&gt; is supportet.
+         */
         UNDERLINE   = 1 << 4,
+
+        /**
+         * Fonst are supportet.
+         * &lt;font color="blue"&gt; word &lt;/font&gt;
+         */
         FONT        = 1 << 5,
+
+        /**
+         * All markup is supported.
+         * No markup will be removed.
+         */
         ALL_MARKUP  = ~0
     };
 
-    Q_DECLARE_FLAGS(MARKUP_FLAGS,MARKUP_FLAG)
+    Q_DECLARE_FLAGS(MARKUP_FLAGS, MARKUP_FLAG)
 
     Utils(QObject *parent = nullptr);
     ~Utils();
@@ -61,49 +101,39 @@ public:
     Q_INVOKABLE static void raiseWindowToFront(qlonglong wid);
 
     /**
-     *
-     * @param string A string to encode if needed.
-     * @return if the string was rhichtext html encode string is returnd otherwise the original string.
+     * Removes unsupported markup tags from a string.
      */
-    static QString normaliseMarkup(QString string, MARKUP_FLAGS tags);
+    static QString normalizeMarkup(QString string, MARKUP_FLAGS tags);
 
     /**
      * Computes a md5 hash of the provided data.
      */
     static inline QString computeMD5Hash(const QByteArray &data)
     {
-        return QCryptographicHash::hash(data, QCryptographicHash::Md5).toHex();
+        return QString::fromUtf8(QCryptographicHash::hash(data, QCryptographicHash::Md5).toHex());
     }
 
+    /**
+     * Version number prefix for the settings.
+     */
     static inline QString settingsVersionSchema()
     {
-        return "v1";
+        return QLatin1String("v1");
     }
 
+    /**
+     * Returns the SettingsKey formated with type and version.
+     * @param key The key.
+     * @param type The Type.
+     * @param application The application's name.
+     */
     static inline QString normalizeSettingsKey(const QString &key, SettingsType type, const QString &application)
     {
         if (type == LOCAL_SETTING) {
-            return QString("%1/LocalSettings/%2/%3").arg(settingsVersionSchema(), application, key);
+            return settingsVersionSchema() + QLatin1String("/LocalSettings/") + application + QLatin1Char('/') + key;
         } else {
-            return QString("%1/GlobalSettings/%2").arg(settingsVersionSchema(), key);
+            return settingsVersionSchema() + QLatin1String("/GlobalSettings/") +  key;
         }
-    }
-
-    template<typename Func>
-    static QStringList allSettingsKeysWithPrefix(const QString &prefix, QSettings &settings, Func fun)
-    {
-        QStringList groups = prefix.split("/");
-        QStringList out;
-
-        for (const QString group : groups) {
-            settings.beginGroup(group);
-        }
-        out = fun(settings);
-
-        for (int i = 0; i < groups.size(); ++i) {
-            settings.endGroup();
-        }
-        return out;
     }
 
 private:

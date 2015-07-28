@@ -31,15 +31,12 @@ class SNORE_EXPORT SnoreFrontend: public SnorePlugin
     Q_OBJECT
     Q_INTERFACES(Snore::SnorePlugin)
 public:
-    SnoreFrontend() = default;
+    SnoreFrontend();
     virtual ~SnoreFrontend();
 
-    virtual bool initialize() override;
-    virtual bool deinitialize() override;
-
-public slots:
-    virtual void slotActionInvoked(Snore::Notification notification) = 0;
-    virtual void slotNotificationClosed(Snore::Notification notification) = 0;
+public Q_SLOTS:
+    virtual void slotActionInvoked(Snore::Notification notification);
+    virtual void slotNotificationClosed(Snore::Notification notification);
 };
 
 }

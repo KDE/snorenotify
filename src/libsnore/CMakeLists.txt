@@ -10,7 +10,7 @@ set(LIBSNORE_INCLUDE_DIR ${KDE_INSTALL_INCLUDEDIR}/libsnore)
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/version.cpp.in" "${CMAKE_CURRENT_BINARY_DIR}/version.cpp")
 
-QT5_ADD_RESOURCES(SNORENOTIFY_RCS ${SNORE_RCS} ${CMAKE_BINARY_DIR}/lang/snore_i18n.qrc)
+QT5_ADD_RESOURCES(SNORENOTIFY_RCS ${SNORE_RCS})
 
 add_subdirectory(notification)
 add_subdirectory(plugins)
@@ -81,6 +81,15 @@ ecm_configure_package_config_file(  "${CMAKE_CURRENT_SOURCE_DIR}/LibsnoreConfig.
                                     "${CMAKE_CURRENT_BINARY_DIR}/Libsnore${SNORE_CamelCase_SUFFIX}Config.cmake"
                                     INSTALL_DESTINATION ${KDE_INSTALL_CMAKEPACKAGEDIR}/libsnore${SNORE_CamelCase_SUFFIX}
                               )
+
+
+ecm_generate_pri_file(BASE_NAME Libsnore${SNORE_CamelCase_SUFFIX}
+                      LIB_NAME snore${SNORE_SUFFIX}
+                      DEPS "core gui widgets network"
+                      INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR}
+                      FILENAME_VAR pri_filename)
+
+install(FILES ${pri_filename} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
 
 install(TARGETS libsnore EXPORT Libsnore${SNORE_CamelCase_SUFFIX}Target ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 

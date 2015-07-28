@@ -30,18 +30,20 @@ class GrowlBackend: public Snore::SnoreBackend
     Q_PLUGIN_METADATA(IID "org.Snore.NotificationBackend/1.0" FILE "plugin.json")
 
 public:
-    GrowlBackend() = default;
-    ~GrowlBackend() = default;
-    bool initialize() override;
-    bool deinitialize() override;
+    GrowlBackend();
+    ~GrowlBackend();
     Snore::PluginSettingsWidget *settingsWidget() override;
+    bool isReady() override;
+
+protected:
+    void setDefaultSettings() override;
 
 private:
     //a static instance for the static callback methode
     static GrowlBackend *s_instance;
     QHash<QString, Growl *> m_applications;
 
-public slots:
+public Q_SLOTS:
     void slotRegisterApplication(const Snore::Application &application) override;
     void slotDeregisterApplication(const Snore::Application &application) override;
     void slotNotify(Snore::Notification notification) override;

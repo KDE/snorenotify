@@ -29,10 +29,8 @@ class FreedesktopFrontend : public Snore::SnoreFrontend
     Q_INTERFACES(Snore::SnoreFrontend)
     Q_PLUGIN_METADATA(IID "org.Snore.NotificationFrontend/1.0" FILE "plugin.json")
 public:
-    FreedesktopFrontend() = default;
+    FreedesktopFrontend();
     ~FreedesktopFrontend() = default;
-    bool initialize() override;
-    bool deinitialize() override;
 
     uint Notify(const QString &app_name, uint replaces_id, const QString &app_icon, const QString &summary, const QString &body, const QStringList &actions, const QVariantMap &hints, int timeout);
     void CloseNotification(uint id);
@@ -40,17 +38,16 @@ public:
     QStringList GetCapabilities();
     QString GetServerInformation(QString &vendor, QString &version, QString &specVersion);
 
-signals:
+Q_SIGNALS:
     void NotificationClosed(uint id, uint reason);
     void ActionInvoked(uint id, const QString &actionKey);
 
-public slots:
+public Q_SLOTS:
     void slotActionInvoked(Snore::Notification notification) override;
     void slotNotificationClosed(Snore::Notification notification) override;
 
 private:
     Snore::Alert m_alert;
-    Snore::Icon m_icon;
     NotificationsAdaptor *m_adaptor;
 };
 

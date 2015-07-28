@@ -32,20 +32,19 @@ public:
     SnoreNotifier();
     ~SnoreNotifier();
 
-    bool initialize() override;
-    bool deinitialize() override;
-
     bool canCloseNotification() const override;
     bool canUpdateNotification() const override;
 
     Snore::PluginSettingsWidget *settingsWidget() override;
 
-public slots:
+protected:
+    void setDefaultSettings() override;
+
+public Q_SLOTS:
     virtual void slotNotify(Snore::Notification notification) override;
     virtual void slotCloseNotification(Snore::Notification notification) override;
 
 private:
-
     QList<Snore::Notification> m_queue;
     QVector<NotifyWidget *> m_widgets;
     QTimer *m_timer;

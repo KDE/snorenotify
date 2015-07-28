@@ -30,13 +30,30 @@ SnoreNotifier::SnoreNotifier():
     m_widgets(3),
     m_timer(new QTimer(this))
 {
+    for (int i = 0; i < m_widgets.size(); ++i) {
+        NotifyWidget *w = new NotifyWidget(i, this);
+        m_widgets[i] = w;
+        connect(w, &NotifyWidget::dismissed, [this, w]() {
+            Notification notification = w->notification();
+            closeNotification(notification, Notification::DISMISSED);
+            slotCloseNotification(notification);
+        });
+
+        connect(w, &NotifyWidget::invoked, [this, w]() {
+            Notification notification = w->notification();
+            slotNotificationActionInvoked(notification);
+            closeNotification(notification, Notification::ACTIVATED);
+            slotCloseNotification(notification);
+        });
+    }
+
     m_timer->setInterval(500);
     connect(m_timer, &QTimer::timeout, [this]() {
         if (m_queue.isEmpty()) {
             snoreDebug(SNORE_DEBUG) << "queue is empty";
             m_timer->stop();
         } else {
-            for(NotifyWidget * w : m_widgets) {
+            for (NotifyWidget *w : m_widgets) {
                 if (w->acquire()) {
                     Notification notification = m_queue.takeFirst();
                     w->display(notification);
@@ -86,7 +103,7 @@ void SnoreNotifier::slotNotify(Snore::Notification notification)
         }
     } else {
         if (m_queue.isEmpty()) {
-            for(NotifyWidget * w : m_widgets) {
+            for (NotifyWidget *w : m_widgets) {
                 if (w->acquire()) {
                     display(w, notification);
                     return;
@@ -105,43 +122,6 @@ void SnoreNotifier::slotCloseNotification(Snore::Notification notification)
     //the timer will show the next
 }
 
-bool SnoreNotifier::initialize()
-{
-    setDefaultValue("Position", Qt::TopRightCorner);
-
-    if (SnoreBackend::initialize()) {
-        for (int i = 0; i < m_widgets.size(); ++i) {
-            NotifyWidget *w = new NotifyWidget(i, this);
-            m_widgets[i] = w;
-            connect(w, &NotifyWidget::dismissed, [this, w]() {
-                Notification notification = w->notification();
-                closeNotification(notification, Notification::DISMISSED);
-                slotCloseNotification(notification);
-            });
-
-            connect(w, &NotifyWidget::invoked, [this, w]() {
-                Notification notification = w->notification();
-                slotNotificationActionInvoked(notification);
-                closeNotification(notification, Notification::ACTIVATED);
-                slotCloseNotification(notification);
-            });
-        }
-        return true;
-    }
-    return false;
-}
-
-bool SnoreNotifier::deinitialize()
-{
-    if (SnoreBackend::deinitialize()) {
-        for (auto w : m_widgets) {
-            w->deleteLater();
-        }
-        return true;
-    }
-    return false;
-}
-
 bool SnoreNotifier::canCloseNotification() const
 {
     return true;
@@ -155,4 +135,10 @@ bool SnoreNotifier::canUpdateNotification() const
 PluginSettingsWidget *SnoreNotifier::settingsWidget()
 {
     return new SnoreNotifierSettings(this);
+}
+
+void SnoreNotifier::setDefaultSettings()
+{
+    setDefaultSettingsValue(QLatin1String("Position"), Qt::TopRightCorner);
+    SnoreBackend::setDefaultSettings();
 }

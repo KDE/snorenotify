@@ -23,6 +23,7 @@
 #include "notification.h"
 #include "../hint.h"
 
+#include <QPointer>
 #include <QSharedData>
 #include <QTimer>
 #include <QDateTime>
@@ -33,8 +34,6 @@ class SnorePlugin;
 
 class SNORE_EXPORT NotificationData : public QSharedData
 {
-
-    friend class Notification;
 public:
     NotificationData(const Application &application, const Alert &alert, const QString &title, const QString &text, const Icon &icon,
                      int timeout, Notification::Prioritys priority);
@@ -47,14 +46,34 @@ public:
 
     void setCloseReason(Notification::CloseReasons r);
 
-    void setTimeoutTimer(QTimer *timer);
-
     QString resolveMarkup(const QString &string, Utils::MARKUP_FLAGS flags);
+
+    void setBroadcasted();
+
+    bool isBroadcasted() const;
+
+    /**
+     * Sets the source SnorePlugin.
+     * @see source()
+     */
+    void setSource(SnorePlugin *soure);
+
+    /**
+     * Returns the source SnorePlugin.
+     * This is used to prevent notification loops between the frontend and the backend.
+     */
+    const SnorePlugin *source() const;
+
+    /**
+     * Returns true if the source->name() and the target->name() are the same.
+     * @todo rename
+     */
+    bool sourceAndTargetAreSimilar(const SnorePlugin *target);
 
 private:
     Q_DISABLE_COPY(NotificationData)
 
-    void initHints();
+    void stopTimeoutTimer();
 
     uint m_id;
     uint m_updateID;
@@ -65,18 +84,22 @@ private:
     QString m_text;
     Icon m_icon;
     Notification::Prioritys m_priority;
-    Notification::CloseReasons m_closeReason;
+    Notification::CloseReasons m_closeReason = Notification::NONE;
     Action m_actionInvoked;
     QDateTime m_delivery_date;
     QHash<int, Action> m_actions;
     Hint m_hints;
     Notification m_toReplace;
-    QScopedPointer<QTimer> m_timeoutTimer;
+    QPointer<QTimer> m_timeoutTimer;
     QSet<const QObject *> m_activeIn;
+    bool m_isBroadcasted = false;
+    SnorePlugin *m_source = nullptr;
 
     static uint notificationCount;
     static uint m_idCount;
 
+    friend class Notification;
+    friend class SnoreCorePrivate;
 };
 
 }

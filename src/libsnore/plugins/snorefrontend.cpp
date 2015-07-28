@@ -21,27 +21,30 @@
 
 using namespace Snore;
 
+SnoreFrontend::SnoreFrontend()
+{
+    connect(this, &SnoreFrontend::enabledChanged, [this](bool enabled) {
+        if (enabled) {
+            connect(&SnoreCore::instance(), &SnoreCore::notificationClosed, this, &SnoreFrontend::slotNotificationClosed, Qt::QueuedConnection);
+            connect(&SnoreCore::instance(), &SnoreCore::actionInvoked, this, &SnoreFrontend::slotActionInvoked, Qt::QueuedConnection);
+        } else {
+            disconnect(&SnoreCore::instance(), &SnoreCore::notificationClosed, this, &SnoreFrontend::slotNotificationClosed);
+            disconnect(&SnoreCore::instance(), &SnoreCore::actionInvoked, this, &SnoreFrontend::slotActionInvoked);
+        }
+    });
+}
+
 SnoreFrontend::~SnoreFrontend()
 {
     snoreDebug(SNORE_DEBUG) << "Deleting" << name();
 }
 
-bool SnoreFrontend::initialize()
+void SnoreFrontend::slotActionInvoked(Notification)
 {
-    if (!SnorePlugin::initialize()) {
-        return false;
-    }
-    connect(&SnoreCore::instance(), &SnoreCore::notificationClosed, this, &SnoreFrontend::slotNotificationClosed, Qt::QueuedConnection);
-    connect(&SnoreCore::instance(), &SnoreCore::actionInvoked, this, &SnoreFrontend::slotActionInvoked, Qt::QueuedConnection);
-    return true;
+
 }
 
-bool SnoreFrontend::deinitialize()
+void SnoreFrontend::slotNotificationClosed(Notification)
 {
-    if (SnorePlugin::deinitialize()) {
-        disconnect(&SnoreCore::instance(), &SnoreCore::notificationClosed, this, &SnoreFrontend::slotNotificationClosed);
-        disconnect(&SnoreCore::instance(), &SnoreCore::actionInvoked, this, &SnoreFrontend::slotActionInvoked);
-        return true;
-    }
-    return false;
+
 }

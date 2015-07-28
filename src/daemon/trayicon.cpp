@@ -1,6 +1,6 @@
 /*
     SnoreNotify is a Notification Framework based on Qt
-    Copyright (C) 2013-2014  Patrick von Reth <vonreth@kde.org>
+    Copyright (C) 2013-2015  Patrick von Reth <vonreth@kde.org>
 
     SnoreNotify is free software: you can redistribute it and/or modify
     it under the terms of the GNU Lesser General Public License as published by
@@ -26,17 +26,16 @@
 #include <QDialogButtonBox>
 #include <QMenu>
 #include <QSystemTrayIcon>
-#include <QTimer>
 
 #include "libsnore/version.h"
 
 using namespace Snore;
 
 TrayIcon::TrayIcon():
-    m_trayIcon(new QSystemTrayIcon(QIcon(":/root/snore.png")))
+    m_trayIcon(new QSystemTrayIcon(QIcon(QLatin1String(":/root/snore.png"))))
 {
-    SnoreCorePrivate::instance()->defaultApplication().hints().setValue("use-markup", QVariant::fromValue(true));
-    SnoreCorePrivate::instance()->defaultApplication().hints().setValue("tray-icon", m_trayIcon);
+    SnoreCorePrivate::instance()->defaultApplication().hints().setValue("use-markup", true);
+    SnoreCorePrivate::instance()->defaultApplication().hints().setValue("tray-icon", QVariant::fromValue(QPointer<QSystemTrayIcon>(m_trayIcon)));
 }
 
 void TrayIcon::initConextMenu()
@@ -68,18 +67,18 @@ void TrayIcon::initConextMenu()
 
     m_trayIcon->setVisible(true);
 
-    m_trayMenu = new QMenu("SnoreNotify");
-    QString version = QString("SnoreNotify %1").arg(Version::version());
+    m_trayMenu = new QMenu(QLatin1String("SnoreNotify"));
+    QString version = QLatin1String("SnoreNotify ") + Version::version();
     if (!Version::revision().isEmpty()) {
-        version += QString("-%1").arg(Version::revision());
+        version += QLatin1String("-") + Version::revision();
     }
     m_trayMenu->addAction(version);
     m_trayMenu->addSeparator();
-    m_trayMenu->addAction("Test Notification", this, SLOT(slotTestNotification()));
+    m_trayMenu->addAction(tr("Display Test Notification"), this, SLOT(slotTestNotification()));
     m_trayMenu->addSeparator();
-    m_trayMenu->addAction("Settings", this, SLOT(slotSettings()));
+    m_trayMenu->addAction(tr("Settings"), this, SLOT(slotSettings()));
     m_trayMenu->addSeparator();
-    m_trayMenu->addAction("Exit", qApp, SLOT(quit()));
+    m_trayMenu->addAction(tr("Exit"), qApp, SLOT(quit()));
 
     m_trayIcon->setContextMenu(m_trayMenu);
 }

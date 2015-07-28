@@ -18,7 +18,7 @@
 #ifndef PUSHOVER_H
 #define PUSHOVER_H
 
-#include "libsnore/plugins/snorebackend.h"
+#include "libsnore/plugins/snoresecondarybackend.h"
 
 #include <QNetworkAccessManager>
 
@@ -31,11 +31,12 @@ public:
     Pushover() = default;
     ~Pushover() = default;
 
-    bool initialize() override;
-
     Snore::PluginSettingsWidget *settingsWidget() override;
 
-public slots:
+protected:
+    void setDefaultSettings() override;
+
+public Q_SLOTS:
     void slotNotify(Snore::Notification notification) override;
 
 private:

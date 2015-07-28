@@ -20,17 +20,13 @@
 
 #include "snore_exports.h"
 
-#include <QDialog>
-#include <QScopedPointer>
+#include <QWidget>
 
 class QAbstractButton;
 
 namespace Snore
 {
-class SnoreCore;
 class PluginSettingsWidget;
-class Application;
-class Alert;
 }
 
 namespace Ui
@@ -40,25 +36,42 @@ class SettingsDialog;
 
 namespace Snore
 {
+
+/**
+ * A QWidget providing acces to the settings of the plugins.
+ * If your application does not offer a ui you might call snore-settings insetad.
+ */
+
 class SNORE_EXPORT SettingsDialog : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit SettingsDialog(QWidget *parent = 0);
+    explicit SettingsDialog(QWidget *parent = nullptr);
     ~SettingsDialog();
 
-    //TODO: move to private header
+    /**
+     * \todo move to private header or cleanup
+     */
     void initTabs();
 
-public slots:
+public Q_SLOTS:
     void setVisible(bool b) override;
+
+    /**
+     * Save the settings.
+     */
     void accept();
+
+    /**
+     * Reset the settings.
+     */
     void reset();
 
-private slots:
+private Q_SLOTS:
     void on_pushButton_clicked();
     void load();
+    void loadPrimaryBackendBox(const QString &backend);
     void save();
 
 private:

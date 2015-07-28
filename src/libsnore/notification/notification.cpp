@@ -68,12 +68,12 @@ const Icon &Notification::icon() const
     return d->m_icon;
 }
 
-const int &Notification::timeout() const
+int Notification::timeout() const
 {
     return d->m_timeout;
 }
 
-Notification Notification::old() const
+Notification &Notification::old() const
 {
     return d->m_toReplace;
 }
@@ -88,7 +88,7 @@ const Action &Notification::actionInvoked() const
     return d->m_actionInvoked;
 }
 
-const Application &Notification::application() const
+Application &Notification::application() const
 {
     return d->m_application;
 }
@@ -193,7 +193,7 @@ NotificationData *Notification::data()
 
 int Notification::defaultTimeout()
 {
-    return SnoreCore::instance().value("Timeout", LOCAL_SETTING).toInt();
+    return SnoreCore::instance().settingsValue(QLatin1String("Timeout"), LOCAL_SETTING).toInt();
 }
 
 QDataStream &operator<< (QDataStream &stream, const Notification &noti)

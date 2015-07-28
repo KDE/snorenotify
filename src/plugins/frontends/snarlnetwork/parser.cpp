@@ -25,6 +25,7 @@
 
 #include <QObject>
 #include <QTcpSocket>
+#include <QPointer>
 
 using namespace Snore;
 
@@ -50,28 +51,28 @@ Parser::Parser(SnarlNetworkFrontend *snarl):
 void Parser::parse(Notification &sNotification, const QString &msg, QTcpSocket *client)
 {
     snoreDebug(SNORE_DEBUG) << msg;
-    QStringList splitted(msg.split("#?"));
+    QStringList splitted(msg.split(QLatin1String("#?")));
     snpTypes action(ERROR);
 
     QString appName;
     QString alertName;
     QString title;
     QString text;
-    Icon icon(":/root/snore.png");
+    Icon icon = Icon::defaultIcon();
     int timeout = Notification::defaultTimeout();
 
-    QString key;
+    QByteArray key;
     QString value;
 
-    foreach(QString s, splitted) {
-        key = s.mid(0, s.indexOf("=")).toLower();
-        value = s.mid(s.indexOf("=") + 1);
+    foreach (QString s, splitted) {
+        key = s.mid(0, s.indexOf(QLatin1String("="))).toLower().toLatin1();
+        value = s.mid(s.indexOf(QLatin1String("=")) + 1);
         switch (getSnpType.value(key)) {
         case APP:
             appName = value;
             break;
         case ACTION:
-            action = getSnpType.value(value);
+            action = getSnpType.value(value.toLatin1());
             break;
         case  TITLE:
             title = value;
@@ -97,12 +98,12 @@ void Parser::parse(Notification &sNotification, const QString &msg, QTcpSocket *
     Alert alert;
 
     if (snarl->m_applications.contains(client)) {
-        app = snarl->m_applications[client];
+        app = snarl->m_applications.value(client);
     }
 
     if (!alertName.isEmpty() && app.isValid()) {
         if (app.alerts().contains(alertName)) {
-            alert = app.alerts()[alertName];
+            alert = app.alerts().value(alertName);
         }
     }
 
@@ -112,11 +113,8 @@ void Parser::parse(Notification &sNotification, const QString &msg, QTcpSocket *
             SnoreCore::instance().registerApplication(app);
         }
 
-        if (!alert.isActive()) {
-            break;
-        }
         sNotification = Notification(app, alert, title, text, icon, timeout);
-        sNotification.hints().setPrivateValue(snarl, "clientSocket", client);
+        sNotification.hints().setPrivateValue(snarl, "clientSocket", QVariant::fromValue(QPointer<QTcpSocket>(client)));
         break;
     }
     case ADD_CLASS:

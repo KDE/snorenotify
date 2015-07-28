@@ -35,16 +35,14 @@ public:
     static const int port = 9887;
 
 public:
-    SnarlNetworkFrontend() = default;
-    ~SnarlNetworkFrontend() = default;
-    virtual bool initialize() override;
-    virtual bool deinitialize() override;
+    SnarlNetworkFrontend();
+    ~SnarlNetworkFrontend();
 
-public slots:
+public Q_SLOTS:
     void slotActionInvoked(Snore::Notification notification) override;
     void slotNotificationClosed(Snore::Notification notification) override;
 
-private slots:
+private Q_SLOTS:
     void handleConnection();
     void handleMessages();
 

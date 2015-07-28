@@ -19,15 +19,23 @@
 #include "alert.h"
 #include "alert_p.h"
 
+#include <QDebug>
+
 using namespace Snore;
 
 Alert::Alert() :
-    d(NULL)
+    d(nullptr)
 {}
 
-Alert::Alert(const QString &name, const Icon &icon, bool active):
-    d(new AlertData(name, icon, active))
+Alert::Alert(const QString &name, const Icon &icon):
+    d(new AlertData(name, name, icon))
 {}
+
+Alert::Alert(const QString &key, const QString &name, const Icon &icon):
+    d(new AlertData(key, name, icon))
+{
+
+}
 
 Alert::Alert(const Alert &other):
     d(other.d)
@@ -46,6 +54,11 @@ Alert::~Alert()
 
 }
 
+QString Alert::key() const
+{
+    return d->m_key;
+}
+
 QString Alert::name() const
 {
     return d->m_name;
@@ -54,11 +67,6 @@ QString Alert::name() const
 const Icon &Alert::icon() const
 {
     return d->m_icon;
-}
-
-bool Alert::isActive() const
-{
-    return d->m_active;
 }
 
 bool Alert::isValid() const
