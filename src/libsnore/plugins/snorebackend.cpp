@@ -126,7 +126,7 @@ void SnoreBackend::scheduleNotification(Notification notification) {
     auto timer = new QTimer(this);
     timer->setSingleShot(true);
     auto duration = QDateTime::currentDateTime().msecsTo(notification.deliveryDate());
-    
+
     // Always emit notification timer doesn't trigger when interaval is negative
     if (duration < 0) {
         snoreDebug(SNORE_WARNING) << "Notification date is in past by " << duration << " miliseconds";

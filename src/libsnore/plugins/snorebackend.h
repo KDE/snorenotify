@@ -40,7 +40,7 @@ public:
 
     virtual bool canCloseNotification() const;
     virtual bool canUpdateNotification() const;
-    
+
     //handle scheduled notifications
     virtual QList<Notification> scheduledNotifications();
     virtual void removeScheduledNotification(Notification notification);

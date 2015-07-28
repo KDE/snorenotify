@@ -165,7 +165,6 @@ public:
     Notification getActiveNotificationByID(uint id) const;
 
 Q_SIGNALS:
-    
     /**
      *
      */

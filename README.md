@@ -6,6 +6,9 @@ Using a plugin system it is possible to create notifications with many different
 
 For a detailed description for some of our backends see our [Wiki](https://github.com/Snorenotify/Snorenotify/wiki).
 
+## Supported
+If you need support on how to use Snorenotify you can reach out to the developers using IRC joining [#Snorenotify](irc://irc.freenode.net/snorenotify) on freenode.
+
 ## Supported Backends
 
 - [Windows Toast notifications](https://github.com/Snorenotify/Snorenotify/wiki/Windows-Toast-Notification) 
@@ -64,14 +67,13 @@ In difference to backends they don't offer interactions with te notification  th
 Required dependencies:
 
 - [CMake](http://www.cmake.org/)
-- [Extra CMake Modules](https://projects.kde.org/projects/kdesupport/extra-cmake-modules) (read how to install ecm)
+- [Extra CMake Modules](https://projects.kde.org/projects/kdesupport/extra-cmake-modules)
 - [Qt5](http://qt-project.org/)
 
-### How to install Extra CMake Modules (ecm) ###
+## Build status
+- [Windows build status on appveyor.com](https://ci.appveyor.com/project/TheOneRing/snorenotify/)
+- [Linux and Mac OSX build status on travis.org](https://travis-ci.org/Snorenotify/Snorenotify)
 
-git clone http://anongit.kde.org/extra-cmake-modules.git
-
-cd extra-cmake-modules; cmake .; make ; sudo make install
 
 ## Third party libraries that we ship with our source ##
 - [Snarl C++](http://sourceforge.net/p/snarlwin/code/HEAD/tree/trunk/hdr/C++/SnarlInterface_v42/) used for Snarl
