@@ -156,7 +156,6 @@ void OSXNotificationCenter::scheduleNotification(Snore::Notification notificatio
 
 void OSXNotificationCenter::slotNotify(Snore::Notification notification)
 {
-    qDebug() << "Displaying notification " << notification.text();
     bool validTime = notification.deliveryDate().isValid();
     NSUserNotification * osxNotification = [[[NSUserNotification alloc] init] autorelease];
     NSString * notificationId = [NSString stringWithFormat:@"%d",notification.id()];
