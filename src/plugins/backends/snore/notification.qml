@@ -28,6 +28,7 @@ Window {
         from: notifyWidget.animationFrom
         to: notifyWidget.animationTo
     }
+
     Rectangle{
         id: root
 
@@ -76,7 +77,6 @@ Window {
                 animation.start()
             }
         }
-
 
         RowLayout {
             spacing:  snoreBaseSize / 2
