@@ -26,6 +26,7 @@
 #include <QPointer>
 #include <QSharedData>
 #include <QTimer>
+#include <QDateTime>
 
 namespace Snore
 {
@@ -85,6 +86,7 @@ private:
     Notification::Prioritys m_priority;
     Notification::CloseReasons m_closeReason = Notification::NONE;
     Action m_actionInvoked;
+    QDateTime m_deliveryDate;
     QHash<int, Action> m_actions;
     Hint m_hints;
     Notification m_toReplace;

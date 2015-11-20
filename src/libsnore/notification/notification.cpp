@@ -23,6 +23,7 @@
 #include "plugins/plugincontainer.h"
 #include <Qt>
 
+
 using namespace Snore;
 
 Notification::Notification() :
@@ -140,6 +141,14 @@ Hint &Notification::hints()
 const Hint &Notification::constHints() const
 {
     return  const_cast<Hint &>(const_cast<Notification *>(this)->hints());
+}
+
+void Notification::setDeliveryDate(QDateTime date) {
+    d->m_deliveryDate = date;
+}
+
+QDateTime Notification::deliveryDate() {
+    return d->m_deliveryDate;
 }
 
 bool Notification::isValid() const

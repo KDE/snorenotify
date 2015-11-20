@@ -30,9 +30,11 @@ class OSXNotificationCenter : public Snore::SnoreBackend
 public:
     OSXNotificationCenter();
     ~OSXNotificationCenter();
-
+    void removeScheduledNotification(Snore::Notification notification) override;
+    void scheduleNotification(Snore::Notification notification) override;
+    QList<Snore::Notification> scheduledNotifications() override;
 public Q_SLOTS:
-    void slotNotify(Snore::Notification notification) override;
+    virtual void slotNotify(Snore::Notification notification) override;
 };
 
 #endif // OSXNOTIFICATIONCENTER_H

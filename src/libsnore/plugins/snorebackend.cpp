@@ -39,6 +39,8 @@ SnoreBackend::SnoreBackend()
             connect(this, &SnoreBackend::notificationClosed, SnoreCorePrivate::instance(), &SnoreCorePrivate::slotNotificationClosed, Qt::QueuedConnection);
             connect(SnoreCorePrivate::instance(), &SnoreCorePrivate::notify, this, &SnoreBackend::slotNotify, Qt::QueuedConnection);
 
+            connect(SnoreCorePrivate::instance(), &SnoreCorePrivate::scheduleNotification, this, &SnoreBackend::scheduleNotification, Qt::QueuedConnection);
+
             for (const Application &a : SnoreCore::instance().aplications()) {
                 slotRegisterApplication(a);
             }
@@ -51,6 +53,9 @@ SnoreBackend::SnoreBackend()
 
             disconnect(this, &SnoreBackend::notificationClosed, SnoreCorePrivate::instance(), &SnoreCorePrivate::slotNotificationClosed);
             disconnect(SnoreCorePrivate::instance(), &SnoreCorePrivate::notify, this, &SnoreBackend::slotNotify);
+
+            disconnect(SnoreCorePrivate::instance(), &SnoreCorePrivate::scheduleNotification, this, &SnoreBackend::scheduleNotification);
+
         }
     });
 }
@@ -97,6 +102,51 @@ bool SnoreBackend::canCloseNotification() const
 bool SnoreBackend::canUpdateNotification() const
 {
     return false;
+}
+
+QList<Notification> SnoreBackend::scheduledNotifications() {
+    return m_scheduledNotifications.values();
+}
+
+void SnoreBackend::removeScheduledNotification(Notification notification) {
+    if (m_timerForNotificationId.contains(notification.id())) {
+        m_timerForNotificationId[notification.id()]->stop();
+        m_scheduledNotifications.remove(notification.id());
+        m_timerForNotificationId.remove(notification.id());
+    }
+    emit scheduledNotificationsChanged(scheduledNotifications());
+}
+
+void SnoreBackend::scheduleNotification(Notification notification) {
+    if (!notification.deliveryDate().isValid()) {
+        snoreDebug(SNORE_WARNING) << "Schedule notification without time";
+        slotNotify(notification);
+        return;
+    }
+    auto timer = new QTimer(this);
+    timer->setSingleShot(true);
+    auto duration = QDateTime::currentDateTime().msecsTo(notification.deliveryDate());
+
+    // Always emit notification timer doesn't trigger when interaval is negative
+    if (duration < 0) {
+        snoreDebug(SNORE_WARNING) << "Notification date is in past by " << duration << " miliseconds";
+        duration = 0;
+    }
+    snoreDebug(SNORE_DEBUG) << "Scheduling timer with duration " << duration / 1000 << " seconds";
+    timer->setInterval(duration);
+    auto notificationId = notification.id();
+    connect(timer, &QTimer::timeout, this, [&](){
+        // Deliver scheduled notification
+        this->slotNotify(m_scheduledNotifications[notificationId]);
+        m_scheduledNotifications.remove(notificationId);
+        m_timerForNotificationId.remove(notificationId);
+        delete m_timerForNotificationId[notificationId];
+        emit scheduledNotificationsChanged(scheduledNotifications());
+        });
+    m_timerForNotificationId.insert(notificationId, timer);
+    m_scheduledNotifications.insert(notificationId, notification);
+    timer->start();
+    emit scheduledNotificationsChanged(scheduledNotifications());
 }
 
 void SnoreBackend::slotRegisterApplication(const Application &application)

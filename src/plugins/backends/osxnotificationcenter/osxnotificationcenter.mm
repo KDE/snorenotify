@@ -14,7 +14,7 @@ using namespace Snore;
 
 QMap<int, Notification> m_IdToNotification;
 NSMutableDictionary * m_IdToNSNotification;
-
+NSSet * m_oldNotifications;
 
 void emitNotificationClicked(Notification notification) {
     emit SnoreCore::instance().actionInvoked(notification);
@@ -31,7 +31,7 @@ void emitNotificationClicked(Notification notification) {
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle] && ![[self __bundleIdentifier] length]) {
-        return @"com.apple.terminal";
+        return @"com.apple.Terminal";
     } else {
         return [self __bundleIdentifier];
     }
@@ -100,17 +100,16 @@ public:
 };
 
 
-
-static UserNotificationItemClass * delegate = 0;
-
+UserNotificationItemClass * delegate = 0;
 OSXNotificationCenter::OSXNotificationCenter()
 {
     installNSBundleHook();
     m_IdToNSNotification = [[NSMutableDictionary alloc] init];
+    m_oldNotifications = [NSSet setWithArray: [NSUserNotificationCenter defaultUserNotificationCenter].scheduledNotifications];
     if (not delegate) {
         delegate = new UserNotificationItemClass();
     }
-    
+
 }
 
 OSXNotificationCenter::~OSXNotificationCenter()
@@ -118,20 +117,65 @@ OSXNotificationCenter::~OSXNotificationCenter()
     delete delegate;
 }
 
+
+QList<Notification> OSXNotificationCenter::scheduledNotifications() {
+    QList<Notification> result;
+    NSArray * scheduled_nsnotifications = [NSUserNotificationCenter defaultUserNotificationCenter].scheduledNotifications;
+    for (NSUserNotification * notification in scheduled_nsnotifications)
+    {
+        if (not [m_oldNotifications containsObject: notification]) {
+            result.push_back(m_IdToNotification[[notification.userInfo[@"id"] intValue]]);
+        }
+    }
+    return result;
+}
+
+void OSXNotificationCenter::removeScheduledNotification(Notification notification) {
+    NSString * notification_id = [NSString stringWithFormat:@"%d",notification.id()];
+    NSUserNotification * ns_notification = m_IdToNSNotification[notification_id];
+    if (ns_notification) {
+        [[NSUserNotificationCenter defaultUserNotificationCenter] removeScheduledNotification: ns_notification];
+        emit scheduledNotificationsChanged(scheduledNotifications());
+    }
+    else {
+        snoreDebug(SNORE_WARNING) << "Non existing NSNotification";
+        NSMutableString *content = [[NSMutableString alloc] init];
+        for (NSString *aKey in m_IdToNSNotification.allKeys) {
+            [content appendFormat:@"%@ : %@\n",aKey,[m_IdToNSNotification valueForKey:aKey]];
+        }
+        snoreDebug(SNORE_WARNING) << "Content of id_to_nsnotification: " << [content UTF8String];
+    }
+}
+
+void OSXNotificationCenter::scheduleNotification(Snore::Notification notification) {
+    if (not notification.deliveryDate().isValid()) {
+        snoreDebug(SNORE_WARNING) << "Schedule notification without delivery date";
+    }
+    slotNotify(notification);
+}
+
 void OSXNotificationCenter::slotNotify(Snore::Notification notification)
 {
+    bool validTime = notification.deliveryDate().isValid();
     NSUserNotification * osxNotification = [[[NSUserNotification alloc] init] autorelease];
     NSString * notificationId = [NSString stringWithFormat:@"%d",notification.id()];
     osxNotification.title = notification.title().toNSString();
     osxNotification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:notificationId, @"id", nil];
     osxNotification.informativeText = notification.text().toNSString();
-    
+
+    if (validTime) {
+        osxNotification.deliveryDate = [NSDate dateWithTimeIntervalSince1970:notification.deliveryDate().toTime_t()];
+    }
     // Add notification to mapper from id to Nofification / NSUserNotification
     m_IdToNotification.insert(notification.id(), notification);
     [m_IdToNSNotification setObject:osxNotification forKey: notificationId];
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification: osxNotification];
-    
-    slotNotificationDisplayed(notification);
+    if (validTime) {
+        [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification: osxNotification];
+        emit scheduledNotificationsChanged(scheduledNotifications());
+    }
+    else {
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification: osxNotification];
+    }
 }
 
 

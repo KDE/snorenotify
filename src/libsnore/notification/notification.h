@@ -23,6 +23,7 @@
 #include "notificationaction.h"
 #include "libsnore/hint.h"
 #include "libsnore/application.h"
+#include <QDateTime>
 #include "libsnore/utils.h"
 
 #include <QDebug>
@@ -268,6 +269,11 @@ public:
      * @return a data pointer for internal use
      */
     NotificationData *data();
+    
+    // set and return delivery date
+    void setDeliveryDate(QDateTime date);
+    
+    QDateTime deliveryDate();
 
     /**
      *

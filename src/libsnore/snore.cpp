@@ -122,6 +122,10 @@ void SnoreCore::broadcastNotification(Notification notification)
     }
     Q_ASSERT_X(!notification.data()->isBroadcasted(), Q_FUNC_INFO, "Notification was already broadcasted.");
     snoreDebug(SNORE_DEBUG) << "Broadcasting" << notification << "timeout:" << notification.timeout();
+    if (notification.deliveryDate().isValid()) {
+        d->scheduleNotification(notification);
+        return;
+    }
     if (d->m_notificationBackend != nullptr) {
         if (notification.isUpdate() && !d->m_notificationBackend->canUpdateNotification()) {
             requestCloseNotification(notification.old(), Notification::REPLACED);
@@ -133,6 +137,15 @@ void SnoreCore::broadcastNotification(Notification notification)
         d->startNotificationTimeoutTimer(notification);
     }
     emit d->notify(notification);
+}
+
+QList<Notification> SnoreCore::scheduledNotifications() {
+    Q_D(SnoreCore);
+    return d->m_notificationBackend->scheduledNotifications();
+}
+void SnoreCore::removeScheduledNotification(Notification notification) {
+    Q_D(SnoreCore);
+    d->m_notificationBackend->removeScheduledNotification(notification);
 }
 
 void SnoreCore::registerApplication(const Application &application)
