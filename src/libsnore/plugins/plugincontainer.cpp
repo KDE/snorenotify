@@ -165,11 +165,16 @@ const QDir &PluginContainer::pluginDir()
         }
 #endif
         QString suffix = QLatin1String("/libsnore") + QLatin1String(SNORE_SUFFIX);
+        for (const QString &s : qApp->libraryPaths()) {
+         list << s + suffix;
+        }
         list << appDir
              << appDir + suffix
              << appDir + QStringLiteral("/../lib/plugins") + suffix
              << appDir + QStringLiteral("/../lib64/plugins") + suffix
              << QStringLiteral(LIBSNORE_PLUGIN_PATH);
+
+        qCDebug(SNORE) << "Plugin locations:" << list;
         foreach(const QString & p, list) {
             path = QDir(p);
 
