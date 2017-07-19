@@ -56,6 +56,7 @@ public Q_SLOTS:
 private:
     QHash<LONG32, Snore::Notification> m_idMap;
 
+    friend class ::SnarlWidget;
 };
 }
 
