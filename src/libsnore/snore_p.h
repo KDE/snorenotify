@@ -44,10 +44,6 @@ public:
      */
     static QString tempPath();
 
-    static Q_DECL_CONSTEXPR int maxNumberOfActiveNotifications()
-    {
-        return 3;
-    }
 
 public:
     static SnoreCorePrivate *instance();
@@ -62,7 +58,7 @@ public:
      */
     bool primaryBackendCanUpdateNotification() const;
 
-    QString normalizeSettingsKey(const QString &key, SettingsType type) const
+    inline QString normalizeSettingsKey(const QString &key, SettingsType type) const
     {
         return Snore::Utils::normalizeSettingsKey(key, type, m_localSettingsPrefix);
     }
@@ -81,6 +77,8 @@ public:
     void syncSettings();
 
     QSettings &settings();
+
+    int maxNumberOfActiveNotifications() const;
 
 private Q_SLOTS:
     //TODO: find a better solutinon for the slots in this section

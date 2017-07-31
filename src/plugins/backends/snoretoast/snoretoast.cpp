@@ -26,6 +26,11 @@ bool SnorePlugin::WindowsToast::canCloseNotification() const
     return true;
 }
 
+int SnorePlugin::WindowsToast::maxNumberOfActiveNotifications() const
+{
+    return 1;
+}
+
 void SnorePlugin::WindowsToast::slotNotify(Snore::Notification notification)
 {
     QProcess *p = createProcess(notification);
@@ -74,6 +79,7 @@ void SnorePlugin::WindowsToast::slotNotify(Snore::Notification notification)
         closeNotification(notification, reason);
     });
     p->start(QLatin1String("SnoreToast"), arguements);
+    slotNotificationDisplayed(notification);
 }
 
 void SnorePlugin::WindowsToast::slotRegisterApplication(const Snore::Application &application)

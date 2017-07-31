@@ -219,6 +219,11 @@ QString SnoreCorePrivate::tempPath()
 #endif
 }
 
+int SnoreCorePrivate::maxNumberOfActiveNotifications() const
+{
+    return m_notificationBackend ? m_notificationBackend->maxNumberOfActiveNotifications() : 3;
+}
+
 // TODO: this is somehow horrible code
 SnoreCorePrivate *SnoreCorePrivate::instance()
 {

@@ -16,6 +16,7 @@ public:
     ~WindowsToast() = default;
 
     virtual bool canCloseNotification() const override;
+    int maxNumberOfActiveNotifications() const override;
 
     bool isReady() override;
 public Q_SLOTS:

@@ -99,6 +99,16 @@ bool SnoreBackend::canUpdateNotification() const
     return false;
 }
 
+int SnoreBackend::maxNumberOfActiveNotifications() const
+{
+    return 3;
+}
+
+SnorePlugin::PluginTypes SnoreBackend::type() const
+{
+    return Backend;
+}
+
 void SnoreBackend::slotRegisterApplication(const Application &application)
 {
     Q_UNUSED(application);

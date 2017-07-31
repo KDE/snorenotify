@@ -36,6 +36,7 @@ public:
 
     bool canCloseNotification() const override;
     bool canUpdateNotification() const override;
+    int maxNumberOfActiveNotifications() const override;
 
 protected:
     void setDefaultSettings() override;
@@ -44,13 +45,8 @@ public Q_SLOTS:
     virtual void slotCloseNotification(::Snore::Notification notification) override;
     void slotRegisterApplication(const ::Snore::Application &application);
 
-private Q_SLOTS:
-    void slotQueueTimeout();
-
 private:
-    QList<::Snore::Notification> m_queue;
     QVector<NotifyWidget *> m_widgets;
-    QTimer *m_timer;
 };
 
 }
