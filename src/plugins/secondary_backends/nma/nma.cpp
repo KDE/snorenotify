@@ -16,6 +16,7 @@
     along with SnoreNotify.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "nma.h"
+#include "nmaconstants.h"
 
 #include "libsnore/utils.h"
 
@@ -26,7 +27,7 @@ namespace SnorePlugin {
 
 void NMA::slotNotify(Snore::Notification notification)
 {
-    QString key = settingsValue(QStringLiteral("ApiKey")).toString();
+    QString key = settingsValue(NMAConstants::ApiKey).toString();
     if (key.isEmpty()) {
         return;
     }
@@ -60,7 +61,7 @@ void NMA::slotNotify(Snore::Notification notification)
 
 void NMA::setDefaultSettings()
 {
-    setDefaultSettingsValue(QStringLiteral("ApiKey"), QString());
+    setDefaultSettingsValue(NMAConstants::ApiKey, QString());
     SnoreSecondaryBackend::setDefaultSettings();
 }
 

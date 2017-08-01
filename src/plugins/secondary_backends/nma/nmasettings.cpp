@@ -16,6 +16,7 @@
     along with SnoreNotify.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "nmasettings.h"
+#include "nmaconstants.h"
 
 #include "libsnore/plugins/plugins.h"
 
@@ -36,10 +37,10 @@ NMASettings::~NMASettings()
 
 void NMASettings::load()
 {
-    m_lineEdit->setText(settingsValue(QStringLiteral("ApiKey")).toString());
+    m_lineEdit->setText(settingsValue(NMAConstants::ApiKey).toString());
 }
 
 void NMASettings::save()
 {
-    setSettingsValue(QStringLiteral("ApiKey"), m_lineEdit->text());
+    setSettingsValue(NMAConstants::ApiKey, m_lineEdit->text());
 }

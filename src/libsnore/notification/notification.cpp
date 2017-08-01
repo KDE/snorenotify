@@ -18,6 +18,7 @@
 
 #include "notification.h"
 #include "snore.h"
+#include "snoreconstants.h"
 #include "notification/icon.h"
 #include "notification/notification_p.h"
 #include "plugins/plugincontainer.h"
@@ -181,7 +182,7 @@ NotificationData *Notification::data()
 
 int Notification::defaultTimeout()
 {
-    return SnoreCore::instance().settingsValue(QStringLiteral("Timeout"), LocalSetting).toInt();
+    return SnoreCore::instance().settingsValue(Snore::Constants::SettingsKeys::Timeout).toInt();
 }
 
 QDataStream &operator<< (QDataStream &stream, const Notification &noti)

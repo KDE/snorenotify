@@ -16,6 +16,7 @@
     along with SnoreNotify.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "pushover.h"
+#include "pushoverconstants.h"
 
 #include "libsnore/utils.h"
 #include "libsnore/notification/notification_p.h"
@@ -32,7 +33,7 @@ void Pushover::slotNotify(Snore::Notification notification)
         return;
     }
 
-    QString key = settingsValue(QStringLiteral("UserKey")).toString();
+    QString key = settingsValue(PushoverConstants::UserKey).toString();
     if (key.isEmpty()) {
         return;
     }
@@ -86,14 +87,14 @@ void Pushover::slotNotify(Snore::Notification notification)
     if (notification.hints().value("silent").toBool()) {
         sound.setBody("none");
     } else {
-        sound.setBody(settingsValue(QStringLiteral("Sound"), Snore::LocalSetting).toString().toUtf8().constData());
+        sound.setBody((settingsValue(PushoverConstants::Sound)).toString().toUtf8().constData());
     }
     mp->append(sound);
 
-    if (!settingsValue(QStringLiteral("Devices"), Snore::LocalSetting).toString().isEmpty()) {
+    if (!settingsValue(PushoverConstants::Devices).toString().isEmpty()) {
         QHttpPart devices;
         devices.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant(QLatin1String("form-data; name=\"device\"")));
-        devices.setBody(settingsValue(QStringLiteral("Devices"), Snore::LocalSetting).toString().toUtf8().constData());
+        devices.setBody(settingsValue(PushoverConstants::Devices).toString().toUtf8().constData());
         mp->append(devices);
     }
 
@@ -121,9 +122,9 @@ void Pushover::slotNotify(Snore::Notification notification)
 
 void Pushover::setDefaultSettings()
 {
-    setDefaultSettingsValue(QStringLiteral("UserKey"), QString());
-    setDefaultSettingsValue(QStringLiteral("Sound"), QLatin1String("pushover"), Snore::LocalSetting);
-    setDefaultSettingsValue(QStringLiteral("Devices"), QString(), Snore::LocalSetting);
+    setDefaultSettingsValue(PushoverConstants::UserKey, QString());
+    setDefaultSettingsValue(PushoverConstants::Sound, QLatin1String("pushover"));
+    setDefaultSettingsValue(PushoverConstants::Devices, QString());
     SnoreSecondaryBackend::setDefaultSettings();
 }
 

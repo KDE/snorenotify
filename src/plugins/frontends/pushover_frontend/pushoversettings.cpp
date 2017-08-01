@@ -17,6 +17,7 @@
 */
 #include "pushoversettings.h"
 #include "pushoverclient.h"
+#include "../../secondary_backends/pushover_backend/pushoverconstants.h"
 
 #include "libsnore/plugins/plugins.h"
 #include "libsnore/hint.h"
@@ -80,7 +81,7 @@ PushoverSettings::~PushoverSettings()
 
 void PushoverSettings::load()
 {
-    m_deviceLineEdit->setText(settingsValue(QStringLiteral("DeviceName"), Snore::LocalSetting).toString());
+    m_deviceLineEdit->setText(settingsValue(PushoverConstants::Devices).toString());
 }
 
 void PushoverSettings::save()

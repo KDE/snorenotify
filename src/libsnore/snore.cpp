@@ -18,6 +18,7 @@
 
 #include "snore.h"
 #include "snore_p.h"
+#include "snoreconstants.h"
 #include "lambdahint.h"
 #include "notification/notification.h"
 #include "notification/notification_p.h"
@@ -74,7 +75,7 @@ void SnoreCore::loadPlugins(SnorePlugin::PluginTypes types)
         return;
     }
     Q_D(SnoreCore);
-    setSettingsValue(QStringLiteral("PluginTypes"), QVariant::fromValue(types), LocalSetting);
+    setSettingsValue(Constants::SettingsKeys::PluginTypes, QVariant::fromValue(types));
     qCDebug(SNORE) << "Loading plugin types:" << types;
     foreach(const SnorePlugin::PluginTypes type, SnorePlugin::types()) {
         if (type != SnorePlugin::All && types & type) {
@@ -91,7 +92,7 @@ void SnoreCore::loadPlugins(SnorePlugin::PluginTypes types)
                 case SnorePlugin::Frontend:
                 case SnorePlugin::Plugin:
                 case SnorePlugin::Settings:
-                    plugin->setEnabled(plugin->settingsValue(QStringLiteral("Enabled"), LocalSetting).toBool());
+                    plugin->setEnabled(plugin->settingsValue(Constants::SettingsKeys::Enabled).toBool());
                     break;
                 default:
                     qCWarning(SNORE) << "Plugin Cache corrupted\n" << info->file() << info->type();
@@ -209,26 +210,26 @@ void SnoreCore::setDefaultApplication(const Application app)
     d->m_defaultApp = app;
 }
 
-QVariant SnoreCore::settingsValue(const QString &key, SettingsType type) const
+QVariant SnoreCore::settingsValue(const SettingsKey &key) const
 {
     Q_D(const SnoreCore);
-    QString nk = d->normalizeSettingsKey(key, type);
-    if (type == LocalSetting && !d->m_settings->contains(nk)) {
-        nk = d->normalizeSettingsKey(key + QStringLiteral("-SnoreDefault"), type);
+    QString nk = d->normalizeSettingsKey(key.key, key.type);
+    if (key.type == LocalSetting && !d->m_settings->contains(nk)) {
+        nk = d->normalizeSettingsKey(key.key + QStringLiteral("-SnoreDefault"), key.type);
     }
     return d->m_settings->value(nk);
 }
 
-void SnoreCore::setSettingsValue(const QString &key, const QVariant &value, SettingsType type)
+void SnoreCore::setSettingsValue(const SettingsKey &key, const QVariant &value)
 {
     Q_D(SnoreCore);
-    d->m_settings->setValue(d->normalizeSettingsKey(key, type), value);
+    d->m_settings->setValue(d->normalizeSettingsKey(key.key, key.type), value);
 }
 
-void SnoreCore::setDefaultSettingsValue(const QString &key, const QVariant &value, SettingsType type)
+void SnoreCore::setDefaultSettingsValue(const SettingsKey &key, const QVariant &value)
 {
     Q_D(SnoreCore);
-    QString nk = d->normalizeSettingsKey(key, type);
+    QString nk = d->normalizeSettingsKey(key.key, key.type);
     if (!d->m_settings->contains(nk)) {
         qCDebug(SNORE) <<  "Set default value" << nk << value;
         d->m_settings->setValue(nk, value);

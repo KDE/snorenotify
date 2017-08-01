@@ -16,6 +16,7 @@
     along with SnoreNotify.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "toasty.h"
+#include "toastyconstants.h"
 
 #include "libsnore/utils.h"
 
@@ -28,7 +29,7 @@ namespace SnorePlugin {
 
 void Toasty::slotNotify(Snore::Notification notification)
 {
-    QString key = settingsValue(QStringLiteral("DeviceID")).toString();
+    QString key = settingsValue(ToastyConstants::DeviceID).toString();
     if (key.isEmpty()) {
         return;
     }
@@ -74,7 +75,7 @@ void Toasty::slotNotify(Snore::Notification notification)
 
 void Toasty::setDefaultSettings()
 {
-    setDefaultSettingsValue(QStringLiteral("DeviceID"), QString());
+    setDefaultSettingsValue(ToastyConstants::DeviceID, QString());
     SnoreSecondaryBackend::setDefaultSettings();
 }
 

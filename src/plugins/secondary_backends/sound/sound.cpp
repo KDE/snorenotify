@@ -16,6 +16,7 @@
     along with SnoreNotify.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "sound.h"
+#include "soundconstants.h"
 
 #include <QtMultimedia/QMediaPlayer>
 #include <QTimer>
@@ -35,7 +36,7 @@ Sound::Sound():
 
 void Sound::setDefaultSettings()
 {
-    setDefaultSettingsValue(QStringLiteral("Volume"), 50);
+    setDefaultSettingsValue(SoundConstants::Volume, 50);
     SnoreSecondaryBackend::setDefaultSettings();
 }
 
@@ -44,11 +45,11 @@ void Sound::slotNotificationDisplayed(Snore::Notification notification)
     if (notification.hints().value("silent").toBool()) {
         return;
     }
-    m_player->setVolume(settingsValue(QStringLiteral("Volume")).toInt());
+    m_player->setVolume(settingsValue(SoundConstants::Volume).toInt());
 
     QString sound = notification.hints().value("sound").toString();
     if (sound.isEmpty()) {
-        sound = settingsValue(QStringLiteral("Sound")).toString();
+        sound = settingsValue(SoundConstants::SoundKey).toString();
     }
     qCDebug(SNORE) << "SoundFile:" << sound;
     if (!sound.isEmpty()) {

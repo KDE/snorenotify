@@ -19,6 +19,7 @@
 #include "application_p.h"
 #include "lambdahint.h"
 #include "snore_p.h"
+#include "snoreconstants.h"
 
 #include <QGuiApplication>
 
@@ -36,7 +37,7 @@ ApplicationData::ApplicationData(const QString &key, const QString &name, const 
     m_hint.setValue("pushover-token", QLatin1String("aFB1TPCyZkkr7mubCGEKy5vJEWak9t"));
     m_hint.setValue("use-markup", false);
     m_hint.setValue("silent", QVariant::fromValue(LambdaHint([]() {
-        return SnoreCore::instance().settingsValue(QStringLiteral("Silent"), LocalSetting);
+        return SnoreCore::instance().settingsValue(Snore::Constants::SettingsKeys::Silent);
     })));
 
 }

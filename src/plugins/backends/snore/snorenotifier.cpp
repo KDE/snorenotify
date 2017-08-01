@@ -18,6 +18,7 @@
 
 #include "snorenotifier.h"
 #include "notifywidget.h"
+#include "snorebackendconstants.h"
 #include "libsnore/notification/notification_p.h"
 #include "libsnore/snore_p.h"
 
@@ -107,6 +108,6 @@ int SnorePlugin::Snore::maxNumberOfActiveNotifications() const
 
 void SnorePlugin::Snore::setDefaultSettings()
 {
-    setDefaultSettingsValue(QStringLiteral("Position"), Qt::TopRightCorner);
+    setDefaultSettingsValue(SnoreBackendConstants::Position, Qt::TopRightCorner);
     SnoreBackend::setDefaultSettings();
 }

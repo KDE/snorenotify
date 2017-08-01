@@ -1,6 +1,7 @@
 #include <libsnore/snore.h>
 #include <libsnore/snore_p.h>
 #include <libsnore/utils.h>
+#include <libsnore/snoreconstants.h>
 
 #include <QTextDocument>
 
@@ -16,7 +17,7 @@ public:
     {
         SnoreCore &instance = SnoreCore::instance();
         instance.loadPlugins(SnorePlugin::Backend);
-        instance.setSettingsValue(QStringLiteral("Timeout"), 1, LocalSetting);
+        instance.setSettingsValue(Snore::Constants::SettingsKeys::Timeout, 1);
     }
 
     // clazy is complaining about this string but QStringLiteral won't work for the multiline string, so use QStringBuilder to silence it.

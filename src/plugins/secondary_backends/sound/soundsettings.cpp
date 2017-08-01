@@ -16,6 +16,7 @@
     along with SnoreNotify.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "soundsettings.h"
+#include "soundconstants.h"
 #include "plugins/plugins.h"
 
 #include <QFileDialog>
@@ -52,13 +53,13 @@ SoundSettings::~SoundSettings()
 
 void SoundSettings::load()
 {
-    m_lineEditFileName->setText(settingsValue(QStringLiteral("Sound")).toString());
-    m_spinBoxVolume->setValue(settingsValue(QStringLiteral("Volume")).toInt());
+    m_lineEditFileName->setText(settingsValue(SoundConstants::SoundKey).toString());
+    m_spinBoxVolume->setValue(settingsValue(SoundConstants::Volume).toInt());
 }
 
 void SoundSettings::save()
 {
-    setSettingsValue(QStringLiteral("Sound"), m_lineEditFileName->text());
-    setSettingsValue(QStringLiteral("Volume"), m_spinBoxVolume->value());
+    setSettingsValue(SoundConstants::SoundKey, m_lineEditFileName->text());
+    setSettingsValue(SoundConstants::Volume, m_spinBoxVolume->value());
 }
 

@@ -1,6 +1,7 @@
 #include <libsnore/snore.h>
 #include <libsnore/snore_p.h>
 #include <libsnore/utils.h>
+#include <libsnore/snoreconstants.h>
 
 #include <QTextDocument>
 
@@ -17,7 +18,7 @@ public:
     {
         SnoreCore &instance = SnoreCore::instance();
         instance.loadPlugins(SnorePlugin::Backend);
-        instance.setSettingsValue(QStringLiteral("Timeout"), 10, LocalSetting);
+        instance.setSettingsValue(Snore::Constants::SettingsKeys::Timeout, 10);
         SnoreCore::instance().registerApplication(app);
     }
 
@@ -46,7 +47,7 @@ private:
             QString old = snore.primaryNotificationBackend();
             while (!backends.empty() && snore.primaryNotificationBackend() == old) {
                 QString p = backends.takeLast();
-                snore.setSettingsValue(QStringLiteral("PrimaryBackend"), p, LocalSetting);
+                snore.setSettingsValue(Snore::Constants::SettingsKeys::PrimaryBackend, p);
                 SnoreCorePrivate::instance()->syncSettings();
                 if (snore.primaryNotificationBackend() == p) {
                     for (const auto &message : messages) {

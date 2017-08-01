@@ -138,9 +138,9 @@ public:
      */
     void setDefaultApplication(Application app);
 
-    QVariant settingsValue(const QString &key, SettingsType type = GlobalSetting) const;
-    void setSettingsValue(const QString &key, const QVariant &settingsValue, SettingsType type = GlobalSetting);
-    void setDefaultSettingsValue(const QString &key, const QVariant &settingsValue, SettingsType type = GlobalSetting);
+    QVariant settingsValue(const SettingsKey &key) const;
+    void setSettingsValue(const SettingsKey &key, const QVariant &value);
+    void setDefaultSettingsValue(const SettingsKey &key, const QVariant &settingsValue);
 
     Notification getActiveNotificationByID(uint id) const;
 

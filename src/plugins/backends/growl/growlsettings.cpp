@@ -16,6 +16,7 @@
     along with SnoreNotify.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "growlsettings.h"
+#include "growlconstants.h"
 
 #include <QLineEdit>
 
@@ -36,13 +37,13 @@ GrowlSettings::~GrowlSettings()
 
 void GrowlSettings::load()
 {
-    m_host->setText(settingsValue(QStringLiteral("Host")).toString());
-    m_password->setText(settingsValue(QStringLiteral("Password")).toString());
+    m_host->setText(settingsValue(GrowlConstants::Host).toString());
+    m_password->setText(settingsValue(GrowlConstants::Password).toString());
 }
 
 void GrowlSettings::save()
 {
-    setSettingsValue(QStringLiteral("Host"), m_host->text());
-    setSettingsValue(QStringLiteral("Password"), m_password->text());
+    setSettingsValue(GrowlConstants::Host, m_host->text());
+    setSettingsValue(GrowlConstants::Password, m_password->text());
 }
 

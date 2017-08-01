@@ -17,6 +17,7 @@
 */
 
 #include "growlbackend.h"
+#include "growlconstants.h"
 
 #include "libsnore/snore.h"
 #include "libsnore/snore_p.h"
@@ -63,7 +64,7 @@ SnorePlugin::Growl::~Growl()
 
 bool SnorePlugin::Growl::isReady()
 {
-    bool running = ::Growl::isRunning(GROWL_TCP, settingsValue(QStringLiteral("Host")).toString().toUtf8().constData());
+    bool running = ::Growl::isRunning(GROWL_TCP, settingsValue(GrowlConstants::Host).toString().toUtf8().constData());
     if (!running) {
         setErrorString(tr("%1 is not running.").arg(name()));
     }
@@ -80,8 +81,8 @@ void SnorePlugin::Growl::slotRegisterApplication(const Snore::Application &appli
         alerts.push_back(a.name().toUtf8().constData());
     }
 
-    ::Growl *growl = new ::Growl(GROWL_TCP, settingsValue(QStringLiteral("Host")).toString().toUtf8().constData(),
-                             settingsValue(QStringLiteral("Password")).toString().toUtf8().constData(),
+    ::Growl *growl = new ::Growl(GROWL_TCP, settingsValue(GrowlConstants::Host).toString().toUtf8().constData(),
+                             settingsValue(GrowlConstants::Password).toString().toUtf8().constData(),
                              application.name().toUtf8().constData());
     m_applications.insert(application.name(), growl);
     growl->Register(alerts, application.icon().localUrl(QSize(128, 128)).toUtf8().constData());
@@ -117,7 +118,7 @@ void SnorePlugin::Growl::slotNotify(Snore::Notification notification)
 void SnorePlugin::Growl::setDefaultSettings()
 {
     SnoreBackend::setDefaultSettings();
-    setDefaultSettingsValue(QStringLiteral("Host"), QLatin1String("localhost"));
-    setDefaultSettingsValue(QStringLiteral("Password"), QString());
+    setDefaultSettingsValue(GrowlConstants::Host, QLatin1String("localhost"));
+    setDefaultSettingsValue(GrowlConstants::Password, QString());
 }
 

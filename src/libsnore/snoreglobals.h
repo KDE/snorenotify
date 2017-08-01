@@ -31,6 +31,11 @@ enum SettingsType {
     LocalSetting
 };
 
+struct SettingsKey {
+    QString key;
+    SettingsType type;
+};
+
 }
 
 SNORE_EXPORT Q_DECLARE_LOGGING_CATEGORY(SNORE)

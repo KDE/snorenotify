@@ -133,9 +133,9 @@ public:
      */
     QString errorString() const;
 
-    QVariant settingsValue(const QString &key, SettingsType type = GlobalSetting) const;
-    void setSettingsValue(const QString &key, const QVariant &settingsValue, SettingsType type = GlobalSetting);
-    void setDefaultSettingsValue(const QString &key, const QVariant &settingsValue, SettingsType type = GlobalSetting);
+    QVariant settingsValue(const SettingsKey &key) const;
+    void setSettingsValue(const SettingsKey &key, const QVariant &settingsValue);
+    void setDefaultSettingsValue(const SettingsKey &key, const QVariant &settingsValue);
 
     const Hint &constHints() const;
 
@@ -158,7 +158,7 @@ protected:
 
     Hint &hints();
 private:
-    QString normaliseKey(const QString &key) const;
+    SettingsKey normaliseKey(const SettingsKey &key) const;
     void setDefaultSettingsPlugin();
 
     bool m_enabled = false;

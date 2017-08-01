@@ -18,6 +18,8 @@
 
 #include "pushoverclient.h"
 #include "pushover_frontend.h"
+#include "../../secondary_backends/pushover_backend/pushoverconstants.h"
+
 
 #include "libsnore/snore.h"
 #include "libsnore/notification/notification_p.h"
@@ -47,7 +49,7 @@ PushoverClient::PushoverClient(PushoverFrontend *frontend):
 
 void PushoverClient::login(const QString &email, const QString &password, const QString &deviceName)
 {
-    m_frontend->setSettingsValue(QStringLiteral("DeviceName"), deviceName, Snore::LocalSetting);
+    m_frontend->setSettingsValue(PushoverConstants::DeviceName, deviceName);
 
     QNetworkRequest request(QUrl(QStringLiteral("https://api.pushover.net/1/users/login.json")));
 
@@ -73,8 +75,8 @@ void PushoverClient::login(const QString &email, const QString &password, const 
 
 void PushoverClient::logOut()
 {
-    m_frontend->setSettingsValue(QStringLiteral("Secret"), QString(), LocalSetting);
-    m_frontend->setSettingsValue(QStringLiteral("DeviceID"), QString(), LocalSetting);
+    m_frontend->setSettingsValue(PushoverConstants::Secret, QString());
+    m_frontend->setSettingsValue(PushoverConstants::DeviceID, QString());
     m_socket->close();
     m_socket->deleteLater();
     emit loggedInChanged(LoggedOut);
@@ -92,12 +94,12 @@ QString PushoverClient::errorMessage()
 
 QString PushoverClient::secret()
 {
-    return m_frontend->settingsValue(QStringLiteral("Secret"),  LocalSetting).toString();
+    return m_frontend->settingsValue(PushoverConstants::Secret).toString();
 }
 
 QString PushoverClient::device()
 {
-    return m_frontend->settingsValue(QStringLiteral("DeviceID"),  LocalSetting).toString();
+    return m_frontend->settingsValue(PushoverConstants::DeviceID).toString();
 }
 
 void PushoverClient::connectToService()
@@ -175,8 +177,8 @@ void PushoverClient::registerDevice(const QString &secret, const QString &device
         reply->deleteLater();
         QJsonObject message = QJsonDocument::fromJson(input).object();
         if (message.value(QStringLiteral("status")).toInt() == 1) {
-            m_frontend->setSettingsValue(QStringLiteral("Secret"), secret, LocalSetting);
-            m_frontend->setSettingsValue(QStringLiteral("DeviceID"), message.value(QStringLiteral("id")).toString(), LocalSetting);;
+            m_frontend->setSettingsValue(PushoverConstants::Secret, secret);
+            m_frontend->setSettingsValue(PushoverConstants::DeviceID, message.value(QStringLiteral("id")).toString());
             connectToService();
         } else {
             qCWarning(SNORE) << "An error occured" << input;

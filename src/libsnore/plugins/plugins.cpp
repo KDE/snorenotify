@@ -18,6 +18,7 @@
 
 #include "../snore.h"
 #include "../snore_p.h"
+#include "../snoreconstants.h"
 #include "snorebackend.h"
 #include "snorefrontend.h"
 #include "../notification/notification_p.h"
@@ -47,19 +48,19 @@ bool SnorePlugin::isEnabled() const
     return m_enabled;
 }
 
-QVariant SnorePlugin::settingsValue(const QString &key, SettingsType type) const
+QVariant SnorePlugin::settingsValue(const SettingsKey &key) const
 {
-    return SnoreCore::instance().settingsValue(normaliseKey(key), type);
+    return SnoreCore::instance().settingsValue(normaliseKey(key));
 }
 
-void SnorePlugin::setSettingsValue(const QString &key, const QVariant &value, SettingsType type)
+void SnorePlugin::setSettingsValue(const SettingsKey &key, const QVariant &value)
 {
-    SnoreCore::instance().setSettingsValue(normaliseKey(key), value, type);
+    SnoreCore::instance().setSettingsValue(normaliseKey(key), value);
 }
 
-void SnorePlugin::setDefaultSettingsValue(const QString &key, const QVariant &value, SettingsType type)
+void SnorePlugin::setDefaultSettingsValue(const SettingsKey &key, const QVariant &value)
 {
-    SnoreCore::instance().setDefaultSettingsValue(normaliseKey(key), value, type);
+    SnoreCore::instance().setDefaultSettingsValue(normaliseKey(key), value);
 }
 
 const Hint &SnorePlugin::constHints() const
@@ -72,9 +73,9 @@ Hint &SnorePlugin::hints()
     return m_hints;
 }
 
-QString SnorePlugin::normaliseKey(const QString &key) const
+SettingsKey SnorePlugin::normaliseKey(const SettingsKey &key) const
 {
-    return name() + QLatin1Char('-') + typeName() + QLatin1Char('/') + key + QLatin1Char('.') + settingsVersion();
+    return SettingsKey{name() + QLatin1Char('-') + typeName() + QLatin1Char('/') + key.key + QLatin1Char('.') + settingsVersion(), key.type};
 }
 
 const QString &SnorePlugin::name() const
@@ -104,7 +105,7 @@ QString SnorePlugin::settingsVersion() const
 
 void SnorePlugin::setDefaultSettings()
 {
-    setDefaultSettingsValue(QStringLiteral("Enabled"), false, LocalSetting);
+    setDefaultSettingsValue(Constants::SettingsKeys::Enabled, false);
 }
 
 void SnorePlugin::setErrorString(const QString &_error)

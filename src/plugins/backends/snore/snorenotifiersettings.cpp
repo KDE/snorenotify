@@ -16,6 +16,7 @@
     along with SnoreNotify.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "snorenotifiersettings.h"
+#include "snorebackendconstants.h"
 #include "snore.h"
 
 #include <QComboBox>
@@ -37,10 +38,10 @@ SnoreSettings::~SnoreSettings()
 
 void SnoreSettings::load()
 {
-    m_comboBox->setCurrentIndex(settingsValue(QStringLiteral("Position")).toInt());
+    m_comboBox->setCurrentIndex(settingsValue(SnoreBackendConstants::Position).toInt());
 }
 
 void SnoreSettings::save()
 {
-    setSettingsValue(QStringLiteral("Position"), m_comboBox->currentIndex());
+    setSettingsValue(SnoreBackendConstants::Position, m_comboBox->currentIndex());
 }

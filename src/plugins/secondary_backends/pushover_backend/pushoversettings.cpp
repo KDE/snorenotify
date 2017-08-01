@@ -16,6 +16,7 @@
     along with SnoreNotify.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "pushoversettings.h"
+#include "pushoverconstants.h"
 
 #include "plugins/plugins.h"
 
@@ -40,14 +41,14 @@ PushoverSettings::~PushoverSettings()
 
 void PushoverSettings::load()
 {
-    m_keyLineEdit->setText(settingsValue(QStringLiteral("UserKey")).toString());
-    m_soundLineEdit->setText(settingsValue(QStringLiteral("Sound"), Snore::LocalSetting).toString());
-    m_deviceLineEdit->setText(settingsValue(QStringLiteral("Devices"), Snore::LocalSetting).toString());
+    m_keyLineEdit->setText(settingsValue(PushoverConstants::UserKey).toString());
+    m_soundLineEdit->setText(settingsValue(PushoverConstants::Sound).toString());
+    m_deviceLineEdit->setText(settingsValue(PushoverConstants::Devices).toString());
 }
 
 void PushoverSettings::save()
 {
-    setSettingsValue(QStringLiteral("UserKey"), m_keyLineEdit->text());
-    setSettingsValue(QStringLiteral("Sound"), m_soundLineEdit->text(), Snore::LocalSetting);
-    setSettingsValue(QStringLiteral("Devices"), m_deviceLineEdit->text(), Snore::LocalSetting);
+    setSettingsValue(PushoverConstants::UserKey, m_keyLineEdit->text());
+    setSettingsValue(PushoverConstants::Sound, m_soundLineEdit->text());
+    setSettingsValue(PushoverConstants::Devices, m_deviceLineEdit->text());
 }

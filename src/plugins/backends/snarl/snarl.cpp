@@ -17,6 +17,7 @@
 */
 
 #include "snarl.h"
+#include "snarlconstants.h"
 
 #include "libsnore/snore.h"
 #include "libsnore/snore_p.h"
@@ -157,7 +158,7 @@ bool SnorePlugin::Snarl::isReady()
 void SnorePlugin::Snarl::setDefaultSettings()
 {
 
-    setDefaultSettingsValue(QLatin1String("Password"), QString());
+    setDefaultSettingsValue(SnarlConstants::Password, QString());
     SnoreBackend::setDefaultSettings();
 }
 
@@ -171,7 +172,7 @@ void SnorePlugin::Snarl::slotRegisterApplication(const Snore::Application &appli
     m_applications.insert(application.name(), snarlInterface);
 
     QString appName = application.name().replace(QLatin1Char(' '), QLatin1Char('_')); //app sig must not contain spaces
-    QString password = settingsValue(QLatin1String("Password")).toString();
+    QString password = settingsValue(SnarlConstants::Password).toString();
     LONG32 result = snarlInterface->Register(appName.toUtf8().constData(),
                     application.name().toUtf8().constData(),
                     application.icon().localUrl(QSize(128, 128)).toUtf8().constData(),

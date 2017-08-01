@@ -16,6 +16,7 @@
     along with SnoreNotify.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "toastysettings.h"
+#include "toastyconstants.h"
 
 #include "plugins/plugins.h"
 
@@ -36,10 +37,10 @@ ToastySettings::~ToastySettings()
 
 void ToastySettings::load()
 {
-    m_lineEdit->setText(settingsValue(QStringLiteral("DeviceID")).toString());
+    m_lineEdit->setText(settingsValue(ToastyConstants::DeviceID).toString());
 }
 
 void ToastySettings::save()
 {
-    setSettingsValue(QStringLiteral("DeviceID"), m_lineEdit->text());
+    setSettingsValue(ToastyConstants::DeviceID, m_lineEdit->text());
 }

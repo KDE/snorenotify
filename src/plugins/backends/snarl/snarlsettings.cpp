@@ -16,6 +16,7 @@
     along with SnoreNotify.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "snarlsettings.h"
+#include "snarlconstants.h"
 
 #include <QLineEdit>
 
@@ -34,11 +35,11 @@ SnarlSettings::~SnarlSettings()
 
 void SnarlSettings::load()
 {
-    m_password->setText(settingsValue(QLatin1String("Password")).toString());
+    m_password->setText(settingsValue(SnarlConstants::Password).toString());
 }
 
 void SnarlSettings::save()
 {
-    setSettingsValue(QLatin1String("Password"), m_password->text());
+    setSettingsValue(SnarlConstants::Password, m_password->text());
 }
 

@@ -17,6 +17,7 @@
 */
 #include "pluginsettingswidget.h"
 #include "libsnore/plugins/plugins.h"
+#include "libsnore/snoreconstants.h"
 #include "snore.h"
 
 #include <QCheckBox>
@@ -61,7 +62,7 @@ void PluginSettingsWidget::addRow(const QString &label, QWidget *widget, const Q
 void PluginSettingsWidget::loadSettings()
 {
     if (m_snorePlugin->type() != SnorePlugin::Backend) {
-        m_enabled->setChecked(m_snorePlugin->settingsValue(QStringLiteral("Enabled"), LocalSetting).toBool());
+        m_enabled->setChecked(m_snorePlugin->settingsValue(Constants::SettingsKeys::Enabled).toBool());
     }
     load();
 }
@@ -69,7 +70,7 @@ void PluginSettingsWidget::loadSettings()
 void PluginSettingsWidget::saveSettings()
 {
     if (m_snorePlugin->type() != SnorePlugin::Backend) {
-        m_snorePlugin->setSettingsValue(QStringLiteral("Enabled"), m_enabled->isChecked(), LocalSetting);
+        m_snorePlugin->setSettingsValue(Constants::SettingsKeys::Enabled, m_enabled->isChecked());
     }
     save();
 }
@@ -79,15 +80,15 @@ bool PluginSettingsWidget::isDirty()
     return m_dirty;
 }
 
-QVariant PluginSettingsWidget::settingsValue(const QString &key, SettingsType type) const
+QVariant PluginSettingsWidget::settingsValue(const SettingsKey &key) const
 {
-    return m_snorePlugin->settingsValue(key, type);
+    return m_snorePlugin->settingsValue(key);
 }
 
-void PluginSettingsWidget::setSettingsValue(const QString &key, const QVariant &value, SettingsType type)
+void PluginSettingsWidget::setSettingsValue(const SettingsKey &key, const QVariant &value)
 {
     if (this->settingsValue(key) != value) {
-        m_snorePlugin->setSettingsValue(key, value, type);
+        m_snorePlugin->setSettingsValue(key, value);
         m_dirty = true;
     }
 }

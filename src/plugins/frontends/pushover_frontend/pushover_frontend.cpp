@@ -23,6 +23,11 @@
 #include "libsnore/notification/notification_p.h"
 #include "libsnore/hint.h"
 
+namespace {
+static const Snore::SettingsKey DeviceID = {QStringLiteral("DeviceID"), Snore::GlobalSetting};
+static const Snore::SettingsKey Secret = {QStringLiteral("Secret"), Snore::GlobalSetting};
+}
+
 using namespace Snore;
 
 PushoverFrontend::PushoverFrontend():
@@ -40,8 +45,8 @@ PushoverFrontend::PushoverFrontend():
 
 void PushoverFrontend::setDefaultSettings()
 {
-    setDefaultSettingsValue(QStringLiteral("Secret"), QString(), LocalSetting);
-    setDefaultSettingsValue(QStringLiteral("DeviceID"), QString(), LocalSetting);
+    setDefaultSettingsValue(Secret, QString());
+    setDefaultSettingsValue(DeviceID, QString());
     SnoreFrontend::setDefaultSettings();
 }
 

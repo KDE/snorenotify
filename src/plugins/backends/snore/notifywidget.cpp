@@ -18,6 +18,7 @@
 
 #include "notifywidget.h"
 #include "snorenotifier.h"
+#include "snorebackendconstants.h"
 #include "libsnore/utils.h"
 
 #include <QGuiApplication>
@@ -179,7 +180,7 @@ int NotifyWidget::id() const
 
 void NotifyWidget::syncSettings()
 {
-    Qt::Corner c = static_cast<Qt::Corner>(m_parent->settingsValue(QStringLiteral("Position")).toInt());
+    Qt::Corner c = static_cast<Qt::Corner>(m_parent->settingsValue(SnoreBackendConstants::Position).toInt());
     if (c != m_corner || !m_initialized) {
         m_initialized = true;
         m_corner = c;
