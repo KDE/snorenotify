@@ -1,11 +1,12 @@
 #include "speech.h"
 
+#include <QCoreApplication>
 #include <QtTextToSpeech/QTextToSpeech>
 
 #include <snore.h>
 Speech::Speech()
     : Snore::SnoreSecondaryBackend()
-    , m_speech(new QTextToSpeech(this))
+    , m_speech(new QTextToSpeech(qApp))
 {
     connect(m_speech, &QTextToSpeech::stateChanged, this, [this](QTextToSpeech::State state) {
         qCDebug(SNORE) << state;
