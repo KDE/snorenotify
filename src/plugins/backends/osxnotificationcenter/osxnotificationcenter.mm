@@ -67,11 +67,11 @@ BOOL installNSBundleHook()
 }
 - (void) userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
 {
-    
+
     qCDebug(SNORE) << "User clicked on notification";
     int notificationId = [notification.userInfo[@"id"] intValue];
     [center removeDeliveredNotification: notification];
-    if (not m_IdToNotification.contains(notificationId)) {
+    if (!m_IdToNotification.contains(notificationId)) {
         qCWarning(SNORE) << "User clicked on notification that was not recognized";
         return;
     }
@@ -107,10 +107,10 @@ OSXNotificationCenter::OSXNotificationCenter()
 {
     installNSBundleHook();
     m_IdToNSNotification = [[NSMutableDictionary alloc] init];
-    if (not delegate) {
+    if (!delegate) {
         delegate = new UserNotificationItemClass();
     }
-    
+
 }
 
 OSXNotificationCenter::~OSXNotificationCenter()
@@ -125,12 +125,12 @@ void OSXNotificationCenter::slotNotify(Snore::Notification notification)
     osxNotification.title = notification.title().toNSString();
     osxNotification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:notificationId, @"id", nil];
     osxNotification.informativeText = notification.text().toNSString();
-    
+
     // Add notification to mapper from id to Nofification / NSUserNotification
     m_IdToNotification.insert(notification.id(), notification);
     [m_IdToNSNotification setObject:osxNotification forKey: notificationId];
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification: osxNotification];
-    
+
     slotNotificationDisplayed(notification);
 }
 
