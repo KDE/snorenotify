@@ -72,11 +72,11 @@ target_include_directories( libsnore PUBLIC
                             $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/src>)
 
 
-ecm_setup_version("${SNORE_VERSION_MAJOR}.${SNORE_VERSION_MINOR}.${SNORE_VERSION_PATCH}" VARIABLE_PREFIX SNORE
+ecm_setup_version(PROJECT VARIABLE_PREFIX SNORE
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/Libsnore${SNORE_CamelCase_SUFFIX}ConfigVersion.cmake"
                         SOVERSION ${SNORE_VERSION_MAJOR})
 
-ecm_configure_package_config_file(  "${CMAKE_CURRENT_SOURCE_DIR}/LibsnoreConfig.cmake.in"
+configure_package_config_file(  "${CMAKE_CURRENT_SOURCE_DIR}/LibsnoreConfig.cmake.in"
                                     "${CMAKE_CURRENT_BINARY_DIR}/Libsnore${SNORE_CamelCase_SUFFIX}Config.cmake"
                                     INSTALL_DESTINATION ${KDE_INSTALL_CMAKEPACKAGEDIR}/libsnore${SNORE_CamelCase_SUFFIX}
                               )
@@ -102,7 +102,7 @@ install(FILES
         ${CMAKE_CURRENT_BINARY_DIR}/Libsnore${SNORE_CamelCase_SUFFIX}ConfigVersion.cmake
         DESTINATION
         ${KDE_INSTALL_CMAKEPACKAGEDIR}/libsnore${SNORE_CamelCase_SUFFIX})
-        
+
 if(UNIX)
     ecm_install_icons(ICONS ${PROJECT_SOURCE_DIR}/data/128-apps-snore.png DESTINATION ${KDE_INSTALL_ICONDIR})
 endif()

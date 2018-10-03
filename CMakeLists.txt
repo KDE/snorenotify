@@ -1,5 +1,10 @@
 cmake_minimum_required( VERSION 3.0 )
-project( SnoreNotify )
+
+set(SNORE_VERSION_MAJOR 0)
+set(SNORE_VERSION_MINOR 7)
+set(SNORE_VERSION_PATCH 1)
+
+project( SnoreNotify VERSION "${SNORE_VERSION_MAJOR}.${SNORE_VERSION_MINOR}.${SNORE_VERSION_PATCH}" )
 
 include(FeatureSummary)
 
@@ -18,21 +23,17 @@ include(KDEFrameworkCompilerSettings)
 include(GenerateExportHeader)
 include(CMakeDependentOption)
 
+include(CMakePackageConfigHelpers)
+include(ECMSetupVersion)
 include(ECMAddAppIcon)
 include(ECMGeneratePriFile)
 include(ECMInstallIcons)
 include(ECMMarkNonGuiExecutable)
 include(ECMOptionalAddSubdirectory)
-include(ECMPackageConfigHelpers)
 include(ECMPoQmTools)
 include(ECMSetupVersion)
 
 include(QtStatic)
-
-
-set(SNORE_VERSION_MAJOR 0)
-set(SNORE_VERSION_MINOR 7)
-set(SNORE_VERSION_PATCH 1)
 
 set(SNORE_SUFFIX "-qt5")
 set(SNORE_CamelCase_SUFFIX "Qt5")
