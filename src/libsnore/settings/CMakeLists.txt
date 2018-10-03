@@ -24,7 +24,7 @@ set_target_properties( libsnoresettings PROPERTIES
                                 VERSION "${SNORE_VERSION_MAJOR}.${SNORE_VERSION_MINOR}.${SNORE_VERSION_PATCH}"
                                 SOVERSION "${SNORE_VERSION_MAJOR}.${SNORE_VERSION_MINOR}"
                                 EXPORT_NAME LibsnoreSettings)
-                                
+
 target_link_libraries( libsnoresettings PUBLIC Qt5::Widgets Snore::Libsnore)
 
 add_library(Snore::LibsnoreSettings ALIAS libsnoresettings)
@@ -35,11 +35,11 @@ generate_export_header(libsnoresettings
 )
 
 
-ecm_setup_version("${SNORE_VERSION_MAJOR}.${SNORE_VERSION_MINOR}.${SNORE_VERSION_PATCH}" VARIABLE_PREFIX SNORE
+ecm_setup_version(PROJECT VARIABLE_PREFIX SNORE
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/LibsnoreSettings${SNORE_CamelCase_SUFFIX}ConfigVersion.cmake"
                         SOVERSION ${SNORE_VERSION_MAJOR})
 
-ecm_configure_package_config_file(  "${CMAKE_CURRENT_SOURCE_DIR}/LibsnoreSettingsConfig.cmake.in"
+configure_package_config_file(  "${CMAKE_CURRENT_SOURCE_DIR}/LibsnoreSettingsConfig.cmake.in"
                                     "${CMAKE_CURRENT_BINARY_DIR}/LibsnoreSettings${SNORE_CamelCase_SUFFIX}Config.cmake"
                                     INSTALL_DESTINATION ${KDE_INSTALL_CMAKEPACKAGEDIR}/libsnoresettings${SNORE_CamelCase_SUFFIX}
                               )
@@ -64,4 +64,4 @@ install(FILES
         ${CMAKE_CURRENT_BINARY_DIR}/LibsnoreSettings${SNORE_CamelCase_SUFFIX}ConfigVersion.cmake
         DESTINATION
         ${KDE_INSTALL_CMAKEPACKAGEDIR}/libsnoresettings${SNORE_CamelCase_SUFFIX})
-        
+
