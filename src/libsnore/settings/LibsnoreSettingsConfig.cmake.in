@@ -1,5 +1,6 @@
 @PACKAGE_INIT@
 
+include(CMakeFindDependencyMacro)
 find_dependency(Libsnore@SNORE_CamelCase_SUFFIX@ REQUIRED)
 find_dependency(Qt5Widgets REQUIRED)
 
