@@ -228,7 +228,7 @@ public:
      *
      * @return the close reason
      */
-    const Notification::CloseReasons &closeReason();
+    const Notification::CloseReasons &closeReason() const;
 
     /**
      * Returns notification specific hints.

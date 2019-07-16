@@ -127,7 +127,7 @@ const QHash<int, Action> &Notification::actions() const
     return d->m_actions;
 }
 
-const Notification::CloseReasons &Notification::closeReason()
+const Notification::CloseReasons &Notification::closeReason() const
 {
     return d->m_closeReason;
 }
