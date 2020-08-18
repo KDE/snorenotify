@@ -1,3 +1,11 @@
+---
+# Snorenotify is unmaintained, it is recommended to use KNotifications instead. If you only care for Windows notification use https://invent.kde.org/libraries/snoretoast
+
+---
+---
+---
+---
+
 Snorenotify
 ===========
 

@@ -16,6 +16,8 @@ set_package_properties(ECM      PROPERTIES
 
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules )
 
+message(WARNING "Snorenotify is unmaintained, it is recommended to use KNotifications instead. If you only care for Windows notification use https://invent.kde.org/libraries/snoretoast")
+
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings)
