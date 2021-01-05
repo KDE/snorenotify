@@ -1,7 +1,21 @@
 [Desktop Entry]
 Type=Application
 Name=SnoreSettings
+Name[ca]=SnoreSettings
+Name[es]=SnoreSettings
+Name[nl]=SnoreSettings
+Name[pt]=SnoreSettings
+Name[sv]=Snore-inställningar
+Name[uk]=Snore-параметри
+Name[x-test]=xxSnoreSettingsxx
 Comment=Settings client for applications using libsnore.
+Comment[ca]=Configura un client per a les aplicacions que usen la «libsnore».
+Comment[es]=Cliente de preferencias para aplicaciones que usan libsnore.
+Comment[nl]=Client voor instellingen van toepassingen die libsnore gebruiken.
+Comment[pt]=Cliente de configuração das aplicações que usam a 'libsnore'.
+Comment[sv]=Inställningsmodul för program som använder libsnore
+Comment[uk]=Клієнтська програма параметрів для програм, які використовують libsnore.
+Comment[x-test]=xxSettings client for applications using libsnore.xx
 Icon=snore
 Exec=snoresettings
 Categories=Qt;Settings;Qt;Utility;DesktopSettings;

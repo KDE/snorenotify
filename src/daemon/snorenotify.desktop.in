@@ -1,7 +1,21 @@
 [Desktop Entry]
 Type=Application
 Name=SnoreNotify
+Name[ca]=SnoreNotify
+Name[es]=SnoreNotify
+Name[nl]=SnoreNotify
+Name[pt]=SnoreNotify
+Name[sv]=Snore-underrättelser
+Name[uk]=Snore-сповіщення
+Name[x-test]=xxSnoreNotifyxx
 Comment=A daemon redirecting desktop notifications to one or multiple additional backends.
+Comment[ca]=Un dimoni que redirigeix les notificacions d'escriptori a un o més dorsals addicionals.
+Comment[es]=Un demonio que redirige notificaciones del escritorio a uno o más motores adicionales.
+Comment[nl]=Een daemon die meldingen op het bureaublad omleid naar een of meerdere additionele backends.
+Comment[pt]=Um serviço que encaminha as notificações do ecrã para uma ou várias infra-estruturas disponíveis.
+Comment[sv]=En demon som skickar skrivbordsunderrättelser till en eller flera ytterligare gränssnitt.
+Comment[uk]=Фонова служба, яка переспрямовує стільничні сповіщення до одного або декількох додаткових модулів обробки.
+Comment[x-test]=xxA daemon redirecting desktop notifications to one or multiple additional backends.xx
 Icon=snore
 Exec=snorenotify
 Categories=Qt;Settings;Qt;Utility;DesktopSettings;
