@@ -2,6 +2,7 @@
 Type=Application
 Name=SnoreNotify
 Name[ca]=SnoreNotify
+Name[ca@valencia]=SnoreNotify
 Name[es]=SnoreNotify
 Name[nl]=SnoreNotify
 Name[pt]=SnoreNotify
@@ -10,6 +11,7 @@ Name[uk]=Snore-сповіщення
 Name[x-test]=xxSnoreNotifyxx
 Comment=A daemon redirecting desktop notifications to one or multiple additional backends.
 Comment[ca]=Un dimoni que redirigeix les notificacions d'escriptori a un o més dorsals addicionals.
+Comment[ca@valencia]=Un dimoni que redirigeix les notificacions d'escriptori a un o més dorsals addicionals.
 Comment[es]=Un demonio que redirige notificaciones del escritorio a uno o más motores adicionales.
 Comment[nl]=Een daemon die meldingen op het bureaublad omleid naar een of meerdere additionele backends.
 Comment[pt]=Um serviço que encaminha as notificações do ecrã para uma ou várias infra-estruturas disponíveis.

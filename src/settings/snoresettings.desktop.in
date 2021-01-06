@@ -2,6 +2,7 @@
 Type=Application
 Name=SnoreSettings
 Name[ca]=SnoreSettings
+Name[ca@valencia]=SnoreSettings
 Name[es]=SnoreSettings
 Name[nl]=SnoreSettings
 Name[pt]=SnoreSettings
@@ -10,6 +11,7 @@ Name[uk]=Snore-параметри
 Name[x-test]=xxSnoreSettingsxx
 Comment=Settings client for applications using libsnore.
 Comment[ca]=Configura un client per a les aplicacions que usen la «libsnore».
+Comment[ca@valencia]=Configura un client per a les aplicacions que usen la «libsnore».
 Comment[es]=Cliente de preferencias para aplicaciones que usan libsnore.
 Comment[nl]=Client voor instellingen van toepassingen die libsnore gebruiken.
 Comment[pt]=Cliente de configuração das aplicações que usam a 'libsnore'.
