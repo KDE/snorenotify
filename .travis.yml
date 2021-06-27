@@ -60,7 +60,7 @@ script: |-
 
     
 notifications:
-    irc: "chat.freenode.net#snorenotify"
+    irc: "irc.libera.chat#snorenotify"
 
 # addons:
   # apt:
