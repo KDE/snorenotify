@@ -14,7 +14,7 @@ set_package_properties(ECM      PROPERTIES
                                 URL "https://projects.kde.org/projects/kdesupport/extra-cmake-modules"
                                 TYPE REQUIRED)
 
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules )
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules )
 
 message(WARNING "Snorenotify is unmaintained, it is recommended to use KNotifications instead. If you only care for Windows notification use https://invent.kde.org/libraries/snoretoast")
 
