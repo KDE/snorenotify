@@ -1,0 +1,384 @@
+# Translation of snorenotify-qt5_qt.po to Catalan (Valencian)
+# Copyright (C) 2015-2021 This_file_is_part_of_KDE
+# This file is distributed under the license LGPL version 2.1 or
+# version 3 or later versions approved by the membership of KDE e.V.
+#
+# Antoni Bella Pérez <antonibella5@yahoo.com>, 2015, 2016, 2017, 2020.
+# Josep M. Ferrer <txemaq@gmail.com>, 2015, 2016, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: snorenotify\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"PO-Revision-Date: 2021-10-24 18:05+0200\n"
+"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: ca@valencia\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Qt-Contexts: true\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Accelerator-Marker: &\n"
+"X-Generator: Lokalize 20.12.0\n"
+
+#: daemon/trayicon.cpp:79
+msgctxt "TrayIcon|"
+msgid "Display Test Notification"
+msgstr "Mostra una notificació de prova"
+
+#: daemon/trayicon.cpp:81
+msgctxt "TrayIcon|"
+msgid "Settings"
+msgstr "Configuració"
+
+#: daemon/trayicon.cpp:83
+msgctxt "TrayIcon|"
+msgid "Exit"
+msgstr "Ix"
+
+#: libsnore/application_p.cpp:32
+msgctxt "Default Alert|"
+msgid "Default"
+msgstr "Predeterminat"
+
+#: libsnore/settings/pluginsettingswidget.cpp:37
+msgctxt "Snore::PluginSettingsWidget|"
+msgid "Enabled:"
+msgstr "Activat:"
+
+#: libsnore/settings/settingsdialog.ui:14
+msgctxt "SettingsDialog|"
+msgid "Settings"
+msgstr "Configuració"
+
+#: libsnore/settings/settingsdialog.ui:34
+msgctxt "SettingsDialog|"
+msgid "General"
+msgstr "General"
+
+#: libsnore/settings/settingsdialog.ui:45
+msgctxt "SettingsDialog|"
+msgid "Primary Backend:"
+msgstr "Dorsal primari:"
+
+#: libsnore/settings/settingsdialog.ui:55
+msgctxt "SettingsDialog|"
+msgid "Timeout:"
+msgstr "Temps d'espera:"
+
+#: libsnore/settings/settingsdialog.ui:62
+msgctxt "SettingsDialog|"
+msgid "s"
+msgstr "s"
+
+#: libsnore/settings/settingsdialog.ui:69
+msgctxt "SettingsDialog|"
+msgid "Disable Notification Sound:"
+msgstr "Desactiva el so de la notificació:"
+
+#: libsnore/settings/settingsdialog.ui:79
+msgctxt "SettingsDialog|"
+msgid "Error:"
+msgstr "S'ha produït un error:"
+
+#: libsnore/settings/settingsdialog.ui:96
+msgctxt "SettingsDialog|"
+msgid "Primary Backends"
+msgstr "Dorsals primaris"
+
+#: libsnore/settings/settingsdialog.ui:106
+msgctxt "SettingsDialog|"
+msgid "Secondary Backends"
+msgstr "Dorsals secundaris"
+
+#: libsnore/settings/settingsdialog.ui:116
+msgctxt "SettingsDialog|"
+msgid "Frontends"
+msgstr "Frontals"
+
+#: libsnore/settings/settingsdialog.ui:126
+msgctxt "SettingsDialog|"
+msgid "Plugins"
+msgstr "Connectors"
+
+#: libsnore/settings/settingsdialog.ui:139
+msgctxt "SettingsDialog|"
+msgid "Display Test Notification"
+msgstr "Mostra una notificació de prova"
+
+#: libsnore/snore.cpp:248
+#, qt-format
+msgctxt "Snore::SnoreCore|"
+msgid "This is %1"
+msgstr "Açò és %1"
+
+#: libsnore/snore.cpp:249
+msgctxt "Snore::SnoreCore|"
+msgid "Everything is awesome!"
+msgstr "Tot és fantàstic!"
+
+#: libsnore/snore.cpp:253
+msgctxt "Snore::SnoreCore|"
+msgid "Hello There!"
+msgstr "Hola de nou!"
+
+#: libsnore/snore.cpp:254
+msgctxt "Snore::SnoreCore|"
+msgid "Awesome Action!"
+msgstr "Acció impressionant!"
+
+#: plugins/backends/growl/growlbackend.cpp:69
+#, qt-format
+msgctxt "SnorePlugin::Growl|"
+msgid "%1 is not running."
+msgstr "%1 no s'està executant."
+
+#: plugins/backends/growl/growlsettings.cpp:29
+msgctxt "GrowlSettings|"
+msgid "Host:"
+msgstr "Màquina:"
+
+#: plugins/backends/growl/growlsettings.cpp:30
+msgctxt "GrowlSettings|"
+msgid "Password:"
+msgstr "Contrasenya:"
+
+#: plugins/backends/snarl/snarl.cpp:144
+msgctxt "SnorePlugin::Snarl|"
+msgid "This plugin only works with QApplication"
+msgstr "Este connector només funciona amb QApplication"
+
+#: plugins/backends/snarl/snarl.cpp:153
+#, qt-format
+msgctxt "SnorePlugin::Snarl|"
+msgid "%1 is not running."
+msgstr "%1 no s'està executant."
+
+#: plugins/backends/snarl/snarlsettings.cpp:28
+msgctxt "SnarlSettings|"
+msgid "Password:"
+msgstr "Contrasenya:"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:28
+msgctxt "SnoreSettings|"
+msgid "Top Left Corner"
+msgstr "Cantó superior esquerre"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:29
+msgctxt "SnoreSettings|"
+msgid "Top Right Corner"
+msgstr "Cantó superior dret"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:30
+msgctxt "SnoreSettings|"
+msgid "Bottom Left Corner"
+msgstr "Cantó inferior esquerre"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:31
+msgctxt "SnoreSettings|"
+msgid "Bottom Right Corner"
+msgstr "Cantó inferior dret"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:32
+msgctxt "SnoreSettings|"
+msgid "Position:"
+msgstr "Posició:"
+
+#: plugins/backends/snoretoast/snoretoast.cpp:18
+#, qt-format
+msgctxt "SnorePlugin::WindowsToast|"
+msgid "%1 needs at least Windows 8 to run."
+msgstr "%1 almenys necessita Windows 8 per a funcionar."
+
+#: plugins/backends/trayicon/trayiconnotifer.cpp:100
+msgctxt "SnorePlugin::Trayicon|"
+msgid "This plugin only works with QApplication"
+msgstr "Este connector només funciona amb QApplication"
+
+#: plugins/frontends/freedesktop_frontend/freedesktopnotificationfrontend.cpp:40
+msgctxt "FreedesktopFrontend|"
+msgid "Failed to register dbus object."
+msgstr "No s'ha pogut registrar l'objecte de «dbus»."
+
+#: plugins/frontends/freedesktop_frontend/freedesktopnotificationfrontend.cpp:43
+msgctxt "FreedesktopFrontend|"
+msgid "Failed to register dbus service."
+msgstr "No s'ha pogut registrar el servei de «dbus»."
+
+#: plugins/frontends/pushover_frontend/pushoverclient.cpp:70
+msgctxt "PushoverClient|"
+msgid "Failed to login. Please check your credentials."
+msgstr "No s'ha pogut iniciar la sessió. Comproveu les credencials."
+
+#: plugins/frontends/pushover_frontend/pushoverclient.cpp:131
+#, qt-format
+msgctxt "PushoverClient|"
+msgid "Please login to %1 and reenable your device."
+msgstr "Inicieu la sessió a %1 i torneu a connectar el dispositiu."
+
+#: plugins/frontends/pushover_frontend/pushoverclient.cpp:195
+#, qt-format
+msgctxt "PushoverClient|"
+msgid "Failed to login due to errors: %1"
+msgstr "Errors en iniciar la sessió: %1"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:38
+msgctxt "PushoverSettings|"
+msgid "Email Address:"
+msgstr "Adreça de correu:"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:39
+msgctxt "PushoverSettings|"
+msgid "Password:"
+msgstr "Contrasenya:"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:40
+msgctxt "PushoverSettings|"
+msgid "Device Name:"
+msgstr "Nom del dispositiu:"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:42
+msgctxt "PushoverSettings|"
+msgid "Status"
+msgstr "Estat"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:44
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:35
+msgctxt "PushoverSettings|"
+msgid ""
+"If you don't have an account yet please register at <a href=\"https://"
+"pushover.net\">Pushover.net</a>"
+msgstr ""
+"Si encara no teniu un compte, registreu-vos a <a href=\"https://pushover.net"
+"\">Pushover.net</a>"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:99
+msgctxt "PushoverSettings|"
+msgid "Log out"
+msgstr "Eixida"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:104
+msgctxt "PushoverSettings|"
+msgid "Log in"
+msgstr "Entra"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:108
+msgctxt "PushoverSettings|"
+msgid "Logged in."
+msgstr "Heu entrat."
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:111
+msgctxt "PushoverSettings|"
+msgid "Logged out."
+msgstr "Heu eixit."
+
+#: plugins/frontends/snarlnetwork/snarlnetwork.cpp:37
+msgctxt "SnarlNetworkFrontend|"
+msgid "The port is already used by a different application."
+msgstr "El port ja l'està fent servir una altra aplicació."
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:32
+msgctxt "PushoverSettings|"
+msgid "User Key:"
+msgstr "Clau de l'usuari:"
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:32
+msgctxt "PushoverSettings|"
+msgid ""
+"The user key which can be found on your account page at <a href=\"https://"
+"pushover.net\">Pushover.net</a>."
+msgstr ""
+"La clau de l'usuari que trobareu a la pàgina del vostre compte a <a href="
+"\"https://pushover.net\">Pushover.net</a>."
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:33
+msgctxt "PushoverSettings|"
+msgid "Sound:"
+msgstr "So:"
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:33
+msgctxt "PushoverSettings|"
+msgid "The pushover sound that is played when a notification is received."
+msgstr "El so de «Pushover» que es reproduirà quan es reba una notificació."
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:34
+msgctxt "PushoverSettings|"
+msgid "Devices:"
+msgstr "Dispositius:"
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:34
+msgctxt "PushoverSettings|"
+msgid "The devices that are to receive the notifications."
+msgstr "Els dispositius que rebran les notificacions."
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:33
+msgctxt "SoundSettings|"
+msgid "Volume:"
+msgstr "Volum:"
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:35
+msgctxt "SoundSettings|"
+msgid "Audio file:"
+msgstr "Fitxer d'àudio:"
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:35
+msgctxt "SoundSettings|"
+msgid "The sound played when a notification is received."
+msgstr "El so que es reproduirà quan es reba una notificació."
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:36
+msgctxt "SoundSettings|"
+msgid "Select a audio file"
+msgstr "Seleccioneu un fitxer d'àudio"
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:39
+msgctxt "SoundSettings|"
+msgid "All Audio files"
+msgstr "Tots els fitxers d'àudio"
+
+#: plugins/secondary_backends/speech/speech.cpp:14
+msgctxt "Speech|"
+msgid "System Backend Error"
+msgstr "S'ha produït un error del dorsal del sistema"
+
+#: plugins/secondary_backends/speech/speech.cpp:28
+#, qt-format
+msgctxt "Speech|"
+msgid "%1: %2 %3"
+msgstr "%1: %2 %3"
+
+#: plugins/secondary_backends/toasty/toastysettings.cpp:30
+msgctxt "ToastySettings|"
+msgid "Device ID:"
+msgstr "ID del dispositiu:"
+
+#: plugins/secondary_backends/toasty/toastysettings.cpp:30
+msgctxt "ToastySettings|"
+msgid "The device id which can be found in the toasty app."
+msgstr "L'ID del dispositiu que es trobarà en l'aplicació de «Toasty»."
+
+#: plugins/secondary_backends/toasty/toastysettings.cpp:31
+msgctxt "ToastySettings|"
+msgid "<a href=\"http://supertoasty.com/\">Supertoasty.com</a>"
+msgstr "<a href=\"http://supertoasty.com/\">Supertoasty.com</a>"
+
+#: settings/settingswindow.cpp:54
+#, qt-format
+msgctxt "SettingsWindow|"
+msgid "%1 Settings"
+msgstr "Configuració de %1"
+
+#: settings/settingswindow.ui:14
+msgctxt "SettingsWindow|"
+msgid "Snore Settings"
+msgstr "Configuració de «Snore»"
+
+#: settings/settingswindow.ui:27
+msgctxt "SettingsWindow|"
+msgid "Application"
+msgstr "Aplicació"
+
+#: snoresend/main.cpp:144
+msgctxt "SnoreSend|"
+msgid "Bring to Front"
+msgstr "Porta al davant"

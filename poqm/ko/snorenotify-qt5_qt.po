@@ -1,0 +1,376 @@
+# Shinjo Park <kde@peremen.name>, 2019.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2019-05-19 22:40+0200\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 18.12.3\n"
+"X-Qt-Contexts: true\n"
+
+#: daemon/trayicon.cpp:79
+msgctxt "TrayIcon|"
+msgid "Display Test Notification"
+msgstr "테스트 알림 표시"
+
+#: daemon/trayicon.cpp:81
+msgctxt "TrayIcon|"
+msgid "Settings"
+msgstr "설정"
+
+#: daemon/trayicon.cpp:83
+msgctxt "TrayIcon|"
+msgid "Exit"
+msgstr "끝내기"
+
+#: libsnore/application_p.cpp:32
+msgctxt "Default Alert|"
+msgid "Default"
+msgstr "기본값"
+
+#: libsnore/settings/pluginsettingswidget.cpp:37
+msgctxt "Snore::PluginSettingsWidget|"
+msgid "Enabled:"
+msgstr "사용함:"
+
+#: libsnore/settings/settingsdialog.ui:14
+msgctxt "SettingsDialog|"
+msgid "Settings"
+msgstr "설정"
+
+#: libsnore/settings/settingsdialog.ui:34
+msgctxt "SettingsDialog|"
+msgid "General"
+msgstr "일반"
+
+#: libsnore/settings/settingsdialog.ui:45
+msgctxt "SettingsDialog|"
+msgid "Primary Backend:"
+msgstr "주 백엔드:"
+
+#: libsnore/settings/settingsdialog.ui:55
+msgctxt "SettingsDialog|"
+msgid "Timeout:"
+msgstr "시간 제한:"
+
+#: libsnore/settings/settingsdialog.ui:62
+msgctxt "SettingsDialog|"
+msgid "s"
+msgstr "초"
+
+#: libsnore/settings/settingsdialog.ui:69
+msgctxt "SettingsDialog|"
+msgid "Disable Notification Sound:"
+msgstr "알림 소리 비활성화:"
+
+#: libsnore/settings/settingsdialog.ui:79
+msgctxt "SettingsDialog|"
+msgid "Error:"
+msgstr "오류:"
+
+#: libsnore/settings/settingsdialog.ui:96
+msgctxt "SettingsDialog|"
+msgid "Primary Backends"
+msgstr "주 백엔드"
+
+#: libsnore/settings/settingsdialog.ui:106
+msgctxt "SettingsDialog|"
+msgid "Secondary Backends"
+msgstr "보조 백엔드"
+
+#: libsnore/settings/settingsdialog.ui:116
+msgctxt "SettingsDialog|"
+msgid "Frontends"
+msgstr "프론트엔드"
+
+#: libsnore/settings/settingsdialog.ui:126
+msgctxt "SettingsDialog|"
+msgid "Plugins"
+msgstr "플러그인"
+
+#: libsnore/settings/settingsdialog.ui:139
+msgctxt "SettingsDialog|"
+msgid "Display Test Notification"
+msgstr "테스트 알림 표시"
+
+#: libsnore/snore.cpp:248
+#, qt-format
+msgctxt "Snore::SnoreCore|"
+msgid "This is %1"
+msgstr "%1입니다"
+
+#: libsnore/snore.cpp:249
+msgctxt "Snore::SnoreCore|"
+msgid "Everything is awesome!"
+msgstr "모두 좋습니다!"
+
+#: libsnore/snore.cpp:253
+msgctxt "Snore::SnoreCore|"
+msgid "Hello There!"
+msgstr "안녕하세요!"
+
+#: libsnore/snore.cpp:254
+msgctxt "Snore::SnoreCore|"
+msgid "Awesome Action!"
+msgstr "대단한 동작입니다!"
+
+#: plugins/backends/growl/growlbackend.cpp:69
+#, qt-format
+msgctxt "SnorePlugin::Growl|"
+msgid "%1 is not running."
+msgstr "%1이(가) 실행 중이 아닙니다."
+
+#: plugins/backends/growl/growlsettings.cpp:29
+msgctxt "GrowlSettings|"
+msgid "Host:"
+msgstr "호스트:"
+
+#: plugins/backends/growl/growlsettings.cpp:30
+msgctxt "GrowlSettings|"
+msgid "Password:"
+msgstr "암호:"
+
+#: plugins/backends/snarl/snarl.cpp:144
+msgctxt "SnorePlugin::Snarl|"
+msgid "This plugin only works with QApplication"
+msgstr "이 플러그인은 QApplication에서만 동작함"
+
+#: plugins/backends/snarl/snarl.cpp:153
+#, qt-format
+msgctxt "SnorePlugin::Snarl|"
+msgid "%1 is not running."
+msgstr "%1이(가) 실행 중이 아닙니다."
+
+#: plugins/backends/snarl/snarlsettings.cpp:28
+msgctxt "SnarlSettings|"
+msgid "Password:"
+msgstr "암호:"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:28
+msgctxt "SnoreSettings|"
+msgid "Top Left Corner"
+msgstr "왼쪽 위 꼭짓점"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:29
+msgctxt "SnoreSettings|"
+msgid "Top Right Corner"
+msgstr "오른쪽 위 꼭짓점"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:30
+msgctxt "SnoreSettings|"
+msgid "Bottom Left Corner"
+msgstr "왼쪽 아래 꼭짓점"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:31
+msgctxt "SnoreSettings|"
+msgid "Bottom Right Corner"
+msgstr "오른쪽 아래 꼭짓점"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:32
+msgctxt "SnoreSettings|"
+msgid "Position:"
+msgstr "위치:"
+
+#: plugins/backends/snoretoast/snoretoast.cpp:18
+#, qt-format
+msgctxt "SnorePlugin::WindowsToast|"
+msgid "%1 needs at least Windows 8 to run."
+msgstr "%1을(를) 실행하려면 Windows 8 이상이 필요합니다."
+
+#: plugins/backends/trayicon/trayiconnotifer.cpp:100
+msgctxt "SnorePlugin::Trayicon|"
+msgid "This plugin only works with QApplication"
+msgstr "이 플러그인은 QApplication에서만 동작함"
+
+#: plugins/frontends/freedesktop_frontend/freedesktopnotificationfrontend.cpp:40
+msgctxt "FreedesktopFrontend|"
+msgid "Failed to register dbus object."
+msgstr "D-Bus 객체를 등록할 수 없습니다."
+
+#: plugins/frontends/freedesktop_frontend/freedesktopnotificationfrontend.cpp:43
+msgctxt "FreedesktopFrontend|"
+msgid "Failed to register dbus service."
+msgstr "D-Bus 서비스를 등록할 수 없습니다."
+
+#: plugins/frontends/pushover_frontend/pushoverclient.cpp:70
+msgctxt "PushoverClient|"
+msgid "Failed to login. Please check your credentials."
+msgstr "로그인할 수 없습니다. 인증 정보를 확인하고 다시 시도하십시오."
+
+#: plugins/frontends/pushover_frontend/pushoverclient.cpp:131
+#, qt-format
+msgctxt "PushoverClient|"
+msgid "Please login to %1 and reenable your device."
+msgstr "%1에 로그인한 후 장치를 다시 활성화하십시오."
+
+#: plugins/frontends/pushover_frontend/pushoverclient.cpp:195
+#, qt-format
+msgctxt "PushoverClient|"
+msgid "Failed to login due to errors: %1"
+msgstr "로그인 오류 발생: %1"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:38
+msgctxt "PushoverSettings|"
+msgid "Email Address:"
+msgstr "이메일 주소:"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:39
+msgctxt "PushoverSettings|"
+msgid "Password:"
+msgstr "암호:"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:40
+msgctxt "PushoverSettings|"
+msgid "Device Name:"
+msgstr "장치 이름:"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:42
+msgctxt "PushoverSettings|"
+msgid "Status"
+msgstr "상태"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:44
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:35
+msgctxt "PushoverSettings|"
+msgid ""
+"If you don't have an account yet please register at <a href=\"https://"
+"pushover.net\">Pushover.net</a>"
+msgstr ""
+"계정이 없으면 <a href=\"https://pushover.net\">Pushover.net</a>에서 등록할 "
+"수 있습니다"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:99
+msgctxt "PushoverSettings|"
+msgid "Log out"
+msgstr "로그아웃"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:104
+msgctxt "PushoverSettings|"
+msgid "Log in"
+msgstr "로그인"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:108
+msgctxt "PushoverSettings|"
+msgid "Logged in."
+msgstr "로그인했습니다."
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:111
+msgctxt "PushoverSettings|"
+msgid "Logged out."
+msgstr "로그아웃했습니다."
+
+#: plugins/frontends/snarlnetwork/snarlnetwork.cpp:37
+msgctxt "SnarlNetworkFrontend|"
+msgid "The port is already used by a different application."
+msgstr "다른 프로그램에서 이 포트를 사용하고 있습니다."
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:32
+msgctxt "PushoverSettings|"
+msgid "User Key:"
+msgstr "사용자 키:"
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:32
+msgctxt "PushoverSettings|"
+msgid ""
+"The user key which can be found on your account page at <a href=\"https://"
+"pushover.net\">Pushover.net</a>."
+msgstr ""
+"사용자 키는 <a href=\"https://pushover.net\">Pushover.net</a>의 계정 페이지에"
+"서 찾을 수 있습니다."
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:33
+msgctxt "PushoverSettings|"
+msgid "Sound:"
+msgstr "소리:"
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:33
+msgctxt "PushoverSettings|"
+msgid "The pushover sound that is played when a notification is received."
+msgstr "알림을 받았을 때 재생할 Pushover 소리입니다."
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:34
+msgctxt "PushoverSettings|"
+msgid "Devices:"
+msgstr "장치:"
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:34
+msgctxt "PushoverSettings|"
+msgid "The devices that are to receive the notifications."
+msgstr "알림을 받을 장치입니다."
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:33
+msgctxt "SoundSettings|"
+msgid "Volume:"
+msgstr "음량:"
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:35
+msgctxt "SoundSettings|"
+msgid "Audio file:"
+msgstr "오디오 파일:"
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:35
+msgctxt "SoundSettings|"
+msgid "The sound played when a notification is received."
+msgstr "알림을 받았을 때 재생할 소리입니다."
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:36
+msgctxt "SoundSettings|"
+msgid "Select a audio file"
+msgstr "오디오 파일 선택"
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:39
+msgctxt "SoundSettings|"
+msgid "All Audio files"
+msgstr "모든 오디오 파일"
+
+#: plugins/secondary_backends/speech/speech.cpp:14
+msgctxt "Speech|"
+msgid "System Backend Error"
+msgstr "시스템 백엔드 오류"
+
+#: plugins/secondary_backends/speech/speech.cpp:28
+#, qt-format
+msgctxt "Speech|"
+msgid "%1: %2 %3"
+msgstr "%1: %2 %3"
+
+#: plugins/secondary_backends/toasty/toastysettings.cpp:30
+msgctxt "ToastySettings|"
+msgid "Device ID:"
+msgstr "장치 ID:"
+
+#: plugins/secondary_backends/toasty/toastysettings.cpp:30
+msgctxt "ToastySettings|"
+msgid "The device id which can be found in the toasty app."
+msgstr "Toasty 앱에서 확인할 수 있는 장치 ID입니다."
+
+#: plugins/secondary_backends/toasty/toastysettings.cpp:31
+msgctxt "ToastySettings|"
+msgid "<a href=\"http://supertoasty.com/\">Supertoasty.com</a>"
+msgstr "<a href=\"http://supertoasty.com/\">Supertoasty.com</a>"
+
+#: settings/settingswindow.cpp:54
+#, qt-format
+msgctxt "SettingsWindow|"
+msgid "%1 Settings"
+msgstr "%1 설정"
+
+#: settings/settingswindow.ui:14
+msgctxt "SettingsWindow|"
+msgid "Snore Settings"
+msgstr "Snore 설정"
+
+#: settings/settingswindow.ui:27
+msgctxt "SettingsWindow|"
+msgid "Application"
+msgstr "프로그램"
+
+#: snoresend/main.cpp:144
+msgctxt "SnoreSend|"
+msgid "Bring to Front"
+msgstr "앞으로 가져오기"

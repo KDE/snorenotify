@@ -1,0 +1,396 @@
+# scootergrisen, 2017.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"PO-Revision-Date: 2017-11-12 18:29+0200\n"
+"Last-Translator: scootergrisen\n"
+"Language-Team: Danish\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Qt-Contexts: true\n"
+
+#: daemon/trayicon.cpp:79
+msgctxt "TrayIcon|"
+msgid "Display Test Notification"
+msgstr "Vis testnotifikation"
+
+#: daemon/trayicon.cpp:81
+msgctxt "TrayIcon|"
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: daemon/trayicon.cpp:83
+msgctxt "TrayIcon|"
+msgid "Exit"
+msgstr "Afslut"
+
+#: libsnore/application_p.cpp:32
+msgctxt "Default Alert|"
+msgid "Default"
+msgstr "Standard"
+
+#: libsnore/settings/pluginsettingswidget.cpp:37
+msgctxt "Snore::PluginSettingsWidget|"
+msgid "Enabled:"
+msgstr "Aktiveret:"
+
+#: libsnore/settings/settingsdialog.ui:14
+msgctxt "SettingsDialog|"
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: libsnore/settings/settingsdialog.ui:34
+msgctxt "SettingsDialog|"
+msgid "General"
+msgstr "Generelt"
+
+#: libsnore/settings/settingsdialog.ui:45
+msgctxt "SettingsDialog|"
+msgid "Primary Backend:"
+msgstr "Primær backend:"
+
+#: libsnore/settings/settingsdialog.ui:55
+msgctxt "SettingsDialog|"
+msgid "Timeout:"
+msgstr "Tidsudløb:"
+
+#: libsnore/settings/settingsdialog.ui:62
+msgctxt "SettingsDialog|"
+msgid "s"
+msgstr "s"
+
+#: libsnore/settings/settingsdialog.ui:69
+msgctxt "SettingsDialog|"
+msgid "Disable Notification Sound:"
+msgstr "Deaktivér notifikationslyd:"
+
+#: libsnore/settings/settingsdialog.ui:79
+msgctxt "SettingsDialog|"
+msgid "Error:"
+msgstr "Fejl:"
+
+#: libsnore/settings/settingsdialog.ui:96
+msgctxt "SettingsDialog|"
+msgid "Primary Backends"
+msgstr "Primære backends"
+
+#: libsnore/settings/settingsdialog.ui:106
+msgctxt "SettingsDialog|"
+msgid "Secondary Backends"
+msgstr "Sekundære backends"
+
+#: libsnore/settings/settingsdialog.ui:116
+msgctxt "SettingsDialog|"
+msgid "Frontends"
+msgstr "Frontends"
+
+#: libsnore/settings/settingsdialog.ui:126
+msgctxt "SettingsDialog|"
+msgid "Plugins"
+msgstr "Plugins"
+
+#: libsnore/settings/settingsdialog.ui:139
+msgctxt "SettingsDialog|"
+msgid "Display Test Notification"
+msgstr "Vis testnotifikation"
+
+#: libsnore/snore.cpp:248
+#, qt-format
+msgctxt "Snore::SnoreCore|"
+msgid "This is %1"
+msgstr "Dette er %1"
+
+#: libsnore/snore.cpp:249
+msgctxt "Snore::SnoreCore|"
+msgid "Everything is awesome!"
+msgstr "Alt er sejt!"
+
+#: libsnore/snore.cpp:253
+msgctxt "Snore::SnoreCore|"
+msgid "Hello There!"
+msgstr "Hejsa!"
+
+#: libsnore/snore.cpp:254
+msgctxt "Snore::SnoreCore|"
+msgid "Awesome Action!"
+msgstr "Sej handling!"
+
+#: plugins/backends/growl/growlbackend.cpp:69
+#, qt-format
+msgctxt "SnorePlugin::Growl|"
+msgid "%1 is not running."
+msgstr "%1 kører ikke."
+
+#: plugins/backends/growl/growlsettings.cpp:29
+msgctxt "GrowlSettings|"
+msgid "Host:"
+msgstr "Vært:"
+
+#: plugins/backends/growl/growlsettings.cpp:30
+msgctxt "GrowlSettings|"
+msgid "Password:"
+msgstr "Adgangskode:"
+
+#: plugins/backends/snarl/snarl.cpp:144
+msgctxt "SnorePlugin::Snarl|"
+msgid "This plugin only works with QApplication"
+msgstr "Dette plugin virker kun med QApplication"
+
+#: plugins/backends/snarl/snarl.cpp:153
+#, qt-format
+msgctxt "SnorePlugin::Snarl|"
+msgid "%1 is not running."
+msgstr "%1 kører ikke."
+
+#: plugins/backends/snarl/snarlsettings.cpp:28
+msgctxt "SnarlSettings|"
+msgid "Password:"
+msgstr "Adgangskode:"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:28
+msgctxt "SnoreSettings|"
+msgid "Top Left Corner"
+msgstr "Øverste venstre hjørne"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:29
+msgctxt "SnoreSettings|"
+msgid "Top Right Corner"
+msgstr "Øverste højre hjørne"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:30
+msgctxt "SnoreSettings|"
+msgid "Bottom Left Corner"
+msgstr "Nederste venstre hjørne"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:31
+msgctxt "SnoreSettings|"
+msgid "Bottom Right Corner"
+msgstr "Nederste højre hjørne"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:32
+msgctxt "SnoreSettings|"
+msgid "Position:"
+msgstr "Placering:"
+
+#: plugins/backends/snoretoast/snoretoast.cpp:18
+#, qt-format
+msgctxt "SnorePlugin::WindowsToast|"
+msgid "%1 needs at least Windows 8 to run."
+msgstr "%1 behøver mindst Windows 8 for at køre."
+
+#: plugins/backends/trayicon/trayiconnotifer.cpp:100
+msgctxt "SnorePlugin::Trayicon|"
+msgid "This plugin only works with QApplication"
+msgstr "Dette plugin virker kun med QApplication"
+
+#: plugins/frontends/freedesktop_frontend/freedesktopnotificationfrontend.cpp:40
+msgctxt "FreedesktopFrontend|"
+msgid "Failed to register dbus object."
+msgstr "Kunne ikke registrere dbus-objekt."
+
+#: plugins/frontends/freedesktop_frontend/freedesktopnotificationfrontend.cpp:43
+msgctxt "FreedesktopFrontend|"
+msgid "Failed to register dbus service."
+msgstr "Kunne ikke registrere dbus-tjeneste."
+
+#: plugins/frontends/pushover_frontend/pushoverclient.cpp:70
+msgctxt "PushoverClient|"
+msgid "Failed to login. Please check your credentials."
+msgstr "Kunne ikke logge ind. Tjek venligst dine loginoplysninger."
+
+#: plugins/frontends/pushover_frontend/pushoverclient.cpp:131
+#, qt-format
+msgctxt "PushoverClient|"
+msgid "Please login to %1 and reenable your device."
+msgstr "Log venligst ind på %1 og genaktivér din enhed."
+
+#: plugins/frontends/pushover_frontend/pushoverclient.cpp:195
+#, qt-format
+msgctxt "PushoverClient|"
+msgid "Failed to login due to errors: %1"
+msgstr "Kunne ikke logge ind pga. fejl: %1"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:38
+msgctxt "PushoverSettings|"
+msgid "Email Address:"
+msgstr "E-mailadresse:"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:39
+msgctxt "PushoverSettings|"
+msgid "Password:"
+msgstr "Adgangskode:"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:40
+msgctxt "PushoverSettings|"
+msgid "Device Name:"
+msgstr "Enhedsnavn:"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:42
+msgctxt "PushoverSettings|"
+msgid "Status"
+msgstr "Status"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:44
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:35
+msgctxt "PushoverSettings|"
+msgid ""
+"If you don't have an account yet please register at <a href=\"https://"
+"pushover.net\">Pushover.net</a>"
+msgstr ""
+"Hvis du endnu ikke har en konto, så tilmeld dig venligst på <a href="
+"\"https://pushover.net\">Pushover.net</a>"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:99
+msgctxt "PushoverSettings|"
+msgid "Log out"
+msgstr "Log ud"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:104
+msgctxt "PushoverSettings|"
+msgid "Log in"
+msgstr "Log ind"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:108
+msgctxt "PushoverSettings|"
+msgid "Logged in."
+msgstr "Logget ind."
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:111
+msgctxt "PushoverSettings|"
+msgid "Logged out."
+msgstr "Logget ud."
+
+#: plugins/frontends/snarlnetwork/snarlnetwork.cpp:37
+msgctxt "SnarlNetworkFrontend|"
+msgid "The port is already used by a different application."
+msgstr "Porten er allerede i brug af et andet program."
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:32
+msgctxt "PushoverSettings|"
+msgid "User Key:"
+msgstr "Brugernøgle:"
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:32
+msgctxt "PushoverSettings|"
+msgid ""
+"The user key which can be found on your account page at <a href=\"https://"
+"pushover.net\">Pushover.net</a>."
+msgstr ""
+"Brugernøglen, som kan findes på din kontoside på <a href=\"https://pushover."
+"net\">Pushover.net</a>."
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:33
+msgctxt "PushoverSettings|"
+msgid "Sound:"
+msgstr "Lyd:"
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:33
+msgctxt "PushoverSettings|"
+msgid "The pushover sound that is played when a notification is received."
+msgstr "Skubbelyden som afspilles når en notifikation modtages."
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:34
+msgctxt "PushoverSettings|"
+msgid "Devices:"
+msgstr "Enheder:"
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:34
+msgctxt "PushoverSettings|"
+msgid "The devices that are to receive the notifications."
+msgstr "Enhederne som skal modtage notifikationerne."
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:33
+msgctxt "SoundSettings|"
+msgid "Volume:"
+msgstr "Lydstyrke:"
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:35
+msgctxt "SoundSettings|"
+msgid "Audio file:"
+msgstr "Lydfil:"
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:35
+msgctxt "SoundSettings|"
+msgid "The sound played when a notification is received."
+msgstr "Lyden som afspilles når en notifikation modtages."
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:36
+msgctxt "SoundSettings|"
+msgid "Select a audio file"
+msgstr "Vælg en lydfil"
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:39
+msgctxt "SoundSettings|"
+msgid "All Audio files"
+msgstr "Alle lydfiler"
+
+#: plugins/secondary_backends/speech/speech.cpp:14
+msgctxt "Speech|"
+msgid "System Backend Error"
+msgstr "Fejl ved system-backend"
+
+#: plugins/secondary_backends/speech/speech.cpp:28
+#, qt-format
+msgctxt "Speech|"
+msgid "%1: %2 %3"
+msgstr "%1: %2 %3"
+
+#: plugins/secondary_backends/toasty/toastysettings.cpp:30
+msgctxt "ToastySettings|"
+msgid "Device ID:"
+msgstr "Enheds-id:"
+
+#: plugins/secondary_backends/toasty/toastysettings.cpp:30
+msgctxt "ToastySettings|"
+msgid "The device id which can be found in the toasty app."
+msgstr "Enheds-id'et, som kan findes i toasty-appen."
+
+#: plugins/secondary_backends/toasty/toastysettings.cpp:31
+msgctxt "ToastySettings|"
+msgid "<a href=\"http://supertoasty.com/\">Supertoasty.com</a>"
+msgstr "<a href=\"http://supertoasty.com/\">Supertoasty.com</a>"
+
+#: settings/settingswindow.cpp:54
+#, qt-format
+msgctxt "SettingsWindow|"
+msgid "%1 Settings"
+msgstr "%1-indstillinger"
+
+#: settings/settingswindow.ui:14
+msgctxt "SettingsWindow|"
+msgid "Snore Settings"
+msgstr "Snore-indstillinger"
+
+#: settings/settingswindow.ui:27
+msgctxt "SettingsWindow|"
+msgid "Application"
+msgstr "Program"
+
+#: snoresend/main.cpp:144
+msgctxt "SnoreSend|"
+msgid "Bring to Front"
+msgstr "Bring forrest"
+
+#~ msgctxt "NMASettings|"
+#~ msgid "Api Key:"
+#~ msgstr "Api-nøgle:"
+
+#~ msgctxt "NMASettings|"
+#~ msgid ""
+#~ "The api key which can be found in your account page at <a href=\"http://"
+#~ "notifymyandroid.com/\">Notifymyandroid.com</a>."
+#~ msgstr ""
+#~ "Api-nøglen, som kan findes på din kontoside på <a href=\"http://"
+#~ "notifymyandroid.com/\">Notifymyandroid.com</a>."
+
+#~ msgctxt "NMASettings|"
+#~ msgid ""
+#~ "If you don't have an account yet please register at <a href=\"http://"
+#~ "notifymyandroid.com/\">Notifymyandroid.com</a>."
+#~ msgstr ""
+#~ "Hvis du endnu ikke har en konto, så tilmeld dig venligst på <a href="
+#~ "\"http://notifymyandroid.com/\">Notifymyandroid.com</a>."

@@ -1,0 +1,396 @@
+# Emir SARI <emir_sari@icloud.com>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2022-07-18 16:22+0300\n"
+"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
+"Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Qt-Contexts: true\n"
+"X-Generator: Lokalize 22.04.2\n"
+
+#: daemon/trayicon.cpp:79
+msgctxt "TrayIcon|"
+msgid "Display Test Notification"
+msgstr "Sonama Bildirimini Göster"
+
+#: daemon/trayicon.cpp:81
+msgctxt "TrayIcon|"
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: daemon/trayicon.cpp:83
+msgctxt "TrayIcon|"
+msgid "Exit"
+msgstr "Çık"
+
+#: libsnore/application_p.cpp:32
+msgctxt "Default Alert|"
+msgid "Default"
+msgstr "Öntanımlı"
+
+#: libsnore/settings/pluginsettingswidget.cpp:37
+msgctxt "Snore::PluginSettingsWidget|"
+msgid "Enabled:"
+msgstr "Etkin:"
+
+#: libsnore/settings/settingsdialog.ui:14
+msgctxt "SettingsDialog|"
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: libsnore/settings/settingsdialog.ui:34
+msgctxt "SettingsDialog|"
+msgid "General"
+msgstr "Genel"
+
+#: libsnore/settings/settingsdialog.ui:45
+msgctxt "SettingsDialog|"
+msgid "Primary Backend:"
+msgstr "Birincil Arka Uç:"
+
+#: libsnore/settings/settingsdialog.ui:55
+msgctxt "SettingsDialog|"
+msgid "Timeout:"
+msgstr "Zaman Aşımı:"
+
+#: libsnore/settings/settingsdialog.ui:62
+msgctxt "SettingsDialog|"
+msgid "s"
+msgstr "s"
+
+#: libsnore/settings/settingsdialog.ui:69
+msgctxt "SettingsDialog|"
+msgid "Disable Notification Sound:"
+msgstr "Bildirim Sesini Kapat:"
+
+#: libsnore/settings/settingsdialog.ui:79
+msgctxt "SettingsDialog|"
+msgid "Error:"
+msgstr "Hata:"
+
+#: libsnore/settings/settingsdialog.ui:96
+msgctxt "SettingsDialog|"
+msgid "Primary Backends"
+msgstr "Birincil Arka Uç"
+
+#: libsnore/settings/settingsdialog.ui:106
+msgctxt "SettingsDialog|"
+msgid "Secondary Backends"
+msgstr "İkincil Arka Uç"
+
+#: libsnore/settings/settingsdialog.ui:116
+msgctxt "SettingsDialog|"
+msgid "Frontends"
+msgstr "Ön Uçlar"
+
+#: libsnore/settings/settingsdialog.ui:126
+msgctxt "SettingsDialog|"
+msgid "Plugins"
+msgstr "Eklentiler"
+
+#: libsnore/settings/settingsdialog.ui:139
+msgctxt "SettingsDialog|"
+msgid "Display Test Notification"
+msgstr "Sınama Bildirimini Göster"
+
+#: libsnore/snore.cpp:248
+#, qt-format
+msgctxt "Snore::SnoreCore|"
+msgid "This is %1"
+msgstr "Bu, %1"
+
+#: libsnore/snore.cpp:249
+msgctxt "Snore::SnoreCore|"
+msgid "Everything is awesome!"
+msgstr "Her şey harika!"
+
+#: libsnore/snore.cpp:253
+msgctxt "Snore::SnoreCore|"
+msgid "Hello There!"
+msgstr "Merhaba!"
+
+#: libsnore/snore.cpp:254
+msgctxt "Snore::SnoreCore|"
+msgid "Awesome Action!"
+msgstr "Süper!"
+
+#: plugins/backends/growl/growlbackend.cpp:69
+#, qt-format
+msgctxt "SnorePlugin::Growl|"
+msgid "%1 is not running."
+msgstr "%1 çalışmıyor."
+
+#: plugins/backends/growl/growlsettings.cpp:29
+msgctxt "GrowlSettings|"
+msgid "Host:"
+msgstr "Makine:"
+
+#: plugins/backends/growl/growlsettings.cpp:30
+msgctxt "GrowlSettings|"
+msgid "Password:"
+msgstr "Parola:"
+
+#: plugins/backends/snarl/snarl.cpp:144
+msgctxt "SnorePlugin::Snarl|"
+msgid "This plugin only works with QApplication"
+msgstr "Bu eklenti, yalnızca QApplication ile çalışır"
+
+#: plugins/backends/snarl/snarl.cpp:153
+#, qt-format
+msgctxt "SnorePlugin::Snarl|"
+msgid "%1 is not running."
+msgstr "%1 çalışmıyor."
+
+#: plugins/backends/snarl/snarlsettings.cpp:28
+msgctxt "SnarlSettings|"
+msgid "Password:"
+msgstr "Parola:"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:28
+msgctxt "SnoreSettings|"
+msgid "Top Left Corner"
+msgstr "Sol Üst Köşe"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:29
+msgctxt "SnoreSettings|"
+msgid "Top Right Corner"
+msgstr "Sağ Üst Köşe"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:30
+msgctxt "SnoreSettings|"
+msgid "Bottom Left Corner"
+msgstr "Sol Alt Köşe"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:31
+msgctxt "SnoreSettings|"
+msgid "Bottom Right Corner"
+msgstr "Sağ Alt Köşe"
+
+#: plugins/backends/snore/snorenotifiersettings.cpp:32
+msgctxt "SnoreSettings|"
+msgid "Position:"
+msgstr "Konum:"
+
+#: plugins/backends/snoretoast/snoretoast.cpp:18
+#, qt-format
+msgctxt "SnorePlugin::WindowsToast|"
+msgid "%1 needs at least Windows 8 to run."
+msgstr "%1 çalışması için en düşük Windows 8 gerekiyor."
+
+#: plugins/backends/trayicon/trayiconnotifer.cpp:100
+msgctxt "SnorePlugin::Trayicon|"
+msgid "This plugin only works with QApplication"
+msgstr "Bu eklenti, sadece QApplication ile çalışır"
+
+#: plugins/frontends/freedesktop_frontend/freedesktopnotificationfrontend.cpp:40
+msgctxt "FreedesktopFrontend|"
+msgid "Failed to register dbus object."
+msgstr "Dbus nesnesi kayıt edilemedi."
+
+#: plugins/frontends/freedesktop_frontend/freedesktopnotificationfrontend.cpp:43
+msgctxt "FreedesktopFrontend|"
+msgid "Failed to register dbus service."
+msgstr "Dbus hizmeti kayıt edilemedi."
+
+#: plugins/frontends/pushover_frontend/pushoverclient.cpp:70
+msgctxt "PushoverClient|"
+msgid "Failed to login. Please check your credentials."
+msgstr "Giriş yapılamadı. Lütfen kimlik bilgilerinizi denetleyin."
+
+#: plugins/frontends/pushover_frontend/pushoverclient.cpp:131
+#, qt-format
+msgctxt "PushoverClient|"
+msgid "Please login to %1 and reenable your device."
+msgstr "Lütfen %1 girişi yapın ve aygıtınızı yeniden etkinleştirin."
+
+#: plugins/frontends/pushover_frontend/pushoverclient.cpp:195
+#, qt-format
+msgctxt "PushoverClient|"
+msgid "Failed to login due to errors: %1"
+msgstr "Şuradaki hatalardan dolayı giriş yapılamadı: %1"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:38
+msgctxt "PushoverSettings|"
+msgid "Email Address:"
+msgstr "E-posta Adresi:"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:39
+msgctxt "PushoverSettings|"
+msgid "Password:"
+msgstr "Parola:"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:40
+msgctxt "PushoverSettings|"
+msgid "Device Name:"
+msgstr "Aygıt Adı:"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:42
+msgctxt "PushoverSettings|"
+msgid "Status"
+msgstr "Durumu"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:44
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:35
+msgctxt "PushoverSettings|"
+msgid ""
+"If you don't have an account yet please register at <a href=\"https://"
+"pushover.net\">Pushover.net</a>"
+msgstr ""
+"Henüz hesabınız yoksa lütfen <a href=\"https://pushover.net\">Pushover.net</"
+"a> adresine kayıt olun."
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:99
+msgctxt "PushoverSettings|"
+msgid "Log out"
+msgstr "Çıkış"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:104
+msgctxt "PushoverSettings|"
+msgid "Log in"
+msgstr "Giriş"
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:108
+msgctxt "PushoverSettings|"
+msgid "Logged in."
+msgstr "Giriş yapıldı."
+
+#: plugins/frontends/pushover_frontend/pushoversettings.cpp:111
+msgctxt "PushoverSettings|"
+msgid "Logged out."
+msgstr "Çıkış yapıldı."
+
+#: plugins/frontends/snarlnetwork/snarlnetwork.cpp:37
+msgctxt "SnarlNetworkFrontend|"
+msgid "The port is already used by a different application."
+msgstr "Kapı, başka bir uygulama tarafından kullanılıyor."
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:32
+msgctxt "PushoverSettings|"
+msgid "User Key:"
+msgstr "Kullanıcı Anahtarı:"
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:32
+msgctxt "PushoverSettings|"
+msgid ""
+"The user key which can be found on your account page at <a href=\"https://"
+"pushover.net\">Pushover.net</a>."
+msgstr ""
+"<a href=\"https://pushover.net\">Pushover.net</a>. hesabınızda bulunan "
+"kullanıcı anahtarı."
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:33
+msgctxt "PushoverSettings|"
+msgid "Sound:"
+msgstr "Ses:"
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:33
+msgctxt "PushoverSettings|"
+msgid "The pushover sound that is played when a notification is received."
+msgstr "Bildirim geldiğinde, pushover sesi çalınacak."
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:34
+msgctxt "PushoverSettings|"
+msgid "Devices:"
+msgstr "Aygıtlar:"
+
+#: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:34
+msgctxt "PushoverSettings|"
+msgid "The devices that are to receive the notifications."
+msgstr "Bildirimleri alacak olan aygıtlar."
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:33
+msgctxt "SoundSettings|"
+msgid "Volume:"
+msgstr "Ses:"
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:35
+msgctxt "SoundSettings|"
+msgid "Audio file:"
+msgstr "Ses dosyası:"
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:35
+msgctxt "SoundSettings|"
+msgid "The sound played when a notification is received."
+msgstr "Bildirim alındığında çalınacak olan ses."
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:36
+msgctxt "SoundSettings|"
+msgid "Select a audio file"
+msgstr "Ses dosyası seç"
+
+#: plugins/secondary_backends/sound/soundsettings.cpp:39
+msgctxt "SoundSettings|"
+msgid "All Audio files"
+msgstr "Tüm Ses dosyaları"
+
+#: plugins/secondary_backends/speech/speech.cpp:14
+msgctxt "Speech|"
+msgid "System Backend Error"
+msgstr "Sistem Arka Uç Hatası"
+
+#: plugins/secondary_backends/speech/speech.cpp:28
+#, qt-format
+msgctxt "Speech|"
+msgid "%1: %2 %3"
+msgstr "%1: %2 %3"
+
+#: plugins/secondary_backends/toasty/toastysettings.cpp:30
+msgctxt "ToastySettings|"
+msgid "Device ID:"
+msgstr "Aygıt Kimliği:"
+
+#: plugins/secondary_backends/toasty/toastysettings.cpp:30
+msgctxt "ToastySettings|"
+msgid "The device id which can be found in the toasty app."
+msgstr "Toasty uygulamasında bulunan aygıt kimliği."
+
+#: plugins/secondary_backends/toasty/toastysettings.cpp:31
+msgctxt "ToastySettings|"
+msgid "<a href=\"http://supertoasty.com/\">Supertoasty.com</a>"
+msgstr "<a href=\"http://supertoasty.com/\">Supertoasty.com</a>"
+
+#: settings/settingswindow.cpp:54
+#, qt-format
+msgctxt "SettingsWindow|"
+msgid "%1 Settings"
+msgstr "%1 Ayarları"
+
+#: settings/settingswindow.ui:14
+msgctxt "SettingsWindow|"
+msgid "Snore Settings"
+msgstr "Snore Ayarları"
+
+#: settings/settingswindow.ui:27
+msgctxt "SettingsWindow|"
+msgid "Application"
+msgstr "Uygulama"
+
+#: snoresend/main.cpp:144
+msgctxt "SnoreSend|"
+msgid "Bring to Front"
+msgstr "En Öne Getir"
+
+#~ msgctxt "NMASettings|"
+#~ msgid "Api Key:"
+#~ msgstr "Api Anahtarı:"
+
+#~ msgctxt "NMASettings|"
+#~ msgid ""
+#~ "The api key which can be found in your account page at <a href=\"http://"
+#~ "notifymyandroid.com/\">Notifymyandroid.com</a>."
+#~ msgstr ""
+#~ "<a href=\"http://notifymyandroid.com/\">Notifymyandroid.com</a> "
+#~ "hesabınızda bulunan api anahtarı."
+
+#~ msgctxt "NMASettings|"
+#~ msgid ""
+#~ "If you don't have an account yet please register at <a href=\"http://"
+#~ "notifymyandroid.com/\">Notifymyandroid.com</a>."
+#~ msgstr ""
+#~ "Henüz hesabınız yoksa, lütfen <a href=\"http://notifymyandroid.com/"
+#~ "\">Notifymyandroid.com</a> adresinden kayıt olun."
