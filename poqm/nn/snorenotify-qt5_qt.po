@@ -285,8 +285,8 @@ msgid ""
 "The user key which can be found on your account page at <a href=\"https://"
 "pushover.net\">Pushover.net</a>."
 msgstr ""
-"Brukarnøkkelen som du finn på kontosida di på <a href=\"https://pushover.net"
-"\">Pushover.net</a>."
+"Brukarnøkkelen som du finn på kontosida di på <a href=\"https://pushover."
+"net\">Pushover.net</a>."
 
 #: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:33
 msgctxt "PushoverSettings|"
