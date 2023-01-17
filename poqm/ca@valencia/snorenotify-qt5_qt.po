@@ -371,7 +371,7 @@ msgstr "Configuració de %1"
 #: settings/settingswindow.ui:14
 msgctxt "SettingsWindow|"
 msgid "Snore Settings"
-msgstr "Configuració de «Snore»"
+msgstr "Configureu «Snore»"
 
 #: settings/settingswindow.ui:27
 msgctxt "SettingsWindow|"
