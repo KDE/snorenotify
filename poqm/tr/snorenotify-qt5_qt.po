@@ -1,8 +1,8 @@
-# Emir SARI <emir_sari@icloud.com>, 2022.
+# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2022-07-18 16:22+0300\n"
+"PO-Revision-Date: 2023-01-18 22:31+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Qt-Contexts: true\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #: daemon/trayicon.cpp:79
 msgctxt "TrayIcon|"
@@ -185,7 +185,7 @@ msgstr "%1 çalışması için en düşük Windows 8 gerekiyor."
 #: plugins/backends/trayicon/trayiconnotifer.cpp:100
 msgctxt "SnorePlugin::Trayicon|"
 msgid "This plugin only works with QApplication"
-msgstr "Bu eklenti, sadece QApplication ile çalışır"
+msgstr "Bu eklenti, yalnızca QApplication ile çalışır"
 
 #: plugins/frontends/freedesktop_frontend/freedesktopnotificationfrontend.cpp:40
 msgctxt "FreedesktopFrontend|"
