@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2023-01-18 22:31+0300\n"
+"PO-Revision-Date: 2023-02-08 21:28+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Qt-Contexts: true\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #: daemon/trayicon.cpp:79
 msgctxt "TrayIcon|"
@@ -200,19 +200,19 @@ msgstr "Dbus hizmeti kayıt edilemedi."
 #: plugins/frontends/pushover_frontend/pushoverclient.cpp:70
 msgctxt "PushoverClient|"
 msgid "Failed to login. Please check your credentials."
-msgstr "Giriş yapılamadı. Lütfen kimlik bilgilerinizi denetleyin."
+msgstr "Oturum açılamadı. Lütfen kimlik bilgilerinizi denetleyin."
 
 #: plugins/frontends/pushover_frontend/pushoverclient.cpp:131
 #, qt-format
 msgctxt "PushoverClient|"
 msgid "Please login to %1 and reenable your device."
-msgstr "Lütfen %1 girişi yapın ve aygıtınızı yeniden etkinleştirin."
+msgstr "Lütfen %1 oturumunu açın ve aygıtınızı yeniden etkinleştirin."
 
 #: plugins/frontends/pushover_frontend/pushoverclient.cpp:195
 #, qt-format
 msgctxt "PushoverClient|"
 msgid "Failed to login due to errors: %1"
-msgstr "Şuradaki hatalardan dolayı giriş yapılamadı: %1"
+msgstr "Şuradaki hatalardan dolayı oturum açılamadı: %1"
 
 #: plugins/frontends/pushover_frontend/pushoversettings.cpp:38
 msgctxt "PushoverSettings|"
@@ -247,22 +247,22 @@ msgstr ""
 #: plugins/frontends/pushover_frontend/pushoversettings.cpp:99
 msgctxt "PushoverSettings|"
 msgid "Log out"
-msgstr "Çıkış"
+msgstr "Oturumu kapat"
 
 #: plugins/frontends/pushover_frontend/pushoversettings.cpp:104
 msgctxt "PushoverSettings|"
 msgid "Log in"
-msgstr "Giriş"
+msgstr "Oturum aç"
 
 #: plugins/frontends/pushover_frontend/pushoversettings.cpp:108
 msgctxt "PushoverSettings|"
 msgid "Logged in."
-msgstr "Giriş yapıldı."
+msgstr "Oturum açıldı."
 
 #: plugins/frontends/pushover_frontend/pushoversettings.cpp:111
 msgctxt "PushoverSettings|"
 msgid "Logged out."
-msgstr "Çıkış yapıldı."
+msgstr "Oturum kapatıldı."
 
 #: plugins/frontends/snarlnetwork/snarlnetwork.cpp:37
 msgctxt "SnarlNetworkFrontend|"
