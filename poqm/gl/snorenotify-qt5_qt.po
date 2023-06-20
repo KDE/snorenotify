@@ -17,7 +17,7 @@ msgstr ""
 #: daemon/trayicon.cpp:79
 msgctxt "TrayIcon|"
 msgid "Display Test Notification"
-msgstr "Mostrar unha notificación da proba"
+msgstr "Amosar unha notificación da proba"
 
 #: daemon/trayicon.cpp:81
 msgctxt "TrayIcon|"
@@ -97,7 +97,7 @@ msgstr "Complementos"
 #: libsnore/settings/settingsdialog.ui:139
 msgctxt "SettingsDialog|"
 msgid "Display Test Notification"
-msgstr "Mostrar unha notificación da proba"
+msgstr "Amosar unha notificación da proba"
 
 #: libsnore/snore.cpp:248
 #, qt-format
