@@ -267,7 +267,7 @@ msgstr "로그아웃했습니다."
 #: plugins/frontends/snarlnetwork/snarlnetwork.cpp:37
 msgctxt "SnarlNetworkFrontend|"
 msgid "The port is already used by a different application."
-msgstr "다른 프로그램에서 이 포트를 사용하고 있습니다."
+msgstr "다른 앱에서 이 포트를 사용하고 있습니다."
 
 #: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:32
 msgctxt "PushoverSettings|"
@@ -368,7 +368,7 @@ msgstr "Snore 설정"
 #: settings/settingswindow.ui:27
 msgctxt "SettingsWindow|"
 msgid "Application"
-msgstr "프로그램"
+msgstr "앱"
 
 #: snoresend/main.cpp:144
 msgctxt "SnoreSend|"
