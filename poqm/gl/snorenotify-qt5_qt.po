@@ -191,17 +191,17 @@ msgstr "Este complemento só funciona con QApplication."
 #: plugins/frontends/freedesktop_frontend/freedesktopnotificationfrontend.cpp:40
 msgctxt "FreedesktopFrontend|"
 msgid "Failed to register dbus object."
-msgstr "Non se puido rexistrar o obxecto de dbus."
+msgstr "Non foi posíbel rexistrar o obxecto de dbus."
 
 #: plugins/frontends/freedesktop_frontend/freedesktopnotificationfrontend.cpp:43
 msgctxt "FreedesktopFrontend|"
 msgid "Failed to register dbus service."
-msgstr "Non se puido rexistrar o servizo de dbus."
+msgstr "Non foi posíbel rexistrar o servizo de dbus."
 
 #: plugins/frontends/pushover_frontend/pushoverclient.cpp:70
 msgctxt "PushoverClient|"
 msgid "Failed to login. Please check your credentials."
-msgstr "Non se puido acceder. Revise os seus datos de acceso."
+msgstr "Non foi posíbel acceder. Revise os seus datos de acceso."
 
 #: plugins/frontends/pushover_frontend/pushoverclient.cpp:131
 #, qt-format
@@ -213,7 +213,7 @@ msgstr "Acceda a %1 e active de novo o seu dispositivo."
 #, qt-format
 msgctxt "PushoverClient|"
 msgid "Failed to login due to errors: %1"
-msgstr "Non se puido acceder por mor dos seguintes erros: %1"
+msgstr "Non foi posíbel acceder por mor dos seguintes erros: %1"
 
 #: plugins/frontends/pushover_frontend/pushoversettings.cpp:38
 msgctxt "PushoverSettings|"
