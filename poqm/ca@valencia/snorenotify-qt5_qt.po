@@ -146,7 +146,7 @@ msgstr "Contrasenya:"
 #: plugins/backends/snarl/snarl.cpp:144
 msgctxt "SnorePlugin::Snarl|"
 msgid "This plugin only works with QApplication"
-msgstr "Este connector només funciona amb QApplication"
+msgstr "Este connector només funciona amb la QApplication"
 
 #: plugins/backends/snarl/snarl.cpp:153
 #, qt-format
@@ -193,7 +193,7 @@ msgstr "%1 almenys necessita Windows 8 per a funcionar."
 #: plugins/backends/trayicon/trayiconnotifer.cpp:100
 msgctxt "SnorePlugin::Trayicon|"
 msgid "This plugin only works with QApplication"
-msgstr "Este connector només funciona amb QApplication"
+msgstr "Este connector només funciona amb la QApplication"
 
 #: plugins/frontends/freedesktop_frontend/freedesktopnotificationfrontend.cpp:40
 msgctxt "FreedesktopFrontend|"
