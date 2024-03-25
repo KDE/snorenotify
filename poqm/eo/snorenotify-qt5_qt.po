@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: snorenotify\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 13:43+0100\n"
-"PO-Revision-Date: 2024-02-26 21:30+0100\n"
+"PO-Revision-Date: 2024-03-24 10:34+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo.org>\n"
 "Language: eo\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: daemon/trayicon.cpp:79
 msgctxt "TrayIcon|"
 msgid "Display Test Notification"
-msgstr ""
+msgstr "Montru Testan Sciigon"
 
 #: daemon/trayicon.cpp:81
 msgctxt "TrayIcon|"
@@ -57,7 +57,7 @@ msgstr "Ĝenerala"
 #: libsnore/settings/settingsdialog.ui:45
 msgctxt "SettingsDialog|"
 msgid "Primary Backend:"
-msgstr ""
+msgstr "Ĉefa Backend:"
 
 #: libsnore/settings/settingsdialog.ui:55
 msgctxt "SettingsDialog|"
@@ -72,7 +72,7 @@ msgstr "s"
 #: libsnore/settings/settingsdialog.ui:69
 msgctxt "SettingsDialog|"
 msgid "Disable Notification Sound:"
-msgstr ""
+msgstr "Malebligu Sciigan Sonon:"
 
 #: libsnore/settings/settingsdialog.ui:79
 msgctxt "SettingsDialog|"
@@ -82,17 +82,17 @@ msgstr "Eraro:"
 #: libsnore/settings/settingsdialog.ui:96
 msgctxt "SettingsDialog|"
 msgid "Primary Backends"
-msgstr ""
+msgstr "Primaraj Backends"
 
 #: libsnore/settings/settingsdialog.ui:106
 msgctxt "SettingsDialog|"
 msgid "Secondary Backends"
-msgstr ""
+msgstr "Malĉefaj Backends"
 
 #: libsnore/settings/settingsdialog.ui:116
 msgctxt "SettingsDialog|"
 msgid "Frontends"
-msgstr ""
+msgstr "Frontends"
 
 #: libsnore/settings/settingsdialog.ui:126
 msgctxt "SettingsDialog|"
@@ -102,34 +102,34 @@ msgstr "Kromprogramoj"
 #: libsnore/settings/settingsdialog.ui:139
 msgctxt "SettingsDialog|"
 msgid "Display Test Notification"
-msgstr ""
+msgstr "Montru Testan Sciigon"
 
 #: libsnore/snore.cpp:248
 #, qt-format
 msgctxt "Snore::SnoreCore|"
 msgid "This is %1"
-msgstr ""
+msgstr "Ĉi tio estas %1"
 
 #: libsnore/snore.cpp:249
 msgctxt "Snore::SnoreCore|"
 msgid "Everything is awesome!"
-msgstr ""
+msgstr "Ĉio estas mirinda!"
 
 #: libsnore/snore.cpp:253
 msgctxt "Snore::SnoreCore|"
 msgid "Hello There!"
-msgstr ""
+msgstr "Saluton!"
 
 #: libsnore/snore.cpp:254
 msgctxt "Snore::SnoreCore|"
 msgid "Awesome Action!"
-msgstr ""
+msgstr "Mirinda Ago!"
 
 #: plugins/backends/growl/growlbackend.cpp:69
 #, qt-format
 msgctxt "SnorePlugin::Growl|"
 msgid "%1 is not running."
-msgstr ""
+msgstr "%1 ne funkcias."
 
 #: plugins/backends/growl/growlsettings.cpp:29
 msgctxt "GrowlSettings|"
@@ -144,13 +144,13 @@ msgstr "Pasvorto:"
 #: plugins/backends/snarl/snarl.cpp:144
 msgctxt "SnorePlugin::Snarl|"
 msgid "This plugin only works with QApplication"
-msgstr ""
+msgstr "Ĉi tiu kromaĵo funkcias nur kun QApplication"
 
 #: plugins/backends/snarl/snarl.cpp:153
 #, qt-format
 msgctxt "SnorePlugin::Snarl|"
 msgid "%1 is not running."
-msgstr ""
+msgstr "%1 ne funkcias."
 
 #: plugins/backends/snarl/snarlsettings.cpp:28
 msgctxt "SnarlSettings|"
@@ -160,22 +160,22 @@ msgstr "Pasvorto:"
 #: plugins/backends/snore/snorenotifiersettings.cpp:28
 msgctxt "SnoreSettings|"
 msgid "Top Left Corner"
-msgstr ""
+msgstr "Supra Maldekstra Angulo"
 
 #: plugins/backends/snore/snorenotifiersettings.cpp:29
 msgctxt "SnoreSettings|"
 msgid "Top Right Corner"
-msgstr ""
+msgstr "Supra Dekstra Angulo"
 
 #: plugins/backends/snore/snorenotifiersettings.cpp:30
 msgctxt "SnoreSettings|"
 msgid "Bottom Left Corner"
-msgstr ""
+msgstr "Malsupra Maldekstra Angulo"
 
 #: plugins/backends/snore/snorenotifiersettings.cpp:31
 msgctxt "SnoreSettings|"
 msgid "Bottom Right Corner"
-msgstr ""
+msgstr "Malsupra Dekstra Angulo"
 
 #: plugins/backends/snore/snorenotifiersettings.cpp:32
 msgctxt "SnoreSettings|"
@@ -186,39 +186,39 @@ msgstr "Pozicio:"
 #, qt-format
 msgctxt "SnorePlugin::WindowsToast|"
 msgid "%1 needs at least Windows 8 to run."
-msgstr ""
+msgstr "%1 bezonas almenaŭ Windows 8 por funkcii."
 
 #: plugins/backends/trayicon/trayiconnotifer.cpp:100
 msgctxt "SnorePlugin::Trayicon|"
 msgid "This plugin only works with QApplication"
-msgstr ""
+msgstr "Ĉi tiu kromaĵo funkcias nur kun QApplication"
 
 #: plugins/frontends/freedesktop_frontend/freedesktopnotificationfrontend.cpp:40
 msgctxt "FreedesktopFrontend|"
 msgid "Failed to register dbus object."
-msgstr ""
+msgstr "Malsukcesis registri dbus-objekton."
 
 #: plugins/frontends/freedesktop_frontend/freedesktopnotificationfrontend.cpp:43
 msgctxt "FreedesktopFrontend|"
 msgid "Failed to register dbus service."
-msgstr ""
+msgstr "Malsukcesis registri dbus-servon."
 
 #: plugins/frontends/pushover_frontend/pushoverclient.cpp:70
 msgctxt "PushoverClient|"
 msgid "Failed to login. Please check your credentials."
-msgstr ""
+msgstr "Malsukcesis ensaluti. Bonvolu kontroli viajn akreditaĵojn."
 
 #: plugins/frontends/pushover_frontend/pushoverclient.cpp:131
 #, qt-format
 msgctxt "PushoverClient|"
 msgid "Please login to %1 and reenable your device."
-msgstr ""
+msgstr "Bonvolu ensaluti al %1 kaj reŝalti vian aparaton."
 
 #: plugins/frontends/pushover_frontend/pushoverclient.cpp:195
 #, qt-format
 msgctxt "PushoverClient|"
 msgid "Failed to login due to errors: %1"
-msgstr ""
+msgstr "Malsukcesis ensaluti pro eraroj: %1"
 
 #: plugins/frontends/pushover_frontend/pushoversettings.cpp:38
 msgctxt "PushoverSettings|"
@@ -261,17 +261,17 @@ msgstr "Ensaluti"
 #: plugins/frontends/pushover_frontend/pushoversettings.cpp:108
 msgctxt "PushoverSettings|"
 msgid "Logged in."
-msgstr ""
+msgstr "Ensalutinta."
 
 #: plugins/frontends/pushover_frontend/pushoversettings.cpp:111
 msgctxt "PushoverSettings|"
 msgid "Logged out."
-msgstr ""
+msgstr "Elsalutita."
 
 #: plugins/frontends/snarlnetwork/snarlnetwork.cpp:37
 msgctxt "SnarlNetworkFrontend|"
 msgid "The port is already used by a different application."
-msgstr ""
+msgstr "La pordo jam estas uzata de malsama aplikaĵo."
 
 #: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:32
 msgctxt "PushoverSettings|"
@@ -293,17 +293,17 @@ msgstr "Sono:"
 #: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:33
 msgctxt "PushoverSettings|"
 msgid "The pushover sound that is played when a notification is received."
-msgstr ""
+msgstr "La puŝa sono kiu estas ludata kiam sciigo estas ricevita."
 
 #: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:34
 msgctxt "PushoverSettings|"
 msgid "Devices:"
-msgstr ""
+msgstr "Aparatoj:"
 
 #: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:34
 msgctxt "PushoverSettings|"
 msgid "The devices that are to receive the notifications."
-msgstr ""
+msgstr "La aparatoj kiuj devas ricevi la sciigojn."
 
 #: plugins/secondary_backends/sound/soundsettings.cpp:33
 msgctxt "SoundSettings|"
@@ -313,48 +313,48 @@ msgstr "Volumo:"
 #: plugins/secondary_backends/sound/soundsettings.cpp:35
 msgctxt "SoundSettings|"
 msgid "Audio file:"
-msgstr ""
+msgstr "Sondosiero:"
 
 #: plugins/secondary_backends/sound/soundsettings.cpp:35
 msgctxt "SoundSettings|"
 msgid "The sound played when a notification is received."
-msgstr ""
+msgstr "La sono ludata kiam sciigo estas ricevita."
 
 #: plugins/secondary_backends/sound/soundsettings.cpp:36
 msgctxt "SoundSettings|"
 msgid "Select a audio file"
-msgstr ""
+msgstr "Elektu sondosieron"
 
 #: plugins/secondary_backends/sound/soundsettings.cpp:39
 msgctxt "SoundSettings|"
 msgid "All Audio files"
-msgstr ""
+msgstr "Ĉiuj sondosieroj"
 
 #: plugins/secondary_backends/speech/speech.cpp:14
 msgctxt "Speech|"
 msgid "System Backend Error"
-msgstr ""
+msgstr "Sistema Backend Eraro"
 
 #: plugins/secondary_backends/speech/speech.cpp:28
 #, qt-format
 msgctxt "Speech|"
 msgid "%1: %2 %3"
-msgstr ""
+msgstr "%1: %2 %3"
 
 #: plugins/secondary_backends/toasty/toastysettings.cpp:30
 msgctxt "ToastySettings|"
 msgid "Device ID:"
-msgstr ""
+msgstr "Aparato ID:"
 
 #: plugins/secondary_backends/toasty/toastysettings.cpp:30
 msgctxt "ToastySettings|"
 msgid "The device id which can be found in the toasty app."
-msgstr ""
+msgstr "La aparato-identigilo, kiu troviĝas en la tosta programo."
 
 #: plugins/secondary_backends/toasty/toastysettings.cpp:31
 msgctxt "ToastySettings|"
 msgid "<a href=\"http://supertoasty.com/\">Supertoasty.com</a>"
-msgstr ""
+msgstr "<a href=\"http://supertoasty.com/\">Supertoasty.com</a>"
 
 #: settings/settingswindow.cpp:54
 #, qt-format
@@ -365,7 +365,7 @@ msgstr "%1 Agordoj"
 #: settings/settingswindow.ui:14
 msgctxt "SettingsWindow|"
 msgid "Snore Settings"
-msgstr ""
+msgstr "Agordoj de ronkado"
 
 #: settings/settingswindow.ui:27
 msgctxt "SettingsWindow|"
