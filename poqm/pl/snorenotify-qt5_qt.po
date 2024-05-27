@@ -242,8 +242,8 @@ msgid ""
 "If you don't have an account yet please register at <a href=\"https://"
 "pushover.net\">Pushover.net</a>"
 msgstr ""
-"Jeśli jeszcze nie masz konta, to załóż je na <a href=\"https://pushover.net"
-"\">Pushover.net</a>"
+"Jeśli jeszcze nie masz konta, to załóż je na <a href=\"https://pushover."
+"net\">Pushover.net</a>"
 
 #: plugins/frontends/pushover_frontend/pushoversettings.cpp:99
 msgctxt "PushoverSettings|"
