@@ -282,7 +282,7 @@ msgid ""
 "The user key which can be found on your account page at <a href=\"https://"
 "pushover.net\">Pushover.net</a>."
 msgstr ""
-"用户密钥可在 <a href=\"https://pushover.net\">Pushover.net</a> 网站的个人账号"
+"用户密钥可在 <a href=\"https://pushover.net\">Pushover.net</a> 网站的个人账户"
 "页面找到。"
 
 #: plugins/secondary_backends/pushover_backend/pushoversettings.cpp:33
